@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: loja_online_dev
+  pool: 5
+  username: postgres
+  password: asshole
+
+test:
+    adapter: postgresql
+    encoding: unicode
+    database: loja_online_dev
+    pool: 5
+    username: postgres
+    password: asshole
+
+production:
+    adapter: postgresql
+    encoding: unicode
+    database: loja_online_dev
+    pool: 5
+    username: postgres
+    password: asshole
