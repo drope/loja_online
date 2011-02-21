@@ -1,0 +1,55 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :sizes %><br />
+    <%= f.text_field :sizes %>
+  </div>
+  <div class="field">
+    <%= f.label :sizeType %><br />
+    <%= f.text_field :sizeType %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br />
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="field">
+    <%= f.label :is_promo %><br />
+    <%= f.check_box :is_promo %>
+  </div>
+  <div class="field">
+    <%= f.label :is_new %><br />
+    <%= f.check_box :is_new %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br />
+	<%= collection_select(:product, :category_id, Category.all, :id, :name) %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
