@@ -1,7 +1,13 @@
 LojaOnline::Application.routes.draw do
-  resources :categories
 
+  resources :users
+  resources :categories
   resources :products
+  resources :sessions, :only => [:new, :create, :destroy]
+  
+  match '/cadastro', :to => 'users#new' 
+  match '/login', :to => 'sessions#new' 
+  match '/logout', :to => 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
