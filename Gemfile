@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.4'
 gem 'pg'
+gem 'paperclip'
+gem 'aws-s3'
 
 group :development do 
 	gem 'rspec-rails'

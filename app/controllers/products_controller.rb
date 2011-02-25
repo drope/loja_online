@@ -25,6 +25,8 @@ class ProductsController < ApplicationController
   # GET /products/new.xml
   def new
     @product = Product.new
+    
+    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,7 +36,9 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+
     @product = Product.find(params[:id])
+    @colors = Color.find_all_by_product_id(@product['id'])
   end
 
   # POST /products

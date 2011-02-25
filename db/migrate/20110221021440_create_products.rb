@@ -10,16 +10,9 @@ class CreateProducts < ActiveRecord::Migration
       t.boolean :is_active, :default => false
       t.boolean :is_promo, :default => false
       t.boolean :is_new, :default => false
-      t.string  :sizes, :null => false
       t.string  :sizeType, :null => false
       t.string  :description
       t.string  :composition
-      t.integer :sizeBust
-      t.integer :sizeSleeve
-      t.integer :sizeWaist
-      t.integer :sizeHip
-      t.integer :sizeThigh
-      t.integer :sizeInseam
       t.integer :category_id
 
       t.timestamps

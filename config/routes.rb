@@ -1,5 +1,7 @@
 LojaOnline::Application.routes.draw do
 
+  resources :assets
+
   resources :users
   resources :categories
   resources :products

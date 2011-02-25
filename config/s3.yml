@@ -1,0 +1,14 @@
+development:
+  bucket: annak-loja-dev
+  access_key_id: AKIAILQZEOXH7RA5CAPQ
+  secret_access_key: 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
+
+test:
+  bucket: annak-loja-dev
+  access_key_id: AKIAILQZEOXH7RA5CAPQ
+  secret_access_key: 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
+
+production:
+  bucket: annak-loja
+  access_key_id: AKIAILQZEOXH7RA5CAPQ
+  secret_access_key: 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

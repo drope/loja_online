@@ -1,34 +1,29 @@
-# == Schema Information
-# Schema version: 20110221040017
-#
-# Table name: products
-#
-#  id          :integer         not null, primary key
-#  name        :string(255)     not null
-#  code        :string(255)     not null
-#  listPrice   :decimal(8, 2)
-#  price       :decimal(8, 2)   not null
-#  costPrice   :decimal(8, 2)
-#  is_active   :boolean
-#  is_promo    :boolean
-#  is_new      :boolean
-#  sizes       :string(255)     not null
-#  sizeType    :string(255)     not null
-#  description :string(255)
-#  composition :string(255)
-#  sizeBust    :integer
-#  sizeSleeve  :integer
-#  sizeWaist   :integer
-#  sizeHip     :integer
-#  sizeThigh   :integer
-#  sizeInseam  :integer
-#  category_id :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#
 
 class Product < ActiveRecord::Base
   
-    belongs_to :category
   
+    belongs_to :category
+    has_many :colors
+    accepts_nested_attributes_for :colors, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
+    has_many :sizes
+    accepts_nested_attributes_for :sizes, :reject_if => lambda { |a| a[:size].blank? }, :allow_destroy => true
+    has_many :assets, :as => :imageable
+    accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
+    has_many :variations
+    accepts_nested_attributes_for :variations
+    
+    before_save :set_variations
+
+    def set_variations
+      
+      self.sizes.each do |size|
+        self.colors.each do |color|
+          variation = Variation.find_by_size_id_and_color_id(size, color)          
+          if variation.nil? && size['id'] != nil && color['id'] != nil
+            variations.build(:size_id => size['id'], :color_id => color['id'], :stock => 0)
+          end
+          variation = nil
+        end
+      end
+    end
 end

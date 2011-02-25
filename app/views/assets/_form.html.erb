@@ -1,0 +1,43 @@
+<%= form_for(@asset, :html => { :multipart => true }) do |f| %>
+  <% if @asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+      <% @asset.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+
+
+
+	<div class="field">
+	<%= f.file_field :photo %>
+  </div>
+
+	<div class="field">
+		<%= radio_button_tag(:type, "product") %>
+		<%= label_tag(:type_product, "Produto") %>
+		<%= radio_button_tag(:type, "color") %>
+		<%= label_tag(:type_product, "Color") %>
+  </div>
+
+  <div class="field">
+    <%= f.label :category %><br />
+	<%= collection_select(:product, :product_id, Product.all, :id, :name) %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

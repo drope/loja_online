@@ -6,6 +6,7 @@
     <th>Code</th>
     <th>Price</th>
     <th>Active</th>
+	<td>Assets</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +18,12 @@
     <td><%= product.code %></td>
     <td><%= product.price %></td>
     <td><%= product.is_active %></td>
+	<td>
+		<% product.assets.each do |asset| %>
+			<%= image_tag asset.photo.url(:thumb) %>
+		<% end %>
+		
+	</td>
     <td><%= link_to 'Show', product %></td>
     <td><%= link_to 'Edit', edit_product_path(product) %></td>
     <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>

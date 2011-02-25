@@ -1,0 +1,26 @@
+  <div class="fields">
+
+	
+	  <div class="field">
+
+		<% @product.sizes.each do |size| %>
+			<% if size.id == f.object.size_id%>
+				<%=size.size%>
+			<% end %>
+		<% end %>
+	
+	<% @product.colors.each do |color| %>
+		<% if color.id == f.object.color_id%>
+			<%=color.name%>
+		<% end %>
+	<% end %>
+
+	
+	    <%= f.label :stock %><br />
+	    <%= f.text_field :stock %>
+	  </div>
+	
+  	<%= link_to_remove_fields "remove", f %>
+
+  </div>
+ 
