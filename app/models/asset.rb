@@ -22,8 +22,8 @@ class Asset < ActiveRecord::Base
   has_attached_file :photo,
         :storage => :s3,
         :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-        :path => "/assets/products/:style/:filename",
-        :url => "/assets/products/:style/:filename",
+        :path => "/assets/:imageable_type/:imageable_id/:style/:filename",
+        :url => "/assets/:imageable_type/:imageable_id/:style/:filename",
         :styles => {
               :thumb => "75x100#",
               :small  => "150x200#",

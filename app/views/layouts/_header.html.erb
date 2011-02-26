@@ -1,0 +1,24 @@
+<div id="header">
+  <div class="container clearfix">
+		<a href="<%=root_path%>"><img src="http://sandbox.drope.org/wp-content/themes/eStore/images/logo.png" alt="Logo" id="logo"/></a>
+		<ul id="top-menu" class="nav clearfix">
+		  <li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-39"><a href="http://sandbox.drope.org/?page_id=34">Guia de medidas</a></li>
+			<li id="menu-item-40" class="menu-item menu-item-type-post_type menu-item-40"><a href="http://sandbox.drope.org/?page_id=32">Trocas e devoluções</a></li>
+			<li id="menu-item-38" class="menu-item menu-item-type-post_type menu-item-38"><a href="http://sandbox.drope.org/?page_id=36">Prazo de entrega</a></li>
+			<li id="menu-item-41" class="menu-item menu-item-type-post_type menu-item-41"><a href="http://sandbox.drope.org/?page_id=30">Ajuda</a></li>
+		</ul>
+		<div id="search-bar">
+			<form method="get" id="searchform1" action="http://sandbox.drope.org">
+				<input type="text" value="buscar na loja..." name="s" id="searchinput" />
+				<input type="image" src="http://sandbox.drope.org/wp-content/themes/eStore/images/search-icon.png" id="searchsubmit" />
+			</form>
+		</div><!-- #search-bar -->
+		<div id="menu">
+			<ul id="secondary-menu" class="nav clearfix">
+				<% Category.all.each do |cat| %>
+				<li class="menu-item menu-item-type-taxonomy"><a href="<%=root_path%>categoria/<%=cat.id%>/<%=cat.name%>"><strong><%=cat.name%></strong><span></span></a></li>
+				<% end %>
+	 		</ul>
+		</div><!-- #menu -->
+	</div><!-- .container -->
+</div><!-- #header -->

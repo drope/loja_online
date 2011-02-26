@@ -1,5 +1,7 @@
 LojaOnline::Application.routes.draw do
 
+  get "pages/home"
+
   resources :assets
 
   resources :users
@@ -10,6 +12,12 @@ LojaOnline::Application.routes.draw do
   match '/cadastro', :to => 'users#new' 
   match '/login', :to => 'sessions#new' 
   match '/logout', :to => 'sessions#destroy'
+  
+  match '/produto/:id/*name', :to => 'pages#product'
+  match '/categoria/:id/*name', :to => 'pages#category'
+  
+  root :to => "pages#home"
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
