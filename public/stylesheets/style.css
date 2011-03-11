@@ -45,7 +45,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 /*-----------------[BASIC STYLES]-----------------*/
 /*------------------------------------------------*/
 
-body { background: #f3f3f3; text-align: center; line-height: 18px; font-family: Georgia, serif; font-size: 12px; color: #7c7b7a; }
+body { background: #f3f3f3; text-align: center; line-height: 18px; font-family: Arial, Verdana, sans-serif; font-size: 12px; color: #7c7b7a; }
 
 a { text-decoration: none; color: #5f5f5f; }
 a:hover { text-decoration: underline; }
@@ -162,16 +162,69 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 				.post ul li ul, .post ul li ol { margin: 2px 0px 2px 20px; }
 				.post ol li ul, .post ol li ol  { margin: 2px 0px 2px 35px; }
 		
-		#product-slider { float: left; width: 298px; margin: 0px 25px 10px 0px; }
+		#product-slider { float: left; width: 250px; margin: 0px 25px 10px 0px; }
 			#product-slides { margin: 0px 0px 7px; }
 				.item-slide	{ position: relative; }
-					.item-slide .overlay { background: url(../images/big-overlay.png) no-repeat; display:block; height:226px; width:298px; position: absolute; top: 0px; left: 0px; }
+					.item-slide .overlay { background: url(../images/big-overlay.png) no-repeat; display:block; height:320px; width:240px; position: absolute; top: 0px; left: 0px; }
 				
-				#product-thumbs a { display: block; position: relative; float: left; margin-right: 6px; }
-					#product-thumbs a .overlay { background: url(../images/overlay-sprite.png) no-repeat; display: block; width: 69px; height: 69px; position: absolute; top: 0px; left: 0px; }
+				#product-thumbs a { display: block; position: relative; float: left; margin-right: 4px; }
+					#product-thumbs a .overlay { background: url(../images/overlay-sprite.png) no-repeat; display: block; width: 45px; height: 60px; position: absolute; top: 0px; left: 0px; }
 					#product-thumbs a.active .overlay, #product-thumbs a:hover .overlay { background: url(../images/overlay-sprite.png) bottom left; }
 		
-		.product-info { float:right; width:304px; }
+		.product-info { float:right; width:340px; }
+		
+			.product-info a { display: block; position: relative; float: left; margin-right: 6px; }
+				.product-info a .overlay { background: url(../images/overlay-button-sprite.png) no-repeat; display: block; width: 45px; height: 45px; position: absolute; top: 0px; left: 0px; }
+				.product-info a.active .overlay, .product-info a:hover .overlay { background: url(../images/overlay-button-sprite.png) bottom left; }
+				
+				.product-info div.size { width:45px; text-align:center; padding-top:12px; font-style: normal; font-family: Arial, Verdana, sans-serif;}
+				.product-info a:hover { text-decoration:none;}
+				
+				.product-info table {
+					background: none repeat scroll 0 0 #F0F0F0;
+				    border-collapse: collapse;
+				    margin: 20px;
+				    text-align: left;
+				    clear: left;
+				    margin: 0 0 5px ;
+				    width: 100%;
+				}
+				.product-info th
+				{
+					font-size: 10px;
+					font-weight: bold;
+					padding: 4px 4px;
+					border-bottom: 2px solid #CCC;
+				}
+				.product-info td
+				{
+					font-size: 9px;
+					border-bottom: 1px solid #ccc;
+					padding: 2px 2px 2px 2px;
+				}
+				.product-info td.active { background-color:#fff; }
+				.product-info th.active { background-color:#fff; }
+
+				.product-info tbody tr:hover td
+				{
+				/*	color: #000;*/
+				}
+				
+				.product-info .description a { color: #000;}
+				.product-info .description .unavailable { color: #CCC;}
+				.product-info a.unavailable .overlay  { background: url(../images/overlay-button-sprite.png) top right; }
+				.product-info a.unavailable:hover .overlay  { background: url(../images/overlay-button-sprite.png) bottom right; }
+			
+		
+		/*
+			div.size { width:45px; text-align:center; padding-top:12px; font-style: normal; font-family: Arial, Verdana, sans-serif;}
+				a:hover { text-decoration:none;}
+				*/
+		/*
+			.product-info a { display: block; position: relative; float: left; margin-right: 6px; text-align:center;}
+			.product-info a .overlay {  background: url(../images/overlay-button-sprite.png) no-repeat; display: block; width: 45px; height: 45px; position: absolute; top: 0px; left: 0px; }
+			.product-info a.active .overlay, { background: url(../images/overlay-button-sprite.png) bottom left; }
+		*/
 			p.post-meta { color: #990f0f; font: italic 14px/24px Georgia,serif; padding-bottom: 20px; }
 				p.post-meta a { color: #930000; font-weight: bold; }
 			span.price-single { background: url(../images/price-single.png) no-repeat top right; padding-right: 13px; display: block; float: left; color: #ffffff; font-size: 30px; text-shadow:1px 1px 1px rgba(0,0,0,0.4); margin: 0px 16px 0px 0px; }
@@ -179,11 +232,17 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 			a.addto-cart { float: left; background: url(../images/addto-cart.png) no-repeat top right; padding-right: 13px; display: block; color: #ffffff !important; font-size: 30px; text-shadow:1px 1px 1px rgba(0,0,0,0.4); text-transform: uppercase; }
 				a.addto-cart span { display: block; padding:11px 0 6px 48px; background: url(../images/addto-cart.png) no-repeat top left; }
 			a.addto-cart:hover { text-decoration: none; }
-			div.description { font-style: italic; font-size: 14px; margin: 15px 0px 0px; }
+			div.description { font-size: 14px; margin: 15px 0px 0px; }
 		
 		div.hr { background: url(../images/hr-bg.png) no-repeat; height: 1px; width: 720px; margin: 28px 0px 28px -42px; }
 		.post h2 { font-size: 28px; margin-bottom: 8px; }
 		.post a { color: #9c260e; }
+		
+		#related-products li{ padding:20px;  }
+		#related-products a { display: block; position: relative; float: left; margin-right: 4px; }
+			#related-products a .overlay { background: url(../images/overlay-related.png) no-repeat; display: block; width: 90px; height: 120px; position: absolute; top: 0px; left: 0px; }
+			#related-products a.active .overlay, #related-products a:hover .overlay { background: url(../images/overlay-related.png) bottom left; }
+
 		
 		.related { padding: 35px 0px 0px; }
 			.related-items { background: url(../images/hr-bg.png) no-repeat; margin: 0px -50px 0px -42px !important; list-style-type: none !important; }
@@ -195,7 +254,7 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 						.related-items span { color: #303030; font-size: 18px; float: left; width: 225px; padding-top:7px; }
 		div.dnone { display: none; float: left; }
 			
-			#product-slides { height:226px !important; position:relative !important; width:298px !important; }
+			#product-slides { height:320px !important; position:relative !important; width:240px !important; }
 						
 	#footer { 
 		background: url("../images/header-bottom-bg.png") repeat-x scroll left top #666666;
@@ -229,7 +288,7 @@ ul#top-menu { float: left; padding: 25px 0px 0px; font-family: Arial, Verdana, s
 			ul#top-menu li:hover ul, ul#top-menu li.sfHover ul { left:0px; top:36px; }
 			ul#top-menu li li:hover ul, ul#top-menu li li.sfHover ul { left:173px; top:0px; }
 		
-ul#secondary-menu { padding: 20px 0px 0px 23px; }
+ul#secondary-menu { padding: 25px 0px 0px 23px; }
 	ul#secondary-menu li { padding-right: 20px; }
 		ul#secondary-menu li.current_page_item > a > strong, , ul#secondary-menu li.current-menu-item > a > strong { color:#ede7c2; }
 		ul#secondary-menu li a strong { color:#ffffff; display:block; font-size:20px; font-weight:normal; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); text-transform:uppercase; margin-bottom:-3px; }
@@ -266,7 +325,7 @@ ul#secondary-menu { padding: 20px 0px 0px 23px; }
 					a.more span { display: block; background: url(../images/more.png) no-repeat top left; padding-left: 9px; height: 28px; line-height: 25px; }
 			
 			#featured .description { font-style: normal !important; }	
-				.description .product { position: relative; }
+				.description .product { position: relative; padding-left:10px;}
 					.description .product span.tag { position: absolute; top: -5px; left: -94px; display: block; background: url(../images/featured-description-tag.png) no-repeat bottom right; padding-right: 11px; color: #ffffff; font-size: 30px; text-shadow:1px 1px 1px #5e1303; }
 						.description .product span.tag span { display: block; background: url(../images/featured-description-tag.png) no-repeat; padding-left: 10px; height:50px; padding-top: 10px; }
 						
@@ -296,7 +355,7 @@ ul#secondary-menu { padding: 20px 0px 0px 23px; }
 /*------------------------------------------------*/
 
 #sidebar { float: left; width: 238px; padding-left: 2px; margin-top:-6px; }
-	#sidebar a { color: #807f7f; text-shadow: 1px 1px 1px #ffffff; }
+	#sidebar a { color: #807f7f; text-shadow: 1px 1px 1px #ffffff; margin-left:30px;}
 		#sidebar a:hover { color: #505050; text-decoration: none; }
 	
 	#sidebar .widget { background: url(../images/widget-bottom.png) repeat-x bottom left; padding: 0px 0px 2px; }
@@ -304,7 +363,7 @@ ul#secondary-menu { padding: 20px 0px 0px 23px; }
 		
 		#sidebar .widget-content { padding: 10px 10px 10px 25px; }
 			#sidebar .widget ul ul { margin:0 0 0 15px; }
-			#sidebar .widget ul li { background:url("images/list-icon.png") no-repeat scroll 0 13px transparent; padding:7px 0 7px 13px; }
+			#sidebar .widget ul li { background:url("images/list-icon.png") no-repeat scroll 0 13px transparent; padding:20px 0 7px 13px; }
 			#sidebar .widget ul li ul { margin:0 0 -12px; padding:5px 0 0 7px; }
 	
 /*------------------------------------------------*/

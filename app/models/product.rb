@@ -1,7 +1,6 @@
 
 class Product < ActiveRecord::Base
   
-  
     belongs_to :category
     has_many :colors
     accepts_nested_attributes_for :colors, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
@@ -13,6 +12,19 @@ class Product < ActiveRecord::Base
     accepts_nested_attributes_for :variations
     
     before_save :set_variations
+    
+    has_attached_file :highlight,
+      :storage => :s3,
+      :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+      :path => "/assets/Product/:id/highlight/:style/:filename",
+      :url => "/assets/Product/:id/highlight/:style/:filename"
+          
+    has_attached_file :highlight_thumb,
+      :storage => :s3,
+      :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+      :path => "/assets/Product/:id/highlight/:style/:filename",
+      :url => "/assets/Product/:id/highlight/:style/:filename"
+    
 
     def set_variations
       

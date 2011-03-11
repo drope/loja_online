@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225034160) do
+ActiveRecord::Schema.define(:version => 20110228145939) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -35,27 +35,41 @@ ActiveRecord::Schema.define(:version => 20110225034160) do
   end
 
   create_table "colors", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",                :null => false
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "swatch_file_name"
+    t.string   "swatch_content_type"
+    t.integer  "swatch_file_size"
+    t.datetime "swatch_updated_at"
   end
 
   create_table "products", :force => true do |t|
-    t.string   "name",                                                         :null => false
-    t.string   "code",                                                         :null => false
-    t.decimal  "listPrice",   :precision => 8, :scale => 2
-    t.decimal  "price",       :precision => 8, :scale => 2,                    :null => false
-    t.decimal  "costPrice",   :precision => 8, :scale => 2
-    t.boolean  "is_active",                                 :default => false
-    t.boolean  "is_promo",                                  :default => false
-    t.boolean  "is_new",                                    :default => false
-    t.string   "sizeType",                                                     :null => false
+    t.string   "name",                                                                          :null => false
+    t.string   "code",                                                                          :null => false
+    t.decimal  "listPrice",                    :precision => 8, :scale => 2
+    t.decimal  "price",                        :precision => 8, :scale => 2,                    :null => false
+    t.decimal  "costPrice",                    :precision => 8, :scale => 2
+    t.boolean  "is_active",                                                  :default => false
+    t.boolean  "is_promo",                                                   :default => false
+    t.boolean  "is_new",                                                     :default => false
+    t.string   "sizeType",                                                                      :null => false
     t.string   "description"
     t.string   "composition"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "highlight_file_name"
+    t.string   "highlight_content_type"
+    t.integer  "highlight_file_size"
+    t.datetime "highlight_updated_at"
+    t.string   "highlight_thumb_file_name"
+    t.string   "highlight_thumb_content_type"
+    t.integer  "highlight_thumb_file_size"
+    t.datetime "highlight_thumb_updated_at"
+    t.boolean  "is_highlight"
+    t.string   "highlight_bg"
   end
 
   create_table "sizes", :force => true do |t|

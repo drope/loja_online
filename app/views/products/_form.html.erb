@@ -28,6 +28,18 @@
     <%= f.text_field :sizeType %>
   </div>
   <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :composition %><br />
+    <%= f.text_field :composition %>
+  </div>
+  <div class="field">
+    <%= f.label :sizeType %><br />
+    <%= f.text_field :sizeType %>
+  </div>
+  <div class="field">
     <%= f.label :is_active %><br />
     <%= f.check_box :is_active %>
   </div>
@@ -39,6 +51,18 @@
     <%= f.label :is_new %><br />
     <%= f.check_box :is_new %>
   </div>
+  <div class="field">
+    <%= f.label :is_highlight %><br />
+    <%= f.check_box :is_highlight %>
+  </div>
+  <div class="field">
+    <%= f.label :highlight_bg %><br />
+    <%= f.text_field :highlight_bg %>
+  </div>
+
+  Destaque: <%= f.file_field :highlight %><br>
+  Thumb: <%= f.file_field :highlight_thumb %><BR><BR>
+
   <div class="field">
     <%= f.label :category %><br />
 	<%= collection_select(:product, :category_id, Category.all, :id, :name) %>

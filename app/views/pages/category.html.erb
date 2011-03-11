@@ -1,68 +1,22 @@
 <div id="content">
 	<div class="container clearfix">	
 		
-		<div id="breadcrumbs">
-			<a href="http://elegantthemes.com/preview/eStore">Home</a> <span class="sep"></span>Clothing					
-		</div> <!-- end #breadcrumbs -->	
-		
 		<div id="main-area">
 			<div class="clearfix" id="main-content">
 				<div id="left-column">
+					<% @products.each do |p| %>
 					<div class="product">
 						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-162x112.jpg) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>ver detalhes</span></a>
-							<span class="band onsale"></span>
+							<a class="image" href="<%=product_url p%>"><span style="background: url(<%=p.assets.first.photo.url(:cat_list)%>) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
+							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="<%=currency p.price%>" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext><%=currency p.price%></cufontext></cufon></span></span></a>
+							<h3 style="text-indent: 0px;"><a href="<%=product_url p%>"><cufon class="cufon cufon-canvas" alt="<%=p.name%>" style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext><%=p.name%></cufontext></cufon></a></h3>
+							<a class="more" href="<%=product_url p%>"><span>ver detalhes</span></a>
+							<!-- <span class="band onsale"></span>-->
 						</div> <!-- .product-content -->
 					</div> <!-- .product -->
-					<div class="product">
-						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(&quot;http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/shoes-1.jpg&amp;h=130&amp;w=193&amp;q=80&amp;zc=1&quot;) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>more info</span></a>
-							<span class="band onsale"></span>
-						</div> <!-- .product-content -->
-					</div> <!-- .product -->
-					<div class="product">
-						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(&quot;http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/shoes-1.jpg&amp;h=130&amp;w=193&amp;q=80&amp;zc=1&quot;) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>more info</span></a>
-							<span class="band onsale"></span>
-						</div> <!-- .product-content -->
-					</div> <!-- .product -->
-					<div class="product">
-						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(&quot;http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/shoes-1.jpg&amp;h=130&amp;w=193&amp;q=80&amp;zc=1&quot;) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>more info</span></a>
-							<span class="band onsale"></span>
-						</div> <!-- .product-content -->
-					</div> <!-- .product -->
-					<div class="product">
-						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(&quot;http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/shoes-1.jpg&amp;h=130&amp;w=193&amp;q=80&amp;zc=1&quot;) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>more info</span></a>
-							<span class="band onsale"></span>
-						</div> <!-- .product-content -->
-					</div> <!-- .product -->
-					<div class="product">
-						<div class="product-content clearfix">
-							<a class="image" href="http://elegantthemes.com/preview/eStore/?p=27"><span style="background: url(&quot;http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/shoes-1.jpg&amp;h=130&amp;w=193&amp;q=80&amp;zc=1&quot;) no-repeat scroll 0% 0% transparent;" class="rounded"></span>
-							<span class="tag" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$29.99" style="width: 42px; height: 22px;"><canvas width="50" height="25" style="width: 50px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>$29.99</cufontext></cufon></span></span></a>
-							<h3 style="text-indent: 0px;"><a href="http://elegantthemes.com/preview/eStore/?p=27"><cufon class="cufon cufon-canvas" alt="Mens " style="width: 63px; height: 24px;"><canvas width="83" height="25" style="width: 83px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Mens </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Shoes" style="width: 64px; height: 24px;"><canvas width="80" height="25" style="width: 80px; height: 25px; top: -2px; left: -1px;"></canvas><cufontext>Shoes</cufontext></cufon></a></h3>
-							<a class="more" href="http://elegantthemes.com/preview/eStore/?p=27"><span>more info</span></a>
-							<span class="band onsale"></span>
-						</div> <!-- .product-content -->
-					</div> <!-- .product -->
-											
+					<% end %>
+					
+								
 					<div class="clear"></div>																				
 					
 					<div class="wp-pagenavi">

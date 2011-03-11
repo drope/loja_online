@@ -25,9 +25,11 @@ class Asset < ActiveRecord::Base
         :path => "/assets/:imageable_type/:imageable_id/:style/:filename",
         :url => "/assets/:imageable_type/:imageable_id/:style/:filename",
         :styles => {
-              :thumb => "75x100#",
-              :small  => "150x200#",
-              :medium => "300x400#" }
+              :thumb      => "45x60#",
+              :related    => "90x120#",
+              :small      => "150x200#",
+              :cat_list   => "193x257#",
+              :medium     => "240x320#" }
         
   
   

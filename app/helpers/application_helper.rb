@@ -12,4 +12,15 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, '#{association}', '#{escape_javascript(fields)}')" )
   end
   
+  def currency(val)
+    
+    formatted_val = number_to_currency(val, {
+      :unit => 'R$ ', 
+      :separator => ',', 
+      :delimiter => ' ', 
+      :precision => 2
+    })
+    
+  end
+  
 end

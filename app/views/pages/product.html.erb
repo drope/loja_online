@@ -1,47 +1,61 @@
 <div id="content">
 	<div class="container clearfix">
-		
-		<div id="breadcrumbs">
-			<a href="http://elegantthemes.com/preview/eStore">Home</a> <span class="sep"></span>
-			<a href="http://elegantthemes.com/preview/eStore/?cat=12">Awesome Pillows</a><span class="sep"></span> <%=@product.name%>		
-		</div><!-- end #breadcrumbs -->	
-		
+
 		<div id="main-area">
 			<div class="clearfix" id="main-content">
 				<div id="left-column">
 					<div class="post clearfix">				
-						<span class="band outofstock"></span>
+<!-- 						<span class="band outofstock"></span>-->
 						<div id="product-slider">
 							<div id="product-slides">
-								<div class="item-slide" style="position: absolute; top: 0px; left: 0px; display: block; z-index: 5; opacity: 1;">
-									<img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-1.jpg&amp;w=298&amp;h=226&amp;zc=1">
+<% 
+@product.assets.each_with_index do |asset, i|
+	opacity = (i==0) ? "1" : "0"
+	z_index = @product.assets.size - i
+%>
+								<div class="item-slide" >
+									<img alt="" src="<%=asset.photo.url(:medium)%>">
 									<span class="overlay"></span>
 								</div> <!-- .item-slide -->
-								<div class="item-slide" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 3; opacity: 0;">
-									<img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-2.jpg&amp;w=298&amp;h=226&amp;zc=1">
-									<span class="overlay"></span>
-								</div> <!-- .item-slide -->
-								<div class="item-slide" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 2; opacity: 0;">
-									<img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-3.jpg&amp;w=298&amp;h=226&amp;zc=1">
-									<span class="overlay"></span>
-								</div> <!-- .item-slide -->
-								<div class="item-slide" style="position: absolute; top: 0px; left: 0px; display: none; z-index: 1; opacity: 0;">
-									<img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-4.jpg&amp;w=298&amp;h=226&amp;zc=1">
-									<span class="overlay"></span>
-								</div> <!-- .item-slide -->
+<% end %> 
+
+<% @product.colors.each do |color|
+	color.assets.each do |color_asset| 
+	%>
+									<div class="item-slide">
+										<img alt="" src="<%=color_asset.photo.url(:medium)%>">
+										<span class="overlay"></span>
+									</div> <!-- .item-slide -->
+<% 
+	end 
+end %>
+								
 							</div> <!-- #product-slides -->
 							<div id="product-thumbs">
-								<a rel="1" class="active" href="#"><img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-1.jpg&amp;w=69&amp;h=69&amp;zc=1"><span class="overlay"></span></a>
-								<a rel="2" href="#"><img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-2.jpg&amp;w=69&amp;h=69&amp;zc=1"><span class="overlay"></span></a>
-								<a rel="3" href="#"><img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-3.jpg&amp;w=69&amp;h=69&amp;zc=1"><span class="overlay"></span></a>
-								<a rel="4" class="last" href="#"><img alt="" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow-4.jpg&amp;w=69&amp;h=69&amp;zc=1"><span class="overlay"></span></a>
+<% 
+counter = 0
+@product.assets.each_with_index do |asset, i|
+	counter += 1
+	cl =  (counter==1) ? "active" : "";
+	%>
+								<a rel="<%=counter%>" class="<%=cl%>" href="javascript:;"><img alt="" src="<%=asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
+<% end %>
+<% 
+
+@product.colors.each do |color|
+	color.assets.each_with_index do |color_asset, i| 
+			counter += 1
+		%>
+								<a rel="<%=counter%>" class="" href="javascript:;"><img alt="" src="<%=color_asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
+<% 
+	end 
+end %>
 							</div> <!-- #product-thumbs -->
 						</div> <!-- #product-slider -->
 						<div class="product-info">
 							<h1 class="title" style="text-indent: 0px;"><%=@product.name%></h1>		
 							<div class="clearfix">
-								<span class="price-single" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="$35,95" style="width: 57px; height: 30px;"><canvas width="67" height="34" style="width: 67px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>$35,95</cufontext></cufon></span></span>
-								<a class="addto-cart" href="#" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
+								<span class="price-single" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="<%=currency @product.price%>" style="width: 57px; height: 30px;"><canvas width="67" height="34" style="width: 67px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext><%=currency @product.price%></cufontext></cufon></span></span>
 								<div class="dnone">
 									<div id="examplePopup">
 										<form class="eshop addtocart" method="post" action="http://elegantthemes.com/preview/eStore/?page_id=415">
@@ -62,55 +76,256 @@
 							</div>
 	
 							<div class="description">
-								<p>Donec lobortis rutrum purus vitae blandit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer ultricies velit elit. Duis porttitor sodales ipsum at convallis. Pellentesque eu tortor et ipsum commodo dictum. Duis nisi arcu, pharetra ac lobortis eu, lacinia luctus sem. Etiam nec justo urna. Suspendisse potenti.</p>
+
+								Tamanhos: <BR>
+<% @product.sizes.each_with_index do |size, i|
+	cl = (i==0) ? "active" : "" %>
+								<a rel="<%=size.size%>" class="size_item" href="javascript:;" onclick="Product.SetSize(<%=size.size%>);" id="size_<%=size.size%>"><div class="size"><%=size.size%></div><span class="overlay"></span></a>
+<% end %>
+								<div class="clear"></div>
+								<BR>
+								Medidas:
+								<table summary="Tabela de medidas" id="t_medidas">
+									<thead>
+										<tr>
+											<th scope="col"></th>
+<% @product.sizes.each do |size| %>
+											<th scope="col" class="t_<%=size.size%>"><%=size.size%></th>
+<% end %>
+										</tr>
+									</thead>
+									<tbody>
+										<% if (!@product.sizes.first.sizeBust.blank?) %>
+										<tr>
+											<td>Busto</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeBust%></td>
+											<% end %>
+										</tr>
+										<% end %>
+										<% if (!@product.sizes.first.sizeBust.blank?) %>
+										<tr>
+											<td>Manga</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeSleeve%></td>
+											<% end %>
+										</tr>
+										<% end %>
+										<% if (!@product.sizes.first.sizeWaist.blank?) %>
+										<tr>
+											<td>Cintura</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeWaist%></td>
+											<% end %>
+										</tr>
+										<% end %>
+										<% if (!@product.sizes.first.sizeHip.blank?) %>
+										<tr>
+											<td>Quadril</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeHip%></td>
+											<% end %>
+										</tr>
+										<% end %>
+										<% if (!@product.sizes.first.sizeThigh.blank?) %>
+										<tr>
+											<td>Coxa</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeThigh%></td>
+											<% end %>
+										</tr>
+										<% end %>
+										<% if (!@product.sizes.first.sizeInseam.blank?) %>
+										<tr>
+											<td>Perna</td>
+											<% @product.sizes.each do |size| %>
+											<td class="t_<%=size.size%>"><%=size.sizeInseam%></td>
+											<% end %>
+										</tr>
+										<% end %>
+									</tbody>
+								</table>
+								
+								Cores: <BR>
+								<% @product.colors.each_with_index do |color, i| %>
+								<% cl = (i==0) ? "active" : "" %>
+								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor(<%=color.id%>);" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
+								<% end %>
+								<div class="clear"></div><br>
+<a class="addto-cart" href="#" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
+
+								<div class="clear"></div>
+								<div class="hr"></div>
+
+								<h2 style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Informações do produto " style="width: 103px; height: 28px;"><canvas width="126" height="30" style="width: 126px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Informações do produto </cufontext></cufon></h2>
+								
+								<h3>Descrição</h3>
+								<p><%=@product.description%></p>
+								
+								<h3>Composiçã</h3>
+								<p><%=@product.composition%></p>
+								
+								<h3>Cuidados</h3>
+								<p><%=@product.composition%></p>
+								
 							</div> <!-- .description -->
 
 						</div> <!-- #product-info -->
 
-						<div class="clear"></div>
-						<div class="hr"></div>
 
-						<h2 style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Product " style="width: 103px; height: 28px;"><canvas width="126" height="30" style="width: 126px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Product </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Information" style="width: 133px; height: 28px;"><canvas width="150" height="30" style="width: 150px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Information</cufontext></cufon></h2>
-						<p>Maecenas eu turpis et ante lobortis semper. Quisque sodales dignissim dolor at condimentum. Quisque vel nunc arcu, sit amet luctus dui. Cras vehicula dui sit amet tortor mollis vestibulum. Aenean tellus arcu, luctus faucibus ullamcorper id, venenatis vitae orci. Donec lobortis rutrum purus vitae blandit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer ultricies velit elit. Duis porttitor sodales ipsum at convallis. Pellentesque eu tortor et ipsum commodo dictum. Duis nisi arcu, pharetra ac lobortis eu, lacinia luctus sem. Etiam nec justo urna. Suspendisse potenti.</p>
-<p>Aliquam erat volutpat. Donec consectetur laoreet posuere. Vestibulum iaculis velit ac ligula viverra quis pulvinar eros semper. Ut a consequat enim. Mauris id felis eu augue egestas sollicitudin a at quam. Praesent ac est risus, ut semper quam. Etiam vehicula aliquam rutrum. Nam tempor libero non nunc tristique ac ultricies sem suscipit. Cras libero eros, volutpat ut pretium at, ullamcorper sit amet felis. Ut id lorem erat. Vivamus eget quam a velit iaculis varius non in ipsum.</p>
 
 						<div class="clear"></div>
 
-						<div class="related">
-							<h2 style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Related " style="width: 103px; height: 28px;"><canvas width="126" height="30" style="width: 126px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Related </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Products" style="width: 108px; height: 28px;"><canvas width="126" height="30" style="width: 126px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Products</cufontext></cufon></h2>
-							<ul class="related-items clearfix">							
-								<li>
-									<a class="clearfix" href="http://elegantthemes.com/preview/eStore/?p=116"><img width="44" height="44" alt="Modular Recliner" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/chair3-1.jpg&amp;h=44&amp;w=44&amp;zc=1">							<span style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Modular " style="width: 74px; height: 18px;"><canvas width="88" height="19" style="width: 88px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Modular </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Recliner" style="width: 67px; height: 18px;"><canvas width="81" height="19" style="width: 81px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Recliner</cufontext></cufon></span></a>
-								</li>
-								<li class="second">
-									<a class="clearfix" href="http://elegantthemes.com/preview/eStore/?p=109"><img width="44" height="44" alt="Felt Chairs" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/chair2-1.jpg&amp;h=44&amp;w=44&amp;zc=1">							<span style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Felt " style="width: 36px; height: 18px;"><canvas width="51" height="19" style="width: 51px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Felt </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Chairs" style="width: 50px; height: 18px;"><canvas width="62" height="19" style="width: 62px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Chairs</cufontext></cufon></span></a>
-								</li>											
-								<li>
-									<a class="clearfix" href="http://elegantthemes.com/preview/eStore/?p=89"><img width="44" height="44" alt="Fun and Happy" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow3-1.jpg&amp;h=44&amp;w=44&amp;zc=1">							<span style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Fun " style="width: 37px; height: 18px;"><canvas width="51" height="19" style="width: 51px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Fun </cufontext></cufon><cufon class="cufon cufon-canvas" alt="and " style="width: 37px; height: 18px;"><canvas width="52" height="19" style="width: 52px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>and </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Happy" style="width: 53px; height: 18px;"><canvas width="64" height="19" style="width: 64px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Happy</cufontext></cufon></span></a>
-								</li>
-								<li class="second">
-									<a class="clearfix" href="http://elegantthemes.com/preview/eStore/?p=79"><img width="44" height="44" alt="Bright Pillows" src="http://elegantthemes.com/preview/eStore/wp-content/themes/eStore/timthumb.php?src=http://elegantthemes.com/preview/eStore/wp-content/uploads/2010/08/pillow2-1.jpg&amp;h=44&amp;w=44&amp;zc=1">							<span style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Bright " style="width: 53px; height: 18px;"><canvas width="67" height="19" style="width: 67px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Bright </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Pillows" style="width: 57px; height: 18px;"><canvas width="68" height="19" style="width: 68px; height: 19px; top: -1px; left: -1px;"></canvas><cufontext>Pillows</cufontext></cufon></span></a>
-								</li>
-							</ul>
-						</div>	
+
 					</div> <!-- end .post -->
 				</div> <!-- #left-column -->
 	
 				<div id="sidebar">
 					<div class="widget widget_recent_entries" id="recent-posts-3">		
-						<h4 class="widgettitle" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Recent " style="width: 63px; height: 30px;"><canvas width="78" height="34" style="width: 78px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Recent </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Products" style="width: 79px; height: 30px;"><canvas width="90" height="34" style="width: 90px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Products</cufontext></cufon></h4>
-						<div class="widget-content">
-							<ul>
-								<li><a title="Vintage Wallet" href="http://elegantthemes.com/preview/eStore/?p=140">Vintage Wallet</a></li>
-								<li><a title="Designer Pillows" href="http://elegantthemes.com/preview/eStore/?p=51">Designer Pillows</a></li>
-								<li><a title="Mens Shoes" href="http://elegantthemes.com/preview/eStore/?p=27">Mens Shoes</a></li>
-								<li><a title="Toiletry Collection" href="http://elegantthemes.com/preview/eStore/?p=336">Toiletry Collection</a></li>
-								<li><a title="Silverware" href="http://elegantthemes.com/preview/eStore/?p=330">Silverware</a></li>
-							</ul>
+						<h4 class="widgettitle" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Produtos Relacionados" style="width: 63px; height: 30px;"><canvas width="78" height="34" style="width: 78px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Produtos Relacionados</cufontext></cufon></h4>
+						<div class="widget-content">						
+							<div id="related-products">
+								<ul>
+									<% @related_products.each do |product| %>
+									<li>
+										<h4><a href="<%=product_url product%>"><img alt="" src="<%=product.assets.first.photo.url(:related)%>"><span class="overlay"></span><br /><%=product.name%></a></h4>
+									</li>
+									<div class="clear"></div>
+									<% end %>
+								</ul>
+							</div>
+
 						</div> <!-- .widget-content -->
+						
 					</div> <!-- end .widget -->
 				</div> <!-- end #sidebar -->						
 			</div> <!-- #main-content -->
 		</div> <!-- #main-area -->
 	</div> <!-- .container -->
 </div>
+
+<script type="text/javascript" src="http://sandbox.drope.org/wp-content/themes/eStore/js/jquery.cycle.all.min.js"></script> 
+
+<script type="text/javascript">
+
+
+
+var $featured = jQuery('#product-slider'),
+	$featured_content = jQuery('#product-slides'),
+	$controller = jQuery('#product-thumbs'),
+	$slider_control_tab = $controller.find('a');
+if ($featured_content.length) {
+	$featured_content.cycle({
+		fx: 'fade',
+		timeout: 0,
+		speed: 700,
+		cleartypeNoBg: true
+	});
+	
+	var ordernum;				
+	
+	function gonext(this_element){
+		$controller.find("a.active").removeClass('active');
+		
+		this_element.addClass('active');
+		
+		ordernum = this_element.attr("rel");
+		$featured_content.cycle(ordernum-1);
+		
+		if (typeof interval != 'undefined') {
+			clearInterval(interval);
+			auto_rotate();
+		};
+	}
+	
+	$slider_control_tab.click(function(){
+		gonext(jQuery(this));
+		return false;
+	});
+};
+
+</script>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function() {
+
+	
+	 Product = {
+
+		Init: function(){
+			
+			$('[class^="size_item"]').each( function() {
+				size = $(this).attr('rel');
+				total = 0;
+				if (Product.Variations[size] != undefined) {
+					$.each(Product.Variations[size], function(key, value) {
+						total += value;
+					});
+				}
+				if (total ==0) $(this).addClass('unavailable');
+			});
+			
+			$('[class^="color_item"]').each( function() {
+				color = $(this).attr('rel');
+				total = 0;
+				$.each(Product.Variations, function(key, value) {
+					if (value[color] != undefined) {
+						total += value[color];
+					}
+				});
+				if (total ==0) $(this).addClass('unavailable');
+			});
+		},
+		SetSize: function(size) {
+			if ($(".size_item.unavailable[rel='" + size + "']").length > 0) {
+//				alert("em falta");
+				return;
+			}
+			$('[class^="size_item"]').each( function() {
+				$(this).removeClass('active');
+			});
+			$("[class^='size_item'][rel='" + size + "']").addClass('active');
+			
+			$('[class^="color_item"]').each( function() {
+				$(this).removeClass('unavailable');
+				color = $(this).attr('rel');
+				total = 0;
+				if (Product.Variations[size][color] != undefined) {
+					total += Product.Variations[size][color];
+				}
+				
+				if (total ==0) $(this).addClass('unavailable');
+			});
+
+			$("#t_medidas td,th").each( function() {
+				$(this).removeClass("active");
+			});
+			
+			$(".t_" + size).each( function() {
+				$(this).addClass("active");
+			});
+			
+		},
+		SetColor: function(color) {
+			if ($(".color_item.unavailable[rel='" + size + "']").length > 0) {
+//				alert("em falta");
+				return;
+			}
+			$('[class^="color_item"]').each( function() {
+				$(this).removeClass('active');
+			});
+			$("[class^='color_item'][rel='" + color + "']").addClass('active');
+			
+		},
+		<%=variations_to_js @product%>
+	}
+	Product.Init();
+
+});
+
+
+
+</script>

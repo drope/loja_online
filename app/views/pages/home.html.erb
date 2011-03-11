@@ -1,55 +1,41 @@
 <div id="featured">
 	<div id="slides">
-		<div class="slide active" style="background: #72717f url('http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1.jpg') no-repeat top center;">
+		<% @super_destaques.each_with_index do |destaque, i| %>
+		<% style = (i==0) ? "active" : "" %>
+		<div class="slide <%=style %>" style="background: <%=destaque.highlight_bg%> url('<%=destaque.highlight.url%>') no-repeat top center;">
 			<div class="container">
 				<div class="description">
 					<div class="product">
-						<span class="tag"><span>$180</span></span>
-						<h2 class="title"><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha</a></h2>
+						<span class="tag"><span><%=currency destaque.price%></span></span>
+						<h2 class="title"><a href="<%=product_url destaque%>"><%=destaque.name%></a></h2>
 						<p>Esse aqui também é pura maravilha de coisa linda chuco da tia fashion super master blaster tendencia mundial fashion week plus size moda grande annak modas ribeirao preto.</p>
-						<a class="more" href="http://sandbox.drope.org/?p=20"><span>more info</span></a>
+						<a class="more" href="<%=product_url destaque%>"><span>ver detalhes</span></a>
 					</div> <!-- .product -->
 				</div> <!-- .description -->
 			</div> <!-- .container -->			
 		</div> <!-- .slide -->
-		<div class="slide" style="background: #72717f url('http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1.jpg') no-repeat top center;">
-			<div class="container">
-				<div class="description">
-					<div class="product">
-						<span class="tag"><span>$180</span></span>
-						<h2 class="title"><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha</a></h2>
-						<p>Esse aqui também é pura maravilha de coisa linda chuco da tia fashion super master blaster tendencia mundial fashion week plus size moda grande annak modas ribeirao preto.</p>
-						<a class="more" href="http://sandbox.drope.org/?p=20"><span>more info</span></a>
-					</div> <!-- .product -->
-				</div> <!-- .description -->
-			</div> <!-- .container -->			
-		</div> <!-- .slide -->
-		<div class="slide" style="background: #666f5c url('http://sandbox.drope.org/wp-content/uploads/2011/02/mascarada.jpg') no-repeat top center;">
-			<div class="container">
-				<div class="description">
-					<div class="product">
-						<span class="tag"><span>$280,00</span></span>
-						<h2 class="title"><a href="http://sandbox.drope.org/?p=13">Vestido branco</a></h2>
-						<p>Lorem ipsum dolor esse vestido combina super bem com qualquer coisa bla bla bla bla bla bla bla</p>
-						<a class="more" href="http://sandbox.drope.org/?p=13"><span>more info</span></a>
-					</div> <!-- .product -->
-				</div> <!-- .description -->
-			</div> <!-- .container -->			
-		</div> <!-- .slide -->
+		<% end%>
+
 	</div> <!-- #slides-->
 	
 	<div id="controllers">
 		<div class="container">
 			<div id="switcher">
-				<div class="item active">
-					<a href="#" class="product"><img width="109" height="109" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-109x109.jpg" class="attachment-109x109 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><span class="tag"><span>$180</span></span></a>
+				
+				<% @super_destaques.each_with_index do |destaque, counter| %>
+				<% 
+				style = ""
+				style = (counter==0) ? " active" : style
+				style = (counter==2) ? " last" : style
+
+				%>
+				
+				<div class="item <%=style%>">
+					<a href="#" class="product"><img width="109" height="109" src="<%=destaque.highlight_thumb.url%>" class="attachment-109x109 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><span class="tag"><span><%=currency destaque.price%></span></span></a>
 				</div> <!-- .item -->
-				<div class="item ">
-					<a href="#" class="product"><img width="109" height="109" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-109x109.jpg" class="attachment-109x109 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><span class="tag"><span>$180</span></span></a>
-				</div> <!-- .item -->
-				<div class="item last">
-					<a href="#" class="product"><img width="109" height="109" src="http://sandbox.drope.org/wp-content/uploads/2011/02/mascarada-109x109.jpg" class="attachment-109x109 wp-post-image" alt="Vestido branco" title="Vestido branco" /><span class="tag"><span>$280,00</span></span></a>
-				</div> <!-- .item -->	
+				
+				<% end %>
+				
 			</div> <!-- #switcher -->
 		</div> <!-- .container -->
 	</div> <!-- #controllers -->
@@ -63,40 +49,19 @@
 		<div id="scroller" class="clearfix">
 			<!-- <a href="#" id="left-arrow">Previous</a>-->
 			<div id="items">
-				<div class="block">			
+				<div class="block">	
+					
+					<% @products.each do |p| %>		
 					<div class="item">
 						<div class="item-top"></div>
 						<div class="item-content">
-							<span class="tag"><span>$180,00</span></span>
-							<img width="150" height="200" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-162x112.jpg" class="attachment-162x112 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" />
-							<h4><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha amarelo bambu</a></h4>
+							<span class="tag"><span><%=currency p.price %></span></span>
+							<a href="<%=product_url p%>"><img src="<%=p.assets.first.photo.url(:small)%>" alt="<%=p.name%>" title="<%=p.name%>" /></a>
+							<h4><a href="<%=product_url p%>"><%=p.name%></a></h4>
 						</div> <!-- .item-content -->
-						<a href="http://sandbox.drope.org/?p=20" class="more"><span>more info</span></a>
+						<a href="<%=product_url p%>" class="more"><span>ver detalhes</span></a>
 					</div> <!-- .item -->
-					<div class="item">
-						<div class="item-top"></div>
-						<div class="item-content">
-							<span class="tag"><span>$180,00</span></span>
-							<center><img width="150" height="200" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-162x112.jpg" class="attachment-162x112 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><h4><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha</a></h4></center>
-						</div> <!-- .item-content -->
-						<a href="http://sandbox.drope.org/?p=20" class="more"><span>more info</span></a>
-					</div> <!-- .item -->
-					<div class="item">
-						<div class="item-top"></div>
-						<div class="item-content">
-							<span class="tag"><span>$180,00</span></span>
-							<center><img width="150" height="200" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-162x112.jpg" class="attachment-162x112 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><h4><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha</a></h4></center>
-						</div> <!-- .item-content -->
-						<a href="http://sandbox.drope.org/?p=20" class="more"><span>more info</span></a>
-					</div> <!-- .item -->	
-					<div class="item">
-						<div class="item-top"></div>
-						<div class="item-content">
-							<span class="tag"><span>$180,00</span></span>
-							<center><img width="150" height="200" src="http://sandbox.drope.org/wp-content/uploads/2011/02/vestido-cinza1-162x112.jpg" class="attachment-162x112 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><h4><a href="http://sandbox.drope.org/?p=20">Vestido cinza de cordinha</a></h4></center>
-						</div> <!-- .item-content -->
-						<a href="http://sandbox.drope.org/?p=20" class="more"><span>more info</span></a>
-					</div> <!-- .item -->	
+					<% end %>
 
 				</div><!-- end .block-->			
 			</div> <!-- #items -->
