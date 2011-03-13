@@ -4,6 +4,7 @@ gem 'rails', '3.0.4'
 gem 'pg'
 gem 'paperclip'
 gem 'aws-s3'
+gem 'devise'
 
 group :development do 
 	gem 'rspec-rails'

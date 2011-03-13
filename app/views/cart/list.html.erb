@@ -1,0 +1,65 @@
+<div id="content">
+	<div class="container clearfix">	
+		
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+
+					<div class="post clearfix">				
+						<h1 class="title" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Sacola de Compras" style="width: 152px; height: 35px;"><canvas width="181" height="37" style="width: 181px; height: 37px; top: -2px; left: -1px;"></canvas><cufontext>Sacola de Compras</cufontext></cufon></h1>
+
+						<table summary="Sacola de compras" class="eshop cart">
+							<caption>Sacola de compras</caption>
+							<thead>
+								<tr class="thead">
+									<th class="nb" id="cartItem">Item Description</th>
+									<th class="bt" id="cartQty"><dfn title="Quantity">Qty</dfn></th>
+									<th class="btbr" id="cartTotal">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @variations.each do |v| %>
+								<tr>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].product.name%><span class="eshopidetails"></span></a></td>
+									<td headers="cartQty prod1" class="cqty lb"><label for="345f3f12191"><input type="text" maxlength="3" size="3" value="1" name="345f3f1219[1]" id="345f3f12191" class="short"></label></td>
+									<td class="amts" headers="cartTotal prod1"><%=currency v[:variation].product.price%></td>
+								</tr>
+								<% end %>
+								<tr class="stotal">
+									<th class="leftb" id="subtotal">Sub-Total </th><td colspan="2" class="amts lb" headers="subtotal cartTotal">£12.99</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cartopt"><input type="hidden" value="true" name="save">
+							<p><label for="update"><input type="submit" value="Update Cart" name="update" id="update" class="button"></label><label for="unset"><input type="submit" value="Empty Cart" name="unset" id="unset" class="button"></label></p>
+						</div>
+
+						<ul class="continue-proceed"><li><a href="http://elegantthemes.com/preview/eStore/?p=219">« Continue Shopping</a></li><li><a href="http://elegantthemes.com/preview/eStore/?page_id=416">Proceed to Checkout »</a></li></ul>
+						<div class="clear"></div>
+
+					</div>
+					
+				</div> <!-- #left-column -->
+	
+				<div id="sidebar">
+					<div class="widget widget_recent_entries" id="recent-posts-3">		
+						<h4 class="widgettitle" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Recent " style="width: 63px; height: 30px;"><canvas width="78" height="34" style="width: 78px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Recent </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Products" style="width: 79px; height: 30px;"><canvas width="90" height="34" style="width: 90px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Products</cufontext></cufon></h4>
+						<div class="widget-content">		
+							<ul>
+								<li><a title="Vintage Wallet" href="http://elegantthemes.com/preview/eStore/?p=140">Vintage Wallet</a></li>
+								<li><a title="Designer Pillows" href="http://elegantthemes.com/preview/eStore/?p=51">Designer Pillows</a></li>
+								<li><a title="Mens Shoes" href="http://elegantthemes.com/preview/eStore/?p=27">Mens Shoes</a></li>
+								<li><a title="Toiletry Collection" href="http://elegantthemes.com/preview/eStore/?p=336">Toiletry Collection</a></li>
+								<li><a title="Silverware" href="http://elegantthemes.com/preview/eStore/?p=330">Silverware</a></li>
+							</ul>
+						</div> <!-- .widget-content -->
+					</div> <!-- end .widget -->
+					
+				</div> <!-- end #sidebar -->						
+			</div> <!-- #main-content -->
+		</div> <!-- #main-area -->
+		
+		<div id="main-area-bottom"></div>
+						
+	</div> <!-- .container -->
+</div>

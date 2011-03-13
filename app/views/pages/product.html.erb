@@ -77,13 +77,6 @@ end %>
 	
 							<div class="description">
 
-								Tamanhos: <BR>
-<% @product.sizes.each_with_index do |size, i|
-	cl = (i==0) ? "active" : "" %>
-								<a rel="<%=size.size%>" class="size_item" href="javascript:;" onclick="Product.SetSize(<%=size.size%>);" id="size_<%=size.size%>"><div class="size"><%=size.size%></div><span class="overlay"></span></a>
-<% end %>
-								<div class="clear"></div>
-								<BR>
 								Medidas:
 								<table summary="Tabela de medidas" id="t_medidas">
 									<thead>
@@ -145,14 +138,26 @@ end %>
 										<% end %>
 									</tbody>
 								</table>
-								
+								Tamanhos: <BR>
+								<% @product.sizes.each_with_index do |size, i|
+									cl = (i==0) ? "active" : "" %>
+								<a rel="<%=size.size%>" class="size_item" href="javascript:;" onclick="Product.SetSize('<%=size.id%>','<%=size.size%>');" id="size_<%=size.size%>"><div class="size"><%=size.size%></div><span class="overlay"></span></a>
+								<% end %>
+								<div class="clear"></div>
+								<BR>
+									
 								Cores: <BR>
 								<% @product.colors.each_with_index do |color, i| %>
 								<% cl = (i==0) ? "active" : "" %>
-								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor(<%=color.id%>);" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
+								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
 								<% end %>
+								<form id="fCart" action="<%= sacola_add_path %>" method="post">
+									<input type="hidden" name="product_id" value="<%=@product.id%>">
+									<input type="hidden" name="size_id" id="size_id" value="">
+									<input type="hidden" name="color_id" id="color_id" value="">
+								</form>
 								<div class="clear"></div><br>
-<a class="addto-cart" href="#" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
+<a class="addto-cart" href="javascript:;" onclick="Product.AddToCart();" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
 
 								<div class="clear"></div>
 								<div class="hr"></div>
@@ -279,11 +284,12 @@ $(document).ready(function() {
 				if (total ==0) $(this).addClass('unavailable');
 			});
 		},
-		SetSize: function(size) {
+		SetSize: function(id,size) {
 			if ($(".size_item.unavailable[rel='" + size + "']").length > 0) {
 //				alert("em falta");
 				return;
 			}
+			$("#size_id").val(id);
 			$('[class^="size_item"]').each( function() {
 				$(this).removeClass('active');
 			});
@@ -297,7 +303,10 @@ $(document).ready(function() {
 					total += Product.Variations[size][color];
 				}
 				
-				if (total ==0) $(this).addClass('unavailable');
+				if (total ==0) {
+					$(this).addClass('unavailable');
+					if ( color == $("#color_id").val()) { $("#color_id").val(""); }
+				}
 			});
 
 			$("#t_medidas td,th").each( function() {
@@ -309,16 +318,25 @@ $(document).ready(function() {
 			});
 			
 		},
-		SetColor: function(color) {
-			if ($(".color_item.unavailable[rel='" + size + "']").length > 0) {
+		SetColor: function(id,color) {
+			if ($(".color_item.unavailable[rel='" + id + "']").length > 0) {
 //				alert("em falta");
 				return;
 			}
+			$("#color_id").val(id);
 			$('[class^="color_item"]').each( function() {
 				$(this).removeClass('active');
 			});
-			$("[class^='color_item'][rel='" + color + "']").addClass('active');
+			$("[class^='color_item'][rel='" + id + "']").addClass('active');
 			
+		},
+		AddToCart: function() {
+//			alert($("#size_id").val());
+//			alert($("#color_id").val());
+			
+			if ($("#size_id").val() && $("#color_id").val()) {
+				$("#fCart").submit();
+			}
 		},
 		<%=variations_to_js @product%>
 	}

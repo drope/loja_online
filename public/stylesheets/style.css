@@ -94,7 +94,7 @@ img#about-image { float: left; margin: 3px 8px 8px 0px; }
 
 #header { padding: 25px 0px 0px; background: #ffffff url(../images/header-bottom-bg.png) repeat-x bottom left; height: 101px; }
 	img#logo { float: left; margin: 0px 23px 0px 0px; }
-	#search-bar { float: right; background: url(../images/search-bg.png) no-repeat; width: 162px; height: 31px; margin-top: 21px; margin-right:6px; }
+	#search-bar { float: right; background: url(../images/search-bg.png) no-repeat; width: 162px; height: 31px; margin-top: 10px; margin-right:6px; }
 		#search-bar #searchinput { background: none; border: none; float: left; margin: 7px 6px 0 0px; width: 112px; padding-left: 10px; font-size: 11px; font-family: Georgia, serif; color: #494949; }
 		#search-bar #searchsubmit { margin-top: 1px; }
 	
@@ -268,7 +268,7 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 /*---------------[DROPDOWN MENU]------------------*/
 /*------------------------------------------------*/		
 
-ul#top-menu { float: left; padding: 25px 0px 0px; font-family: Arial, Verdana, sans-serif; }
+ul#top-menu { float: left; padding: 15px 0px 0px; font-family: Arial, Verdana, sans-serif; }
 	ul#top-menu li { padding-right: 8px; margin-right:5px; }
 		ul#top-menu li a { display: block; color: #404040; padding: 3px 0px 4px 8px; }
 		ul#top-menu li a:hover { text-decoration: none; }

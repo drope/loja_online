@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
   def home
     
-    
+    cookies.permanent.signed[:cookie_perm] = "cookie permanente"
+        cookies.permanent.signed[:cookie_perm2] = "cookie permanente"
+    cookies.signed[:cookie_padrao] = "cookie padrao"
+    session[:sessao] = "sessao"
     
     @products = Product.all
 

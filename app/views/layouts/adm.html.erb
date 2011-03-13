@@ -8,15 +8,7 @@
 </head>
 <body>
 	
-	<ul> 
-		
-		<% if signed_in? %> 
-		<li><%= link_to "Sign out", logout_path, :method => :delete %></li> 				  
-		<% else %> 
-		<li><%= link_to "Sign in", login_path %></li> 
-		<% end %>
-	</ul>
-	
+
 
 	<section class="round">
 	<% flash.each do |key, value| %> <div class="flash <%= key %>"><%= value %></div>

@@ -37,6 +37,13 @@
 
 <body id="home" class="cufon-enabled">
 
+<% if !notice.blank? %>	
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<% end %>
+
+ 
+
 <%= render 'layouts/header' %>
 <%= yield %>
 <%= render 'layouts/footer' %>

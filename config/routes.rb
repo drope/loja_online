@@ -1,20 +1,21 @@
 LojaOnline::Application.routes.draw do
 
+  devise_for :users
+  resources :users, :has_one => :user_info
+
   get "pages/home"
 
   resources :assets
-
-  resources :users
   resources :categories
   resources :products
-  resources :sessions, :only => [:new, :create, :destroy]
-  
-  match '/cadastro', :to => 'users#new' 
-  match '/login', :to => 'sessions#new' 
-  match '/logout', :to => 'sessions#destroy'
   
   match '/produto/:id/*name', :to => 'pages#product'
   match '/categoria/:id/*name', :to => 'pages#category'
+  
+  match '/sacola/add', :to => 'cart#add'
+  match '/sacola/list', :to => 'cart#list'
+
+#  :as => :logout 
   
   root :to => "pages#home"
   
