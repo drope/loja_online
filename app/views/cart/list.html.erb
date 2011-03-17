@@ -12,21 +12,27 @@
 							<caption>Sacola de compras</caption>
 							<thead>
 								<tr class="thead">
-									<th class="nb" id="cartItem">Item Description</th>
-									<th class="bt" id="cartQty"><dfn title="Quantity">Qty</dfn></th>
+									<th>&nbsp;</th>
+									<th class="nb" id="cartItem">Descrição</th>
+									<th class="nb" id="cartItem">Cor</th>
+									<th class="nb" id="cartItem">Tamanho</th>
+									<th class="nb" id="cartQty">Quantidade</th>
 									<th class="btbr" id="cartTotal">Total</th>
 								</tr>
 							</thead>
 							<tbody>
 								<% @variations.each do |v| %>
 								<tr>
+									<td><img alt="" src="<%=v[:variation].color.assets.first.photo.url(:thumb)%>"></td>
 									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].product.name%><span class="eshopidetails"></span></a></td>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].color.name%><span class="eshopidetails"></span></a></td>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].size.size%><span class="eshopidetails"></span></a></td>
 									<td headers="cartQty prod1" class="cqty lb"><label for="345f3f12191"><input type="text" maxlength="3" size="3" value="1" name="345f3f1219[1]" id="345f3f12191" class="short"></label></td>
 									<td class="amts" headers="cartTotal prod1"><%=currency v[:variation].product.price%></td>
 								</tr>
 								<% end %>
 								<tr class="stotal">
-									<th class="leftb" id="subtotal">Sub-Total </th><td colspan="2" class="amts lb" headers="subtotal cartTotal">£12.99</td>
+									<th class="leftb" id="subtotal">Sub-Total </th><td colspan="5" class="amts lb" headers="subtotal cartTotal">£12.99</td>
 								</tr>
 							</tbody>
 						</table>
@@ -42,18 +48,7 @@
 				</div> <!-- #left-column -->
 	
 				<div id="sidebar">
-					<div class="widget widget_recent_entries" id="recent-posts-3">		
-						<h4 class="widgettitle" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Recent " style="width: 63px; height: 30px;"><canvas width="78" height="34" style="width: 78px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Recent </cufontext></cufon><cufon class="cufon cufon-canvas" alt="Products" style="width: 79px; height: 30px;"><canvas width="90" height="34" style="width: 90px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Products</cufontext></cufon></h4>
-						<div class="widget-content">		
-							<ul>
-								<li><a title="Vintage Wallet" href="http://elegantthemes.com/preview/eStore/?p=140">Vintage Wallet</a></li>
-								<li><a title="Designer Pillows" href="http://elegantthemes.com/preview/eStore/?p=51">Designer Pillows</a></li>
-								<li><a title="Mens Shoes" href="http://elegantthemes.com/preview/eStore/?p=27">Mens Shoes</a></li>
-								<li><a title="Toiletry Collection" href="http://elegantthemes.com/preview/eStore/?p=336">Toiletry Collection</a></li>
-								<li><a title="Silverware" href="http://elegantthemes.com/preview/eStore/?p=330">Silverware</a></li>
-							</ul>
-						</div> <!-- .widget-content -->
-					</div> <!-- end .widget -->
+
 					
 				</div> <!-- end #sidebar -->						
 			</div> <!-- #main-content -->

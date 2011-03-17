@@ -6,6 +6,7 @@
 				
 <h2>Sign up hahaha</h2>
 <%resource.build_user_info%>
+<%resource.build_user_address%>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -22,7 +23,6 @@
 
   <%= f.fields_for :user_info do |f_info| %>
 
-
   	<p><%= f_info.label :name %><br />
   	<%= f_info.text_field :name %></p>
 
@@ -35,6 +35,30 @@
   	<p><%= f_info.label :phone_number %><br />
   	<%= f_info.text_field :phone_number %></p>
 
+  <% end %>
+
+  <%= f.fields_for :user_address do |f_address| %>
+
+  	<p><%= f_address.label :cep %><br />
+  	<%= f_address.text_field :cep %></p>
+
+  	<p><%= f_address.label :endereco %><br />
+  	<%= f_address.text_field :endereco %></p>
+
+  	<p><%= f_address.label :numero %><br />
+  	<%= f_address.text_field :numero %></p>
+
+  	<p><%= f_address.label :complemento %><br />
+  	<%= f_address.text_field :complemento %></p>
+
+  	<p><%= f_address.label :bairro %><br />
+  	<%= f_address.text_field :bairro %></p>
+
+  	<p><%= f_address.label :cidade %><br />
+  	<%= f_address.text_field :cidade %></p>
+
+  	<p><%= f_address.label :estado %><br />
+  	<%= f_address.text_field :estado %></p>
 
   <% end %>
 

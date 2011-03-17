@@ -1,0 +1,60 @@
+<div id="content">
+	<div class="container clearfix">	
+		
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+
+					<div class="post clearfix">				
+						<h1 class="title" style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Sacola de Compras" style="width: 152px; height: 35px;"><canvas width="181" height="37" style="width: 181px; height: 37px; top: -2px; left: -1px;"></canvas><cufontext>Sacola de Compras</cufontext></cufon></h1>
+
+						<table summary="Sacola de compras" class="eshop cart">
+							<caption>Sacola de compras</caption>
+							<thead>
+								<tr class="thead">
+									<th>&nbsp;</th>
+									<th class="nb" id="cartItem">Descrição</th>
+									<th class="nb" id="cartItem">Cor</th>
+									<th class="nb" id="cartItem">Tamanho</th>
+									<th class="nb" id="cartQty">Quantidade</th>
+									<th class="btbr" id="cartTotal">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @variations.each do |v| %>
+								<tr>
+									<td><img alt="" src="<%=v[:variation].color.assets.first.photo.url(:thumb)%>"></td>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].product.name%><span class="eshopidetails"></span></a></td>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].color.name%><span class="eshopidetails"></span></a></td>
+									<td class="leftb" headers="cartItem" id="prod1"><a href="http://elegantthemes.com/preview/eStore/?p=219"><%=v[:variation].size.size%><span class="eshopidetails"></span></a></td>
+									<td headers="cartQty prod1" class="cqty lb"><label for="345f3f12191"><input type="text" maxlength="3" size="3" value="1" name="345f3f1219[1]" id="345f3f12191" class="short"></label></td>
+									<td class="amts" headers="cartTotal prod1"><%=currency v[:variation].product.price%></td>
+								</tr>
+								<% end %>
+								<tr class="stotal">
+									<th class="leftb" id="subtotal">Sub-Total </th><td colspan="5" class="amts lb" headers="subtotal cartTotal">£12.99</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cartopt"><input type="hidden" value="true" name="save">
+							<p><label for="update"><input type="submit" value="Update Cart" name="update" id="update" class="button"></label><label for="unset"><input type="submit" value="Empty Cart" name="unset" id="unset" class="button"></label></p>
+						</div>
+
+						<ul class="continue-proceed"><li><a href="http://elegantthemes.com/preview/eStore/?p=219">« Continue Shopping</a></li><li><a href="http://elegantthemes.com/preview/eStore/?page_id=416">Proceed to Checkout »</a></li></ul>
+						<div class="clear"></div>
+
+					</div>
+					
+				</div> <!-- #left-column -->
+	
+				<div id="sidebar">
+
+					
+				</div> <!-- end #sidebar -->						
+			</div> <!-- #main-content -->
+		</div> <!-- #main-area -->
+		
+		<div id="main-area-bottom"></div>
+						
+	</div> <!-- .container -->
+</div>

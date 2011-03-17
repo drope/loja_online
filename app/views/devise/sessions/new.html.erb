@@ -1,17 +1,47 @@
-<h2>Sign in</h2>
+<div id="content">
+	<div class="container clearfix">	
+		
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+					<div class="post" style="float:left">
+						<h3 class="title" style="text-indent: 0px;">Já tenho cadastro</h3>
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
+						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  					<p><%= f.label :email %><br />
+  						<%= f.text_field :email %></p>
 
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-  <% end -%>
+  					<p><%= f.label :password %><br />
+  					<%= f.password_field :password %></p>
 
-  <p><%= f.submit "Sign in" %></p>
-<% end %>
+  					<% if devise_mapping.rememberable? -%>
+    				<p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+  					<% end -%>
 
-<%= render :partial => "devise/shared/links" %>
+  					<p><%= f.submit "Sign in" %></p>
+						<% end %>
+
+					</div>
+
+					<div class="post">
+						<h3 class="title" style="text-indent: 0px;">Sou uma nova cliente</h3>
+
+						Save time and stay informed: track your order online, view your order history, create your favorites wishlist, and more!
+						
+						<%= link_to "Cadastre-se", new_user_registration_path %>
+
+
+				</div> <!-- #left-column -->
+	
+				<div id="sidebar">
+
+					
+				</div> <!-- end #sidebar -->						
+			</div> <!-- #main-content -->
+		</div> <!-- #main-area -->
+		
+		<div id="main-area-bottom"></div>
+						
+	</div> <!-- .container -->
+</div>

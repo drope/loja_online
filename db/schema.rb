@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110312030915) do
+ActiveRecord::Schema.define(:version => 20110316213254) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -28,11 +28,27 @@ ActiveRecord::Schema.define(:version => 20110312030915) do
     t.datetime "photo_updated_at"
   end
 
+  create_table "bairros", :force => true do |t|
+    t.integer  "cidade_id"
+    t.string   "nome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "cidades", :force => true do |t|
+    t.integer  "uf_id"
+    t.string   "nome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cidades", ["uf_id"], :name => "index_cidades_on_uf_id"
 
   create_table "colors", :force => true do |t|
     t.string   "name",                :null => false
@@ -44,6 +60,17 @@ ActiveRecord::Schema.define(:version => 20110312030915) do
     t.integer  "swatch_file_size"
     t.datetime "swatch_updated_at"
   end
+
+  create_table "logradouros", :force => true do |t|
+    t.integer  "bairro_id"
+    t.integer  "tipo_logradouro_id"
+    t.string   "nome"
+    t.integer  "cep"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logradouros", ["cep"], :name => "index_logradouros_on_cep"
 
   create_table "products", :force => true do |t|
     t.string   "name",                                                                          :null => false
@@ -72,6 +99,14 @@ ActiveRecord::Schema.define(:version => 20110312030915) do
     t.string   "highlight_bg"
   end
 
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "cpf"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sizes", :force => true do |t|
     t.integer  "product_id"
     t.string   "size"
@@ -81,6 +116,13 @@ ActiveRecord::Schema.define(:version => 20110312030915) do
     t.integer  "sizeHip"
     t.integer  "sizeThigh"
     t.integer  "sizeInseam"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ufs", :force => true do |t|
+    t.string   "sigla"
+    t.string   "nome"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

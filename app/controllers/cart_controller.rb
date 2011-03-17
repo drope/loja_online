@@ -1,5 +1,7 @@
 class CartController < ApplicationController
   
+  before_filter :authenticate_user!, :only => [:checkout]
+  
   def add
     
     product = Product.find(params[:product_id])
@@ -45,6 +47,30 @@ class CartController < ApplicationController
 #    render :text => @variations[0][:variation]
 #    render :text => @var.product.name
 #render :xml => @variations
+  end
+
+  
+  def checkout
+    
+    @variations = []
+    ct = cookies.signed[:ct] || {}
+    items = ct[:items] || []
+    
+    items.each do |item|
+      @var = Variation.find(item[:variation_id])
+      @variations << {:variation => Variation.find(item[:variation_id])}
+    end
+
+    
+  end
+  
+  def frete
+    
+    cep = params[:cep]
+    logradouro = Logradouro.find_by_cep cep
+    
+    render :json => { :status => 1, :data => { :val => 13.50}}
+    
   end
   
 

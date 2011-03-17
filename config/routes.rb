@@ -14,6 +14,8 @@ LojaOnline::Application.routes.draw do
   
   match '/sacola/add', :to => 'cart#add'
   match '/sacola/list', :to => 'cart#list'
+  match '/sacola/frete', :to => 'cart#frete'
+  match '/sacola/checkout', :to => 'cart#checkout'
 
 #  :as => :logout 
   
