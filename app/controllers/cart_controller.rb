@@ -4,63 +4,33 @@ class CartController < ApplicationController
   
   def add
     
-    product = Product.find(params[:product_id])
     variation = Variation.find_by_product_id_and_color_id_and_size_id(params[:product_id], params[:color_id], params[:size_id])
-    
-    if (!product.nil? && !variation.nil?)
-      
-      
-      ct = cookies.signed[:ct] || {}
-      
-#      return render :text => ct
-      
-      items = ct[:items] || []
-
-       # return render :text => "The object is #{items.length}"
-#        return render :text => "The object is #{variation.color.id}"
-      
-#      items << { :product_id => product.id.to_s, :color_id => variation.color.id.to_s, :size_id => variation.size.id.to_s }
-      items << { :variation_id => variation.id.to_s }
-      
-      cookies.permanent.signed[:ct] = { :value => {:items => items}}
-      
-      redirect_to(sacola_list_path)
-      #render :text => cookies.signed[:ct] 
-
-      
+    if (!variation.nil?)
+      add_product_to_cart variation.id
     end
+    redirect_to(sacola_path)
+        
+  end
+
+  def remove
+    
+    remove_product_from_cart params[:id]
+    redirect_to(sacola_path)
     
   end
   
   def list
     
-    @variations = []
-    ct = cookies.signed[:ct] || {}
-    items = ct[:items] || []
+    @variations = get_variations_from_cart
+    @total = calculate_variations_total_price @variations
     
-    items.each do |item|
-      @var = Variation.find(item[:variation_id])
-      @variations << {:variation => Variation.find(item[:variation_id])}
-    end
-    
-         @var = Variation.find(13)
-#    render :text => @variations[0][:variation]
-#    render :text => @var.product.name
-#render :xml => @variations
   end
 
   
   def checkout
     
-    @variations = []
-    ct = cookies.signed[:ct] || {}
-    items = ct[:items] || []
-    
-    items.each do |item|
-      @var = Variation.find(item[:variation_id])
-      @variations << {:variation => Variation.find(item[:variation_id])}
-    end
-
+    @variations = get_variations_from_cart
+    @total = calculate_variations_total_price @variations
     
   end
   
@@ -73,5 +43,57 @@ class CartController < ApplicationController
     
   end
   
+  def placeOrder
+    
+    number = (0..9).to_a.shuffle[0..7].join
+    variations = get_variations_from_cart
+    totalItems = calculate_variations_total_price variations
+    
+    order = Order.new(
+      :number => number,
+      :user_id => current_user.id,
+      :totalItems=> totalItems,
+      :totalOrder => totalItems,
+      :totalShipping => params[:shipping_val],
+      :shipping_type => params[:shipping_type],
+      :shipping_estimate => params[:shipping_estimate],
+      :payment_type => params[:payment_type]
+    )
+    order.save
+    
+    address = OrderShipAddress.new(
+      :order_id => order.id,
+      :cep => current_user.user_address.cep,
+      :endereco => current_user.user_address.endereco,
+      :numero => current_user.user_address.numero,
+      :complemento => current_user.user_address.complemento,
+      :bairro => current_user.user_address.bairro,
+      :cidade => current_user.user_address.cidade,
+      :estado => current_user.user_address.estado
+    )
+    address.save
+    
+    variations.each do |v|
+      item = OrderItem.new(
+        :order_id => order.id,
+        :variation_id => v[:variation].id,
+        :price => v[:variation].product.price,
+        :qtd => 1
+      )
+      item.save
+    end
+    
+    OrderHistory.new(
+      :order_id => order.id,
+      :order_status_id => 1
+    ).save
+    OrderHistory.new(
+      :order_id => order.id,
+      :order_status_id => 2
+    ).save
+    
+    render :json => { :status => 1, :data => { :order_number => order.number, :payment_type => params[:payment_type]}}
+    
+  end
 
 end

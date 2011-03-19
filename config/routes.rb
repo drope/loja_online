@@ -11,11 +11,14 @@ LojaOnline::Application.routes.draw do
   
   match '/produto/:id/*name', :to => 'pages#product'
   match '/categoria/:id/*name', :to => 'pages#category'
-  
+
+  match '/sacola', :to => 'cart#list'  
   match '/sacola/add', :to => 'cart#add'
+  match '/sacola/remove', :to => 'cart#remove'
   match '/sacola/list', :to => 'cart#list'
   match '/sacola/frete', :to => 'cart#frete'
   match '/sacola/checkout', :to => 'cart#checkout'
+  match '/sacola/placeorder', :to => 'cart#placeOrder'
 
 #  :as => :logout 
   

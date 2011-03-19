@@ -9,7 +9,11 @@ class PagesController < ApplicationController
     @products = Product.all
 
 #    @products.each do |p|
-#      p.assets.first.photo.reprocess!
+#      p.colors.each do |c|
+#        c.assets.first.photo.reprocess!
+#      end
+        
+      #p.assets.first.photo.reprocess!
 #    end
     
     

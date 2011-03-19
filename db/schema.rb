@@ -10,14 +10,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316213254) do
+ActiveRecord::Schema.define(:version => 20110318150209) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
-    t.string   "img_swatch"
-    t.string   "img_full"
-    t.string   "img_thumb"
-    t.string   "img_zoom"
     t.integer  "imageable_id"
     t.string   "imageable_type"
     t.datetime "created_at"
@@ -72,6 +68,65 @@ ActiveRecord::Schema.define(:version => 20110316213254) do
 
   add_index "logradouros", ["cep"], :name => "index_logradouros_on_cep"
 
+  create_table "order_histories", :force => true do |t|
+    t.integer  "order_id",        :null => false
+    t.integer  "order_status_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_histories", ["order_id"], :name => "index_order_histories_on_order_id"
+
+  create_table "order_items", :force => true do |t|
+    t.integer  "order_id",                                   :null => false
+    t.integer  "variation_id",                               :null => false
+    t.decimal  "price",        :precision => 8, :scale => 2, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "qtd"
+  end
+
+  add_index "order_items", ["order_id"], :name => "index_order_items_on_order_id"
+
+  create_table "order_ship_addresses", :force => true do |t|
+    t.integer  "order_id",    :null => false
+    t.string   "cep"
+    t.string   "endereco"
+    t.string   "numero"
+    t.string   "complemento"
+    t.string   "bairro"
+    t.string   "cidade"
+    t.string   "estado"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "order_ship_addresses", ["order_id"], :name => "index_order_ship_addresses_on_order_id"
+
+  create_table "order_statuses", :force => true do |t|
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "number",                                          :null => false
+    t.integer  "user_id",                                         :null => false
+    t.decimal  "totalItems",        :precision => 8, :scale => 2, :null => false
+    t.decimal  "totalShipping",     :precision => 8, :scale => 2, :null => false
+    t.decimal  "totalOrder",        :precision => 8, :scale => 2, :null => false
+    t.string   "postal_tracking"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "shipping_type"
+    t.string   "shipping_estimate"
+    t.string   "payment_type"
+  end
+
+  add_index "orders", ["number"], :name => "index_orders_on_number"
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
   create_table "products", :force => true do |t|
     t.string   "name",                                                                          :null => false
     t.string   "code",                                                                          :null => false
@@ -97,14 +152,6 @@ ActiveRecord::Schema.define(:version => 20110316213254) do
     t.datetime "highlight_thumb_updated_at"
     t.boolean  "is_highlight"
     t.string   "highlight_bg"
-  end
-
-  create_table "profiles", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.string   "cpf"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "sizes", :force => true do |t|
