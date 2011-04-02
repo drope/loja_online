@@ -23,4 +23,11 @@ module ApplicationHelper
     
   end
   
+  def singular_plural(count, singular, plural )
+    
+    return plural if (count > 1) 
+    return singular
+    
+  end
+  
 end

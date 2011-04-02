@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @product.name %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%= @product.code %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @product.price %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @product.is_active %>
+</p>
+
+<ol>
+<% for color in @product.colors %>
+	<li><%=color.name%>
+<% end %>
+</ol>
+<%= link_to 'Edit', edit_mngr_product_path(@product) %> |
+<%= link_to 'Back', mngr_products_path %>

@@ -1,7 +1,7 @@
 /*
 Theme Name: eStore
 Theme URI: http://www.elegantthemes.com/gallery/
-Version: 1.8
+Version: 1.8em
 Description: 2 Column theme from Elegant Themes
 Author: Elegant Themes
 Author URI: http://www.elegantthemes.com
@@ -202,8 +202,7 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 					border-bottom: 1px solid #ccc;
 					padding: 2px 2px 2px 2px;
 				}
-				.product-info td.active { background-color:#fff; }
-				.product-info th.active { background-color:#fff; }
+				.product-info td.active, th.active { background-color:#999; color: #fff; }
 
 				.product-info tbody tr:hover td
 				{
@@ -486,7 +485,8 @@ table.cart {
 }
 caption {
     -moz-border-radius: 6px 6px 0 0;
-    background: none repeat scroll 0 0 #558ABE;
+/*     background: none repeat scroll 0 0 #891d07;*/
+    background: none repeat scroll 0 0 #666666;
     color: #FFFFFF;
     font-size: 10px;
     font-weight: bold;
@@ -516,7 +516,7 @@ tbody td {
 .amt {
     border-right: 1px solid #E8E8E8;
     padding-right: 19px;
-    width: 105px;
+    width: 130px;
 }
 .amt, .unavailable {
     text-align: right;
@@ -551,7 +551,7 @@ div.tfoot {
     text-transform: none;
 }
 .desc h4, .details, .cart .entity, .writeReview {
-    margin: 0 0 10px 156px;
+    margin: 0 0 10px 110px;
 }
 .desc h4 em {
     white-space: nowrap;
@@ -636,7 +636,7 @@ tr .shipping {
 }
 .moveFromCart {
     margin: 0 auto;
-    text-align: left;
+    text-align: center;
     width: 8em;
 }
 #favoritesLogIn {
@@ -652,7 +652,7 @@ a.remove {
     font-size: 10px;
     line-height: 150%;
     margin-top: 4px;
-    padding: 2px 0 2px 20px;
+    padding: 2px 0 2px 2px;
     text-decoration: none;
 }
 a.remove:hover {
@@ -712,7 +712,9 @@ tfoot .btn {
     padding-top: 10px;
 }
 #shipping td {
-    color: #FF5300;
+    color: #808080;
+	background-color: #EBE9D5;
+	text-transform: none;
 }
 #tax p {
     color: #FF5300;
@@ -726,8 +728,8 @@ tfoot .btn {
     text-transform: uppercase;
 }
 #total td {
-    background: none repeat scroll 0 0 #D9EEFA;
-    color: #2C5987;
+    background: none repeat scroll 0 0 #DBD9D5;
+    color: #891d07;
     padding-top: 10px;
 }
 #totalBilled td {
@@ -793,7 +795,7 @@ tfoot .btn {
 
 
 .action {
-    background: none repeat-x scroll 0 -337px #FF5D00;
+    background: none repeat-x scroll 0 -337px #7E1E0A;
     border: medium none;
     color: #FFFFFF;
     font-size: 12px;
@@ -811,4 +813,23 @@ tfoot .btn {
     text-decoration: none;
     text-transform: uppercase;
     width: auto;
+	margin: 10px;
 }
+
+.secondary {
+    background: none repeat scroll 0 -444px #E8E8E8;
+    border: 1px solid #DDDDDD;
+    color: #666666;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 5px 8px;
+    text-indent: 0;
+}
+
+.btn a { text-decoration: none; color: #5f5f5f; } 
+.btn a:hover  { text-decoration:none; !important}
+a:hover .btn { text-decoration:none; !important}
+
+.info_title {margin: 5px 0 5px 0}
+#spnTamanho { font-weight: bold; color: #1c1c1c; }
+#spnCor { font-weight: bold; color: #1c1c1c; }

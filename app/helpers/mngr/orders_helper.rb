@@ -1,0 +1,2 @@
+module Mngr::OrdersHelper
+end

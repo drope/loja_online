@@ -23,11 +23,23 @@
 			</form>
 		</div><!-- #search-bar -->
 		<div id="menu">
+				<div style="color:#FFF; width:100; float:right; height: 50px; position:relative; padding: 6px 18px 0 0px; text-align:right">
+					<% c = count_cart_items %>
+					<% if (c > 1)%>
+					<%=c%> ítens na sacola<br />
+					<% else%>
+					<%=c%> ítem na sacola<br />
+					<% end%>
+					<a href="<%=sacola_path%>"><img src="<%root_path%>/images/btn-sacola.png"></a>
+					
+				</div>
 			<ul id="secondary-menu" class="nav clearfix">
 				<% Category.all.each do |cat| %>
 				<li class="menu-item menu-item-type-taxonomy"><a href="<%=root_path%>categoria/<%=cat.id%>/<%=cat.name%>"><strong><%=cat.name%></strong><span></span></a></li>
 				<% end %>
+
 	 		</ul>
+
 		</div><!-- #menu -->
 	</div><!-- .container -->
 </div><!-- #header -->

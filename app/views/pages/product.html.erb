@@ -8,28 +8,12 @@
 <!-- 						<span class="band outofstock"></span>-->
 						<div id="product-slider">
 							<div id="product-slides">
-<% 
-@product.assets.each_with_index do |asset, i|
-	opacity = (i==0) ? "1" : "0"
-	z_index = @product.assets.size - i
-%>
 								<div class="item-slide" >
-									<img alt="" src="<%=asset.photo.url(:medium)%>">
+									<a href='<%=@product.assets.first.photo.url%>' class='cloud-zoom' id='zoom1' rel="adjustX: 0, adjustY:-20, zoomWidth:400, zoomHeight:400, tint:'#000000',tintOpacity:0.5 ,smoothMove:5">
+									<img alt="" src="<%=@product.assets.first.photo.url(:medium)%>">
 									<span class="overlay"></span>
+									</a>
 								</div> <!-- .item-slide -->
-<% end %> 
-
-<% @product.colors.each do |color|
-	color.assets.each do |color_asset| 
-	%>
-									<div class="item-slide">
-										<img alt="" src="<%=color_asset.photo.url(:medium)%>">
-										<span class="overlay"></span>
-									</div> <!-- .item-slide -->
-<% 
-	end 
-end %>
-								
 							</div> <!-- #product-slides -->
 							<div id="product-thumbs">
 <% 
@@ -38,7 +22,7 @@ counter = 0
 	counter += 1
 	cl =  (counter==1) ? "active" : "";
 	%>
-								<a rel="<%=counter%>" class="<%=cl%>" href="javascript:;"><img alt="" src="<%=asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
+								<a rel="order:<%=counter%>,useZoom: 'zoom1', smallImage: '<%=asset.photo.url(:medium)%>' " class="<%=cl%> cloud-zoom-gallery" href="<%=asset.photo%>"><img alt="" src="<%=asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
 <% end %>
 <% 
 
@@ -46,14 +30,14 @@ counter = 0
 	color.assets.each_with_index do |color_asset, i| 
 			counter += 1
 		%>
-								<a rel="<%=counter%>" class="" href="javascript:;"><img alt="" src="<%=color_asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
+								<a rel="order:<%=counter%>,useZoom: 'zoom1', smallImage: '<%=color_asset.photo.url(:medium)%>' " class="cloud-zoom-gallery" href="<%=color_asset.photo%>" ><img alt="" src="<%=color_asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
 <% 
 	end 
 end %>
 							</div> <!-- #product-thumbs -->
 						</div> <!-- #product-slider -->
 						<div class="product-info">
-							<h1 class="title" style="text-indent: 0px;"><%=@product.name%></h1>		
+							<h2 class="title" style="text-indent: 0px;"><%=@product.name%></h2>		
 							<div class="clearfix">
 								<span class="price-single" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="<%=currency @product.price%>" style="width: 57px; height: 30px;"><canvas width="67" height="34" style="width: 67px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext><%=currency @product.price%></cufontext></cufon></span></span>
 								<div class="dnone">
@@ -77,7 +61,7 @@ end %>
 	
 							<div class="description">
 
-								Medidas:
+								<div class="info_title">Medidas:</div>
 								<table summary="Tabela de medidas" id="t_medidas">
 									<thead>
 										<tr>
@@ -138,15 +122,17 @@ end %>
 										<% end %>
 									</tbody>
 								</table>
-								Tamanhos: <BR>
+								<div class="info_title">Tamanho: <span id="spnTamanho" class="strong"></span></div>
 								<% @product.sizes.each_with_index do |size, i|
 									cl = (i==0) ? "active" : "" %>
 								<a rel="<%=size.size%>" class="size_item" href="javascript:;" onclick="Product.SetSize('<%=size.id%>','<%=size.size%>');" id="size_<%=size.size%>"><div class="size"><%=size.size%></div><span class="overlay"></span></a>
+
 								<% end %>
+
 								<div class="clear"></div>
 								<BR>
 									
-								Cores: <BR>
+								<div class="info_title">Cor: <span id="spnCor"></span></div>
 								<% @product.colors.each_with_index do |color, i| %>
 								<% cl = (i==0) ? "active" : "" %>
 								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
@@ -167,7 +153,7 @@ end %>
 								<h3>Descrição</h3>
 								<p><%=@product.description%></p>
 								
-								<h3>Composiçã</h3>
+								<h3>Composição</h3>
 								<p><%=@product.composition%></p>
 								
 								<h3>Cuidados</h3>
@@ -213,41 +199,25 @@ end %>
 
 <script type="text/javascript">
 
+var $controller = jQuery('#product-thumbs'), $slider_control_tab = $controller.find('a');
+var ordernum;				
+	
+function gonext(this_element){
+		
+	$controller.find("a.active").removeClass('active');
+	this_element.addClass('active');
+	ordernum = this_element.attr("rel").split(",")[0].split(":")[1];
+	if (typeof interval != 'undefined') {
+		clearInterval(interval);
+		auto_rotate();
+	};
+}
+	
+$slider_control_tab.click(function(){
+	gonext(jQuery(this));
+	return false;
+});
 
-
-var $featured = jQuery('#product-slider'),
-	$featured_content = jQuery('#product-slides'),
-	$controller = jQuery('#product-thumbs'),
-	$slider_control_tab = $controller.find('a');
-if ($featured_content.length) {
-	$featured_content.cycle({
-		fx: 'fade',
-		timeout: 0,
-		speed: 700,
-		cleartypeNoBg: true
-	});
-	
-	var ordernum;				
-	
-	function gonext(this_element){
-		$controller.find("a.active").removeClass('active');
-		
-		this_element.addClass('active');
-		
-		ordernum = this_element.attr("rel");
-		$featured_content.cycle(ordernum-1);
-		
-		if (typeof interval != 'undefined') {
-			clearInterval(interval);
-			auto_rotate();
-		};
-	}
-	
-	$slider_control_tab.click(function(){
-		gonext(jQuery(this));
-		return false;
-	});
-};
 
 </script>
 
@@ -306,6 +276,8 @@ $(document).ready(function() {
 				if (total ==0) {
 					$(this).addClass('unavailable');
 					if ( color == $("#color_id").val()) { $("#color_id").val(""); }
+				} else {
+					$("#spnTamanho").html(size);
 				}
 			});
 
@@ -328,7 +300,7 @@ $(document).ready(function() {
 				$(this).removeClass('active');
 			});
 			$("[class^='color_item'][rel='" + id + "']").addClass('active');
-			
+			$("#spnCor").html(color);
 		},
 		AddToCart: function() {
 //			alert($("#size_id").val());

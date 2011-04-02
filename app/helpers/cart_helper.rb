@@ -1,5 +1,12 @@
 module CartHelper
 
+  def count_cart_items()
+    
+    variations = get_variations_from_cart
+    return variations.length
+    
+  end
+
 
   def add_product_to_cart(variation_id)
     

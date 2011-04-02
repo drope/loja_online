@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318150209) do
+ActiveRecord::Schema.define(:version => 20110323173741) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20110318150209) do
     t.string   "shipping_type"
     t.string   "shipping_estimate"
     t.string   "payment_type"
+    t.integer  "order_status_id"
   end
 
   add_index "orders", ["number"], :name => "index_orders_on_number"

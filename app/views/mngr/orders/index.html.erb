@@ -1,0 +1,37 @@
+<h1>Listing products</h1>
+
+<table border=1>
+  <tr>
+    <th>Number</th>
+		<th>Status</th>
+		<th>Produtos</th>
+		<th>Frete</th>
+		<th>Total</th>
+		<th>Data</th>
+		<th>Tipo frete</th>
+		<th>Pagamento</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @orders.each do |order| %>
+  <tr>
+    <td><%= order.number %></td>
+		<td></td>
+		<td><%= order.totalItems %></td>
+		<td><%= order.totalShipping %></td>
+		<td><%= order.totalOrder %></td>
+		<td><%= order.created_at %></td>
+		<td><%= order.shipping_type %></td>
+		<td><%= order.payment_type %></td>
+    <td><%= link_to 'Show', [:mngr, order] %></td>
+    <td><%= link_to 'Edit', edit_mngr_order_path(order) %></td>
+    <td><%= link_to 'Destroy', [:mngr, order], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product', new_mngr_order_path %>

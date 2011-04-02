@@ -175,7 +175,6 @@ Cart = {
 	},
 	SetPayment: function(type) {
 		$("#payment_type_" + type).attr('checked', 'checked');
-		$("#shipping_type").val(type);
 	},
 	Pay: function(){
 		$.ajax({

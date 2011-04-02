@@ -5,7 +5,7 @@
 			<div class="clearfix" id="main-content">
 				<div id="left-column">
 
-					<div class="post clearfix">				
+					<div class=" clearfix">				
 
 						<table cellspacing="0" class="cart" id="cart">
 						<caption>Minha sacola de compras</caption>
@@ -19,18 +19,28 @@
 						</thead>
 						<tfoot>
 						<tr id="subtotal">
-						<td colspan="3" class="sum">Subtotal (<%=@variations.length.to_s%> items):</td>
-						<td class="amt"><%= currency @total%></td>
+							<td colspan="3" class="sum">
+								Subtotal (<%=@variations.length.to_s%> <%=singular_plural @variations.length, 'ítem', 'ítens'%>):
+								<input type="hidden" id="sacola_subtotal" value="<%=@total%>">
+							</td>
+							<td class="amt"><%= currency @total%></td>
 						</tr>
 						<tr id="shipping">
-						<td colspan="3" class="sum">	Simular Frete. Cep: <input type="text" id="cep"> <input type="button" value="Calcular" onclick="Cart.CalculaFrete();">
-						
-						Standard Overnight Shipping:</td>
-						<td class="amt">Free</td>
+							<td colspan="3" class="sum">
+								SIMULE O VALOR DO FRETE E O PRAZO DE ENTREGA:<br>
+							Digite seu cep: <input type="text" id="cep" size=9> <input type="button" value="ok" onclick="Cart.CalculaFrete();"></td>
+							<td class="amt" >
+								<div id="dv_frete">
+								<input type="radio">PAC - R$ 12,90<br>
+								(5 dias úteis)<br>
+							<input type="radio">SEDEX - R$ 13,90<br>
+								(3 dias úteis)
+								</div>
+							</td>
 						</tr>
 						<tr id="total">
 						<td colspan="3" class="sum">Total:</td>
-						<td class="amt"><%= currency @total%></td>
+						<td class="amt" id="td_total"><%= currency @total%></td>
 						</tr>
 						</tfoot>
 						<tbody>
@@ -39,8 +49,9 @@
 						<td class="desc">
 						<a title="Tommy Bahama Key Grip Short" href="/tommy-bahama-key-grip-short-bean" class="prodImg"> <img alt="Tommy Bahama Key Grip Short" src="<%=v[:variation].color.assets.first.photo.url(:related)%>">
 						</a>
-						<h3><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name"><%=v[:variation].product.name%></a></h4>
+						
 						<ul class="details">
+						<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name strong"><%=v[:variation].product.name%></a></strong></li>
 						<li><b>Código:</b> #7388616</li>
 						<li><b>Cor:</b> <%=v[:variation].color.name%></li>
 						<li><b>Tamanho:</b> <%=v[:variation].size.size%></li>
@@ -54,8 +65,7 @@
 						<td class="qty">
 						1
 						<p class="moveFromCart">
-						<a href="<%=sacola_remove_path%>?id=<%=v[:variation].id.to_s%>" class="remove gae-click*Cart*Cart-Update*Remove-Item">Remove</a>
-						
+						<a href="<%=sacola_remove_path%>?id=<%=v[:variation].id.to_s%>" class="remove gae-click*Cart*Cart-Update*Remove-Item">Remover</a>
 						</p>
 						</td>
 						<td class="amt">
@@ -67,11 +77,11 @@
 						</table>
 
 						<div class="cartopt"><input type="hidden" value="true" name="save">
-							<p><label for="update"><input type="submit" value="Update Cart" name="update" id="update" class="button"></label><label for="unset"><input type="submit" value="Empty Cart" name="unset" id="unset" class="button"></label></p>
 						</div>
 						
-
-						<ul class="continue-proceed"><li><a href="<%= root_path %>">« Continue Shopping</a></li><li><a href="<%= sacola_checkout_path %>">Proceed to Checkout »</a></li></ul>
+						<a class="btn secondary" style="float:left" href="<%= root_path %>">&lt; Continuar comprando<span></span></a>
+						<a class="btn action" style="float:right" href="<%= sacola_checkout_path %>">Fechar compra<span></span></a>
+						
 						<div class="clear"></div>
 
 					</div>
@@ -89,13 +99,35 @@
 						
 	</div> <!-- .container -->
 </div>
+<script type="text/javascript" src="//s3.amazonaws.com/annak-loja/assets/site/js/jquery.maskedinput-1.3.min.js"></script>
 
 <script type="text/javascript">
+
+Number.prototype.toCurrency = function(decimals, decimal_sep, thousands_sep)
+{ 
+   var n = this,
+   c = isNaN(decimals) ? 2 : Math.abs(decimals), //if decimal is zero we must take it, it means user does not want to show any decimal
+   d = decimal_sep || ',', //if no decimal separetor is passed we use the comma as default decimal separator (we MUST use a decimal separator)
+
+   /*
+   according to [http://stackoverflow.com/questions/411352/how-best-to-determine-if-an-argument-is-not-sent-to-the-javascript-function]
+   the fastest way to check for not defined parameter is to use typeof value === 'undefined' 
+   rather than doing value === undefined.
+   */   
+   t = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep, //if you don't want ot use a thousands separator you can pass empty string as thousands_sep value
+
+   sign = (n < 0) ? '-' : '',
+
+   //extracting the absolute value of the integer part of the number and converting to string
+   i = parseInt(n = Math.abs(n).toFixed(c)) + '', 
+
+   j = ((j = i.length) > 3) ? j % 3 : 0; 
+   return sign + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : ''); 
+}
 
 Cart = {
 
 	CalculaFrete: function(){
-		alert('Calcula');
 		$.ajax({
 			type: "POST",
 		  url: "<%= sacola_frete_path %>",
@@ -103,17 +135,29 @@ Cart = {
 			dataType: "json",
 			success: function (result) {
 				if (result.status == 1) {
-					alert(result.data.val);
+					html = "";
+					for (i=0; i<result.data.length; i++) {
+						checked = (i===0) ? " checked" : "";
+						html += "<input type='radio' name='frete' onclick='Cart.UpdateTotal();' value='" + result.data[i].val + "' " + checked + ">" + result.data[i].type.toUpperCase() + " - R$ " + result.data[i].val.toCurrency() + "<br>(" + result.data[i].days + " dias úteis)<br>";
+					}
+					$("#dv_frete").html(html)
+					Cart.UpdateTotal();
 				} else {
 					alert('erro');
 				}
 			}
 		});
+	},
+	UpdateTotal: function() {
+		
+		total = Number($("#sacola_subtotal").val()) + Number($('input:radio[name=frete]:checked').val()) ;
+		$("#td_total").html("R$ " + total.toCurrency());
+		
 	}
 }
 
 $(document).ready(function() {
-
+	$("#cep").mask("99999-999");
 	
 });
 </script>

@@ -1,0 +1,36 @@
+<h1>Listing products</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Price</th>
+    <th>Active</th>
+	<td>Assets</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.code %></td>
+    <td><%= product.price %></td>
+    <td><%= product.is_active %></td>
+	<td>
+		<% product.assets.each do |asset| %>
+			<%= image_tag asset.photo.url(:thumb) %>
+		<% end %>
+		
+	</td>
+    <td><%= link_to 'Show', [:mngr, product] %></td>
+    <td><%= link_to 'Edit', edit_mngr_product_path(product) %></td>
+    <td><%= link_to 'Destroy', [:mngr, product], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product', new_mngr_product_path %>

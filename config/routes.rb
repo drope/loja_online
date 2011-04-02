@@ -5,9 +5,9 @@ LojaOnline::Application.routes.draw do
 
   get "pages/home"
 
-  resources :assets
-  resources :categories
-  resources :products
+  namespace "mngr" do
+    resources :products, :categories, :assets, :orders
+  end
   
   match '/produto/:id/*name', :to => 'pages#product'
   match '/categoria/:id/*name', :to => 'pages#category'

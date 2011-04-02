@@ -39,7 +39,13 @@ class CartController < ApplicationController
     cep = params[:cep]
     logradouro = Logradouro.find_by_cep cep
     
-    render :json => { :status => 1, :data => { :val => 13.50}}
+    render :json => { 
+      :status => 1, 
+      :data => [
+        { :type => "sedex", :val => 13.50, :days => 3},
+        { :type => "pac", :val => 11.50, :days => 6}
+      ]
+    }
     
   end
   
@@ -57,7 +63,8 @@ class CartController < ApplicationController
       :totalShipping => params[:shipping_val],
       :shipping_type => params[:shipping_type],
       :shipping_estimate => params[:shipping_estimate],
-      :payment_type => params[:payment_type]
+      :payment_type => params[:payment_type],
+      :order_status_id => 2
     )
     order.save
     
