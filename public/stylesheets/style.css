@@ -692,7 +692,7 @@ a.moveToFavorites {
 }
 tfoot td {
     background: none repeat scroll 0 0 #F9F9F9;
-    padding: 0 20px 10px 0;
+    padding: 10px 20px 10px 0;
     text-align: right;
     text-transform: uppercase;
 }
@@ -833,3 +833,43 @@ a:hover .btn { text-decoration:none; !important}
 .info_title {margin: 5px 0 5px 0}
 #spnTamanho { font-weight: bold; color: #1c1c1c; }
 #spnCor { font-weight: bold; color: #1c1c1c; }
+
+
+.register #accountInfo {padding-bottom:30px;}
+.stdForm p {padding:0;}
+h5#fOptional {width:200px; float:left; margin:0; padding:0 15px 0 0; text-align:right; font-size:10px; font-weight:bold; text-transform:uppercase;}
+.stdForm li {margin:8px 0 0 0; list-style-type:none;}
+.stdForm label {padding:4px 10px 2px 0; clear:left;}
+.stdForm input {margin:0 10px 0 0;}
+.stdForm .fNote {margin-left:210px;}
+#email, #password, .fGrp {margin-bottom:5px;}
+.stdForm .action {margin:20px 0 40px 215px;}
+.fOption input {margin-right:0; display:inline;}
+.fOption label {clear:none;}
+#accountInfo .disabled {color:#bbb;}
+.disabled input {width:240px; border:3px solid #bbb; background:#bbb;}
+.rnd {-moz-border-radius:5px 5px 0 0; -webkit-border-top-left-radius:5px; -webkit-border-top-right-radius:5px;}
+.stdForm label {width:200px; float:left; text-align:right; font-size:10px; font-weight:bold; text-transform:uppercase;}
+.stdForm input {width:200px;}
+.stdForm .labelError {color:#FF5300;}
+.stdForm .inputError {padding:2px; border:2px solid #FF5300;}
+.stdForm .errorMsg {padding-left:205px; display:block; font-size:9px; color:#FF5300;}
+.stdForm .fText {text-transform:lowercase; font-weight:normal; font-size:11px;}
+.stdForm .fNote {font-size:9px; color:#808080;}
+.fOption input {width:auto; margin:1px 3px 0 0; cursor:pointer;}
+.fOption label {float:none; text-transform:none; font-size:11px; font-weight:normal; cursor:pointer;}
+#email, #password, .fGrp { margin-bottom: 5px;}
+.stdForm .fNote {
+    margin-left: 210px;
+}
+.stdForm .fNote {
+    color: #808080;
+    font-size: 9px;
+}
+.stdForm p {
+    padding: 0;
+}
+* {
+    margin: 0;
+    padding: 0;
+}

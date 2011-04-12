@@ -4,32 +4,40 @@
 		<div id="main-area">
 			<div class="clearfix" id="main-content">
 				<div id="left-column">
+					
+					<table cellspacing="0" class="cart" id="cart">
+					<caption>Identificação</caption>
+					</table>
 
-					<div class="post" style="float:left">
+					<div class="" style="float:left;padding: 38px 50px 34px 42px; width:200px">
 						<h3 class="title" style="text-indent: 0px;">Já tenho cadastro</h3>
-
+						Preencha os dados abaixo para entrar na sua conta
+						<p>
 						<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  					<p><%= f.label :email %><br />
+  					<p><%= f.label :email, "E-mail" %><br />
   						<%= f.text_field :email %></p>
 
-  					<p><%= f.label :password %><br />
+  					<p><%= f.label :password, "Senha" %><br />
   					<%= f.password_field :password %></p>
 
   					<% if devise_mapping.rememberable? -%>
-    				<p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+    				<p><%= f.check_box :remember_me %> <%= f.label :remember_me, "Manter-me conectado" %></p>
   					<% end -%>
 
-  					<p><%= f.submit "Sign in" %></p>
+						<a class="btn action" style="float:left; color: #fff" href="javascript:;" onclick="document.forms[1].submit();">Entrar<span></span></a>
+
 						<% end %>
 
 					</div>
 
-					<div class="post">
-						<h3 class="title" style="text-indent: 0px;">Sou uma nova cliente</h3>
+					<div class="" style="float:left;padding: 38px 50px 34px 42px; width: 300px">
+						<h3 class="title" style="text-indent: 0px;">Esta é minha primeira compra</h3>
 
-						Save time and stay informed: track your order online, view your order history, create your favorites wishlist, and more!
+						Para continuar, é necessário cadastrar-se em nossa loja. Assim, você economiza para acompanhar seu pedido, ver seu histórico de pedidos e muito mais! O cadastro é rápido e seguro.
 						
-						<%= link_to "Cadastre-se", new_user_registration_path %>
+						<br /><br />
+						<a class="btn action" style="float:; color: #fff" href="<%=new_user_registration_path%>">Faça seu cadastro<span></span></a>
+
 
 
 				</div> <!-- #left-column -->

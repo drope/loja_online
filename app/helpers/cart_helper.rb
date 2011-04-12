@@ -7,6 +7,21 @@ module CartHelper
     
   end
 
+  def save_session_cep(cep)
+    cookies.permanent.signed[:cep] = cep
+  end
+  
+  def get_session_cep
+    return cookies.signed[:cep]
+  end
+
+  def save_session_frete(type)
+    cookies.permanent.signed[:frete] = type
+  end
+  
+  def get_session_frete
+    return cookies.signed[:frete] 
+  end
 
   def add_product_to_cart(variation_id)
     

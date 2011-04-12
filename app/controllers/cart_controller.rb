@@ -23,6 +23,18 @@ class CartController < ApplicationController
     
     @variations = get_variations_from_cart
     @total = calculate_variations_total_price @variations
+    @cep = get_session_cep
+    @frete_type = get_session_frete
+#    render :json => @cep
+    if !@cep.nil? 
+      logradouro = Logradouro.find_by_cep @cep
+      if !logradouro.nil?
+        @frete = logradouro.shipping_rates 
+      else
+        @frete = []
+      end
+    end
+    
     
   end
 
@@ -34,19 +46,32 @@ class CartController < ApplicationController
     
   end
   
+  def set_frete
+    save_session_frete params[:type]
+    render :json => { 
+      :status => 1,
+      :data => get_session_frete
+    }
+  end
+  
   def frete
     
     cep = params[:cep]
+    cep["-"] = ""
     logradouro = Logradouro.find_by_cep cep
     
-    render :json => { 
-      :status => 1, 
-      :data => [
-        { :type => "sedex", :val => 13.50, :days => 3},
-        { :type => "pac", :val => 11.50, :days => 6}
-      ]
-    }
-    
+    if (!logradouro.nil?)
+      save_session_cep cep
+      render :json => { 
+        :status => 1, 
+        :data => logradouro.shipping_rates 
+      }
+    else
+      render :json => { 
+        :status => -1, 
+        :data => ""
+      }
+    end
   end
   
   def placeOrder

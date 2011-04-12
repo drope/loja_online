@@ -27,14 +27,13 @@
 						</tr>
 						<tr id="shipping">
 							<td colspan="3" class="sum">
-								SIMULE O VALOR DO FRETE E O PRAZO DE ENTREGA:<br>
-							Digite seu cep: <input type="text" id="cep" size=9> <input type="button" value="ok" onclick="Cart.CalculaFrete();"></td>
+								SIMULADOR DE FRETE:<br>
+							Digite seu cep <input type="text" id="cep" size="9" value="<%=@cep%>"> <input type="button" value="Calcular frete" onclick="Cart.CalculaFrete();"></td>
 							<td class="amt" >
 								<div id="dv_frete">
-								<input type="radio">PAC - R$ 12,90<br>
-								(5 dias úteis)<br>
-							<input type="radio">SEDEX - R$ 13,90<br>
-								(3 dias úteis)
+									<% @frete.each do |f| %>
+									<input name="frete" onclick="Cart.UpdateTotal('<%=f[:type]%>');" value="<%=f[:val] %>" <% if (@frete_type==f[:type])%>checked<%end%> type="radio"><%=f[:type].upcase%> - <%=currency f[:val]%><br>(<%=f[:days]%> dias úteis)<br>
+									<%end%>
 								</div>
 							</td>
 						</tr>
@@ -148,16 +147,30 @@ Cart = {
 			}
 		});
 	},
-	UpdateTotal: function() {
-		
-		total = Number($("#sacola_subtotal").val()) + Number($('input:radio[name=frete]:checked').val()) ;
-		$("#td_total").html("R$ " + total.toCurrency());
-		
+	UpdateTotal: function(type) {		
+		var val_frete = Number($('input:radio[name=frete]:checked').val());
+		if (val_frete) {
+			total = Number($("#sacola_subtotal").val()) + Number($('input:radio[name=frete]:checked').val()) ;
+			$("#td_total").html("R$ " + total.toCurrency());
+			if (type != undefined) {
+				$.ajax({
+					type: "POST",
+			  	url: "<%= sacola_set_frete_path %>",
+			  	data: "type=" + type,
+					dataType: "json",
+					success: function (result) {
+					}
+				});
+			}
+		}
 	}
 }
 
 $(document).ready(function() {
 	$("#cep").mask("99999-999");
+	<% if (!@frete_type.blank?) %>
+	Cart.UpdateTotal();
+	<% end %>
 	
 });
 </script>

@@ -30,4 +30,11 @@ module ApplicationHelper
     
   end
   
+  def get_logradouro_from_cep(cep)
+    
+    logradouro = Logradouro.find_by_cep cep
+    return logradouro
+    
+  end
+  
 end
