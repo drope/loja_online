@@ -257,9 +257,33 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 						
 	#footer { 
 		background: url("../images/header-bottom-bg.png") repeat-x scroll left top #666666;
-	    height: 101px;
+	    height: 250px;
 	    padding: 25px 0 0;
-		margin-top: 24px; }
+		margin-top: 24px; 
+		color: #fff;
+		}
+		
+		#footer h4 {
+			background-color: #CFCFCF;
+			color: #666;
+			display: inline-block;
+			padding: 5px;
+			margin: 0 0 10px 0;
+			letter-spacing: 1px;
+			font-size: 12px;
+		}
+		
+		#footer a {
+			color: #fff;
+			display:block;
+		}
+		
+		#footer div.footer_box {
+			float:left;
+			padding: 0 0 0 20px;
+			width:170px;
+		}
+		
 		#footer p#copyright { text-align: right; color: #807f7f; text-shadow: 1px 1px 1px #ffffff; font-size: 11px; padding-right: 10px; }
 			#footer p#copyright a { font-weight: bold; font-style: italic; }
 	
@@ -873,3 +897,41 @@ h5#fOptional {width:200px; float:left; margin:0; padding:0 15px 0 0; text-align:
     margin: 0;
     padding: 0;
 }
+
+.stdForm label.error  {
+	width:150px ;
+	clear: none;
+	float:none;
+	color:#CC1E0A;
+	text-transform: none;
+}
+.stdForm input.error {
+	border: 2px solid #CC1E0A;
+}
+
+ label.error  {
+	width:400px ;
+	min-width:400px;
+	clear: none;
+	float:none;
+	color:#CC1E0A;
+	text-transform: none;
+	padding: 5px;
+}
+ input.error {
+	border: 2px solid #CC1E0A;
+}
+
+div.checkout {
+	border: 2px solid #CC1E0A;
+    -moz-border-radius: 6px 6px 6px 6px;
+    background: none repeat scroll 0 0 #F9F9F9;
+    color: #CC1E0A;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+}
+

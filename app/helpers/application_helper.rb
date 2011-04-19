@@ -23,6 +23,17 @@ module ApplicationHelper
     
   end
   
+  def currency_val(val)
+    
+    formatted_val = number_to_currency(val, {
+      :unit => '', 
+      :separator => ',', 
+      :delimiter => ' ', 
+      :precision => 2
+    })
+    
+  end
+  
   def singular_plural(count, singular, plural )
     
     return plural if (count > 1) 

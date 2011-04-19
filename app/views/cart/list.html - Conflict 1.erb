@@ -1,0 +1,163 @@
+<div id="content">
+	<div class="container clearfix">	
+		
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+
+					<div class=" clearfix">				
+
+						<table cellspacing="0" class="cart" id="cart">
+						<caption>Minha sacola de compras</caption>
+						<thead>
+						<tr>
+						<th class="desc">Produtos</th>
+						<th>Preço unitário</th>
+						<th>Quantidade</th>
+						<th class="amt">Preço</th>
+						</tr>
+						</thead>
+						<tfoot>
+						<tr id="subtotal">
+							<td colspan="3" class="sum">
+								Subtotal (<%=@variations.length.to_s%> <%=singular_plural @variations.length, 'ítem', 'ítens'%>):
+								<input type="hidden" id="sacola_subtotal" value="<%=@total%>">
+							</td>
+							<td class="amt"><%= currency @total%></td>
+						</tr>
+						<tr id="shipping">
+							<td colspan="3" class="sum">
+								SIMULADOR DE FRETE <%=@cep%>:<br>
+							Digite seu cep <input type="text" id="cep" size="9" value="<%=@cep%>"> <input type="button" value="Calcular frete" onclick="Cart.CalculaFrete();"></td>
+							<td class="amt" >
+								<div id="dv_frete">
+									<% @frete.each do |f| %>
+									<input name="frete" onclick="Cart.UpdateTotal();" value="<%=f["val"] %>" checked="checked" type="radio"><%=f["type"]%> - R$ <%=f["val"]%><br>(<%=f["days"]%> dias úteis)<br>
+									<%end%>
+									
+								</div>
+							</td>
+						</tr>
+						<tr id="total">
+						<td colspan="3" class="sum">Total:</td>
+						<td class="amt" id="td_total"><%= currency @total%></td>
+						</tr>
+						</tfoot>
+						<tbody>
+						<% @variations.each do |v| %>
+						<tr class="" id="stockId-15990750">
+						<td class="desc">
+						<a title="Tommy Bahama Key Grip Short" href="/tommy-bahama-key-grip-short-bean" class="prodImg"> <img alt="Tommy Bahama Key Grip Short" src="<%=v[:variation].color.assets.first.photo.url(:related)%>">
+						</a>
+						
+						<ul class="details">
+						<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name strong"><%=v[:variation].product.name%></a></strong></li>
+						<li><b>Código:</b> #7388616</li>
+						<li><b>Cor:</b> <%=v[:variation].color.name%></li>
+						<li><b>Tamanho:</b> <%=v[:variation].size.size%></li>
+						</ul>
+						</td>
+						<td class="each">
+						<%=currency v[:variation].product.price%>
+						<h5 class="stockMsg"></h5>
+						<p class="note"></p>
+						</td>
+						<td class="qty">
+						1
+						<p class="moveFromCart">
+						<a href="<%=sacola_remove_path%>?id=<%=v[:variation].id.to_s%>" class="remove gae-click*Cart*Cart-Update*Remove-Item">Remover</a>
+						</p>
+						</td>
+						<td class="amt">
+						<%=currency v[:variation].product.price%>
+						</td>
+						</tr>
+						<% end %>
+						</tbody>
+						</table>
+
+						<div class="cartopt"><input type="hidden" value="true" name="save">
+						</div>
+						
+						<a class="btn secondary" style="float:left" href="<%= root_path %>">&lt; Continuar comprando<span></span></a>
+						<a class="btn action" style="float:right" href="<%= sacola_checkout_path %>">Fechar compra<span></span></a>
+						
+						<div class="clear"></div>
+
+					</div>
+					
+				</div> <!-- #left-column -->
+	
+				<div id="sidebar">
+
+					
+				</div> <!-- end #sidebar -->						
+			</div> <!-- #main-content -->
+		</div> <!-- #main-area -->
+		
+		<div id="main-area-bottom"></div>
+						
+	</div> <!-- .container -->
+</div>
+<script type="text/javascript" src="//s3.amazonaws.com/annak-loja/assets/site/js/jquery.maskedinput-1.3.min.js"></script>
+
+<script type="text/javascript">
+
+Number.prototype.toCurrency = function(decimals, decimal_sep, thousands_sep)
+{ 
+   var n = this,
+   c = isNaN(decimals) ? 2 : Math.abs(decimals), //if decimal is zero we must take it, it means user does not want to show any decimal
+   d = decimal_sep || ',', //if no decimal separetor is passed we use the comma as default decimal separator (we MUST use a decimal separator)
+
+   /*
+   according to [http://stackoverflow.com/questions/411352/how-best-to-determine-if-an-argument-is-not-sent-to-the-javascript-function]
+   the fastest way to check for not defined parameter is to use typeof value === 'undefined' 
+   rather than doing value === undefined.
+   */   
+   t = (typeof thousands_sep === 'undefined') ? '.' : thousands_sep, //if you don't want ot use a thousands separator you can pass empty string as thousands_sep value
+
+   sign = (n < 0) ? '-' : '',
+
+   //extracting the absolute value of the integer part of the number and converting to string
+   i = parseInt(n = Math.abs(n).toFixed(c)) + '', 
+
+   j = ((j = i.length) > 3) ? j % 3 : 0; 
+   return sign + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : ''); 
+}
+
+Cart = {
+
+	CalculaFrete: function(){
+		$.ajax({
+			type: "POST",
+		  url: "<%= sacola_frete_path %>",
+		  data: "cep=" + $("#cep").val(),
+			dataType: "json",
+			success: function (result) {
+				if (result.status == 1) {
+					html = "";
+					for (i=0; i<result.data.length; i++) {
+						checked = (i===0) ? " checked" : "";
+						html += "<input type='radio' name='frete' onclick='Cart.UpdateTotal();' value='" + result.data[i].val + "' " + checked + ">" + result.data[i].type.toUpperCase() + " - R$ " + result.data[i].val.toCurrency() + "<br>(" + result.data[i].days + " dias úteis)<br>";
+					}
+					$("#dv_frete").html(html)
+					Cart.UpdateTotal();
+				} else {
+					alert('erro');
+				}
+			}
+		});
+	},
+	UpdateTotal: function() {
+		
+		total = Number($("#sacola_subtotal").val()) + Number($('input:radio[name=frete]:checked').val()) ;
+		$("#td_total").html("R$ " + total.toCurrency());
+		
+	}
+}
+
+$(document).ready(function() {
+	$("#cep").mask("99999-999");
+	
+});
+</script>

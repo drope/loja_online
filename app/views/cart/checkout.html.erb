@@ -10,22 +10,37 @@
 						<table cellspacing="0" class="cart" id="cart">
 						<caption>Confirme as informações do seu pedido e selecione uma opção de entrega</caption>
 						<tbody>
-						<tr>
-						<td class="desc">
-						<ul class="details">
-						<li>Elzira Sammarco Palma, 400 casa 48</li>
-						<li>Bosque dos Juritis</li>
-						<li>CEP: 14021-684</li>
-						<li>Ribeirão Preto-SP</li>
-						</ul>
-						</td>
-						<td class="">
+							<tr>
+								<td class="desc"  style="background: none repeat scroll 0 0 #F9F9F9">
+									<ul class="details">
+										<li class="strong"><strong>Endereço de entrega:</strong></li>
+										<li><%=current_user.user_address.endereco%>, <%=current_user.user_address.numero%> <%=current_user.user_address.complemento%></li>
+										<li>CEP: <%=current_user.user_address.cep%></li>
+										<li><%=current_user.user_address.cidade%> - <%=current_user.user_address.estado%></li>
+									</ul>
+								</td>
+								<td class=""  style="background: none repeat scroll 0 0 #F9F9F9"></td>
+							</tr>
+
+							<% @variations.each do |v| %>
+							<tr>
+							<td class="desc">
+								<a title="Tommy Bahama Key Grip Short" href="<%=product_url v[:variation].product%>" class="prodImg"> <img alt="Tommy Bahama Key Grip Short" src="<%=v[:variation].color.assets.first.photo.url(:thumb)%>">
+								</a>
+								
 							<ul class="details">
-							<li><input name="frete" type="radio" value="10.00|7|PAC" onclick="Cart.SetFrete();">PAC - R$10,00 - 3 dias úteis</li>
-							<li><input name="frete" type="radio" value="15.00|3|SEDEX" onclick="Cart.SetFrete();">SEDEX - R$15,00 - 3 dias úteis</li>
+								
+							<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name strong"><%=v[:variation].product.name%></a></strong></li>
+							<li><b>Cor:</b> <%=v[:variation].color.name%></li>
+							<li><b>Tamanho:</b> <%=v[:variation].size.size%></li>
 							</ul>
-						</td>
-						</tr>
+							</td>
+							<td class="amt">
+							<%=currency v[:variation].product.price%>
+							</td>
+							</tr>
+							<% end %>
+
 						</tbody>
 						<tfoot>
 						<tr>
@@ -34,7 +49,26 @@
 						</tr>
 						<tr>
 						<td colspan="1" class="sum">Frete:</td>
-						<td class="amt"><span id="spnFrete"></span></td>
+						<td class="amt"><ul class="">
+							<% @frete.each do |f| %>
+							<%
+							checked = ""
+							if (@frete_type.blank?)
+								if (f[:type]=="pac")
+									checked = " checked"
+								end
+							else
+								if (@frete_type==f[:type])
+									checked = " checked"
+								end
+							end
+								
+							
+							%>
+							<li><input name="frete" type="radio" value="<%=f[:val] %>|<%=f[:days] %>|<%=f[:type] %>" onclick="Cart.SetFrete();" <%=checked%> > <%=f[:type] %> - <%=currency f[:val] %></li>
+							<% end %>
+						</ul>
+						</td>
 						</tr>
 						<tr>
 						<td colspan="1" class="sum">Prazo de entrega:</td>
@@ -55,11 +89,26 @@
 						<td><input type="radio" name="payment_type" id="payment_type_paypal" value="paypal"></td>
 						<td style="padding-top:10px"><a href="javascript:Cart.SetPayment('paypal')"><img src="//s3.amazonaws.com/annak-loja/assets/site/img/botao-paypal.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!"></a></td>
 						<td><input type="radio" name="payment_type" id="payment_type_pagseguro" value="pagseguro"></td>
-						<td style="padding-top:5px"><a href="javascript:Cart.SetPayment('pagseguro')"><img src="//s3.amazonaws.com/annak-loja/assets/site/img/botao-pagseguro.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!"></a>
+						<td style="padding-top:5px"><a href="javascript:Cart.SetPayment('pagseguro')"><img src="//s3.amazonaws.com/annak-loja/assets/site/img/botao-pagseguro.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!"></a></td>
 						<td class="amt"></td>
 						</tr>
 						<tr>
-						<td colspan="6" class="sum" style="text-align:center; padding-top:20px"><form><fieldset><button onclick="Cart.Pay()" tabindex="36" class="btn action" type="button">Finalizar meu pedido</button></td>
+							<td></td>
+							<td colspan="6" align="left" style="text-align:left">
+								<div class="checkout" style="display:none;" id="dvCheckout">
+									<label class="error" id="erroPagamento" style="display:none;">Selecione uma forma de pagamento.</label>
+									<div id="msgPagamento">
+									<br>
+									<img src="/img/loading-circle.gif" alt="Carregando" align=left style="padding:2px 10px 0 0">Aguarde. Seu pedido está sendo processado.<br>
+									Em instantes você será direcionado para o meio de pagamento selecionado.
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+						<td colspan="6" class="sum" style="text-align:center; padding-top:20px">
+							<a class="btn action" style=" color: #fff" href="javascript:;" onclick="Cart.Pay();">Finalizar meu pedido<span></span></a>
+							</td>
 						</tr>
 						</tfoot>
 						</table>
@@ -94,12 +143,15 @@
 <input type="hidden" name="cmd" value="_cart"> 
 <input type="hidden" name="upload" value="1"> 
 <input type="hidden" name="business" value="loja@annak.com.br"> 
-<input type="hidden" name="item_name_1" value="Item Name 1">
-<input type="hidden" name="amount_1" value="5.00"> 
-<input type="hidden" name="item_name_2" value="Item Name 2"> 
-<input type="hidden" name="amount_2" value="5.00"> 
+<% counter = 0%>
+<% @variations.each do |v| %>
+<% counter = counter +1%>
+<input type="hidden" name="item_name_<%=counter%>" value="<%=v[:variation].product.name%>">
+<input type="hidden" name="amount_<%=counter%>" value="<%=v[:variation].product.price%>"> 
+<% end%>
+
 <input type="hidden" name="shipping_1" value="2.00"> 
-<input type="hidden" name="shipping_2" value="0.00"> 
+
 <input type="hidden" name="currency_code" value="BRL"> 
 <input type="hidden" name="address_override" value="1"> 
 <input type="hidden" name="address1" value="<%= current_user.user_address.endereco %>, <%= current_user.user_address.numero %> <%= current_user.user_address.complemento %>"> 
@@ -117,22 +169,22 @@
 <input type="hidden" name="email_cobranca" value="loja@annak.com.br">
 <input type="hidden" name="tipo" value="CP">
 <input type="hidden" name="moeda" value="BRL">
+<input type="hidden" name="ref_transacao" value="">
 
-<input type="hidden" name="item_id_1" value="12345">
-<input type="hidden" name="item_descr_1" 
-value="Descrição do item a ser vendido">
-<input type="hidden" name="item_quant_1" value="1">
-<input type="hidden" name="item_valor_1" value="100.0">
-<input type="hidden" name="item_frete_1" value="0">
-<input type="hidden" name="item_peso_1" value="0">
 
-<input type="hidden" name="item_id_2" value="67890">
-<input type="hidden" name="item_descr_2" 
-value="Descrição do item 2 a ser vendido">
-<input type="hidden" name="item_quant_2" value="1">
-<input type="hidden" name="item_valor_2" value="199">
-<input type="hidden" name="item_frete_2" value="15,50">
-<input type="hidden" name="item_peso_2" value="0">
+<% counter = 0%>
+<% @variations.each do |v| %>
+<% counter = counter +1%>
+
+<input type="hidden" name="item_id_<%=counter%>" value="<%=v[:variation].product.code%>">
+<input type="hidden" name="item_descr_<%=counter%>" value="<%=v[:variation].product.name%>">
+<input type="hidden" name="item_quant_<%=counter%>" value="1">
+<input type="hidden" name="item_valor_<%=counter%>" value="<%=currency_val v[:variation].product.price%>">
+<input type="hidden" name="item_peso_<%=counter%>" value="0">
+
+<% end%>
+
+<input type="hidden" name="item_frete_1" value="10,00">
 <input type="hidden" name="tipo_frete" value="EN">
 
 <input type="hidden" name="cliente_nome" value="<%= current_user.user_info.name %>">
@@ -151,22 +203,30 @@ value="Descrição do item 2 a ser vendido">
 
 </form>
 
+<script type="text/javascript" src="/js/sacola.js"></script>
 <script type="text/javascript">
 
 Cart = {
-
+	Submited: false,
 	SetFrete: function() {
 		
 		data = $('input:radio[name=frete]:checked').val();
 		dataArray = data.split("|");
-		frete = dataArray[0];
+		frete = Number(dataArray[0]);
 		prazo = dataArray[1];
 		tipo = dataArray[2];
 		total = parseFloat(frete) + parseFloat($("#subtotal").val());
 		
-		$("#spnFrete").html(frete);
-		$("#spnPrazo").html(prazo);
-		$("#spnTotal").html(total);
+		$("#frm_paypal input:hidden[name=shipping_1]").val(frete);
+		$("#frm_pagseguro input:hidden[name=item_frete_1]").val(frete.toCurrency());
+		if (tipo=="pac") {
+			$("#frm_pagseguro input:hidden[name=tipo_frete]").val("EN");
+		} else {
+			$("#frm_pagseguro input:hidden[name=tipo_frete]").val("SD");			
+		}
+		
+		$("#spnPrazo").html(prazo + ' dias úteis');
+		$("#spnTotal").html('R$ ' + total.toCurrency());
 
 		$("#shipping_val").val(frete);
 		$("#shipping_type").val(tipo);		
@@ -177,6 +237,21 @@ Cart = {
 		$("#payment_type_" + type).attr('checked', 'checked');
 	},
 	Pay: function(){
+		
+		$("#dvCheckout").show();
+		
+		if ( $('input:radio[name=payment_type]:checked').val() == undefined ) {
+			$("#erroPagamento").show();
+			$("#msgPagamento").hide();
+			return;
+		}
+		
+		$("#erroPagamento").hide();
+		$("#msgPagamento").show();
+		
+		if (Cart.Submited) return;
+		Cart.Submited = true;
+		
 		$.ajax({
 			type: "GET",
 		  url: "<%= sacola_placeorder_path %>",
@@ -187,10 +262,9 @@ Cart = {
 			dataType: "json",
 			success: function (result) {
 				if (result.status == 1) {
-					alert(result.data.payment_type);
 					order_number = result.data.order_number;
-					alert(order_number);
-					$("#invoice").val(order_number);
+					$("#frm_paypal input:hidden[name=invoice]").val(order_number);
+					$("#frm_pagseguro input:hidden[name=ref_transacao]").val(order_number);					
 					$("#frm_" + result.data.payment_type).submit();
 
 				} else {
@@ -202,7 +276,6 @@ Cart = {
 }
 
 $(document).ready(function() {
-
-	
+	Cart.SetFrete();
 });
 </script>

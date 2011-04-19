@@ -44,6 +44,12 @@ class CartController < ApplicationController
     @variations = get_variations_from_cart
     @total = calculate_variations_total_price @variations
     
+    @cep = current_user.user_address.cep
+
+    @frete_type = get_session_frete
+    logradouro = Logradouro.find_by_cep @cep.tr("-","")
+    @frete = logradouro.shipping_rates
+    
   end
   
   def set_frete
@@ -72,6 +78,31 @@ class CartController < ApplicationController
         :data => ""
       }
     end
+  end
+  
+  def logradouro_by_cep
+    
+    cep = params[:cep]
+    cep["-"] = ""
+    logradouro = Logradouro.find_by_cep cep
+    
+    if (!logradouro.blank?)
+      render :json => { 
+        :status => 1, 
+        :data => {
+          :endereco => logradouro.nome,
+          :bairro => logradouro.bairro.nome,
+          :cidade => logradouro.bairro.cidade.nome,
+          :estado => logradouro.bairro.cidade.uf.sigla
+        }
+      }
+    else 
+      render :json => { 
+        :status => -1, 
+        :data => 'cep nao encontrado'
+      }
+    end
+    
   end
   
   def placeOrder

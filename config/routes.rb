@@ -4,6 +4,7 @@ LojaOnline::Application.routes.draw do
   resources :users, :has_one => :user_info
 
   get "pages/home"
+  
 
   namespace "mngr" do
     resources :products, :categories, :assets, :orders
@@ -17,10 +18,24 @@ LojaOnline::Application.routes.draw do
   match '/sacola/remove', :to => 'cart#remove'
   match '/sacola/list', :to => 'cart#list'
   match '/sacola/frete', :to => 'cart#frete'
+  match '/sacola/logradouro_by_cep', :to => 'cart#logradouro_by_cep'
   match '/sacola/set_frete', :to => 'cart#set_frete'
   match '/sacola/checkout', :to => 'cart#checkout'
   match '/sacola/placeorder', :to => 'cart#placeOrder'
 
+
+  match '/guia_de_medidas', :to => 'pages#medidas'
+  match '/trocas_e_devolucoes', :to => 'pages#trocas_devolucoes'
+  match '/prazo_entrega', :to => 'pages#prazo_entrega'
+  match '/ajuda', :to => 'pages#ajuda'
+  match '/politica_de_privacidade', :to => 'pages#privacidade'
+  match '/seguranca', :to => 'pages#seguranca'
+  match '/fale_conosco', :to => 'pages#fale_conosco'
+  match '/quem_somos', :to => 'pages#quem_somos'
+  match '/perguntas_frequentes', :to => 'pages#perguntas_frequentes'
+  match '/formas_de_pagamento', :to => 'pages#formas_de_pagamento'
+  
+  
 #  :as => :logout 
   
   root :to => "pages#home"

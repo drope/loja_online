@@ -1,0 +1,208 @@
+<div id="content">
+	<div class="container clearfix">	
+		
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+
+					<div class=" clearfix">				
+
+						<table cellspacing="0" class="cart" id="cart">
+						<caption>Confirme as informações do seu pedido e selecione uma opção de entrega</caption>
+						<tbody>
+						<tr>
+						<td class="desc">
+						<ul class="details">
+						<li>Elzira Sammarco Palma, 400 casa 48</li>
+						<li>Bosque dos Juritis</li>
+						<li>CEP: 14021-684</li>
+						<li>Ribeirão Preto-SP</li>
+						</ul>
+						</td>
+						<td class="">
+							<ul class="details">
+							<li><input name="frete" type="radio" value="10.00|7|PAC" onclick="Cart.SetFrete();">PAC - R$10,00 - 3 dias úteis</li>
+							<li><input name="frete" type="radio" value="15.00|3|SEDEX" onclick="Cart.SetFrete();">SEDEX - R$15,00 - 3 dias úteis</li>
+							</ul>
+						</td>
+						</tr>
+						</tbody>
+						<tfoot>
+						<tr>
+						<td colspan="1" class="sum">Subtotal (<%=@variations.length.to_s%> ítens):</td>
+						<td class="amt"><%= currency @total%></td>
+						</tr>
+						<tr>
+						<td colspan="1" class="sum">Frete:</td>
+						<td class="amt"><span id="spnFrete"></span></td>
+						</tr>
+						<tr>
+						<td colspan="1" class="sum">Prazo de entrega:</td>
+						<td class="amt"><span id="spnPrazo"></span></td>
+						</tr>
+
+						<tr id="total">
+						<td colspan="1" class="sum">Total:</td>
+						<td class="amt"><span id="spnTotal"><%= currency @total%></span></td>
+						</tr>
+						</tfoot>
+						</table>
+						<table cellspacing="0" class="cart" id="cart">
+						<caption>Forma de pagamento</caption>
+						<tfoot>
+						<tr>
+						<td class="sum"></td>
+						<td><input type="radio" name="payment_type" id="payment_type_paypal" value="paypal"></td>
+						<td style="padding-top:10px"><a href="javascript:Cart.SetPayment('paypal')"><img src="//s3.amazonaws.com/annak-loja/assets/site/img/botao-paypal.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!"></a></td>
+						<td><input type="radio" name="payment_type" id="payment_type_pagseguro" value="pagseguro"></td>
+						<td style="padding-top:5px"><a href="javascript:Cart.SetPayment('pagseguro')"><img src="//s3.amazonaws.com/annak-loja/assets/site/img/botao-pagseguro.gif" alt="Pague com PagSeguro - é rápido, grátis e seguro!"></a>
+						<td class="amt"></td>
+						</tr>
+						<tr>
+						<td colspan="6" class="sum" style="text-align:center; padding-top:20px"><form><fieldset><button onclick="Cart.Pay()" tabindex="36" class="btn action" type="button">Finalizar meu pedido</button></td>
+						</tr>
+						</tfoot>
+						</table>
+						
+						<input type="hidden" name="shipping_val" id="shipping_val" value="">
+						<input type="hidden" name="shipping_type" id="shipping_type" value="">
+						<input type="hidden" name="shipping_estimate" id="shipping_estimate" value="">
+
+						<input type="hidden" name="subtotal" id="subtotal" value="<%= @total%>">
+						<input type="hidden" name="total" id="total" value="<%= @total%>">
+						</form>
+						
+						<div class="clear"></div>
+
+					</div>
+					
+				</div> <!-- #left-column -->
+	
+				<div id="sidebar">
+
+					
+				</div> <!-- end #sidebar -->						
+			</div> <!-- #main-content -->
+		</div> <!-- #main-area -->
+		
+		<div id="main-area-bottom"></div>
+						
+	</div> <!-- .container -->
+</div>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="frm_paypal"> 
+<input type="hidden" name="cmd" value="_cart"> 
+<input type="hidden" name="upload" value="1"> 
+<input type="hidden" name="business" value="loja@annak.com.br"> 
+<input type="hidden" name="item_name_1" value="Item Name 1">
+<input type="hidden" name="amount_1" value="5.00"> 
+<input type="hidden" name="item_name_2" value="Item Name 2"> 
+<input type="hidden" name="amount_2" value="5.00"> 
+<input type="hidden" name="shipping_1" value="2.00"> 
+<input type="hidden" name="shipping_2" value="0.00"> 
+<input type="hidden" name="currency_code" value="BRL"> 
+<input type="hidden" name="address_override" value="1"> 
+<input type="hidden" name="address1" value="<%= current_user.user_address.endereco %>, <%= current_user.user_address.numero %> <%= current_user.user_address.complemento %>"> 
+<input type="hidden" name="address2" value="<%= current_user.user_address.bairro %>"> 
+<input type="hidden" name="city" value="<%= current_user.user_address.cidade %>"> 
+<input type="hidden" name="state" value="<%= current_user.user_address.estado %>"> 
+<input type="hidden" name="country" value="BR"> 
+<input type="hidden" name="zip" value="<%= current_user.user_address.cep %>"> 
+<input type="hidden" name="lc" value="BR"> 
+<input type="hidden" name="invoice" id="invoice" value="1"> 
+
+</form>
+
+<form method="post" action="https://pagseguro.uol.com.br/checkout/checkout.jhtml" id="frm_pagseguro">
+<input type="hidden" name="email_cobranca" value="loja@annak.com.br">
+<input type="hidden" name="tipo" value="CP">
+<input type="hidden" name="moeda" value="BRL">
+
+<input type="hidden" name="item_id_1" value="12345">
+<input type="hidden" name="item_descr_1" 
+value="Descrição do item a ser vendido">
+<input type="hidden" name="item_quant_1" value="1">
+<input type="hidden" name="item_valor_1" value="100.0">
+<input type="hidden" name="item_frete_1" value="0">
+<input type="hidden" name="item_peso_1" value="0">
+
+<input type="hidden" name="item_id_2" value="67890">
+<input type="hidden" name="item_descr_2" 
+value="Descrição do item 2 a ser vendido">
+<input type="hidden" name="item_quant_2" value="1">
+<input type="hidden" name="item_valor_2" value="199">
+<input type="hidden" name="item_frete_2" value="15,50">
+<input type="hidden" name="item_peso_2" value="0">
+<input type="hidden" name="tipo_frete" value="EN">
+
+<input type="hidden" name="cliente_nome" value="<%= current_user.user_info.name %>">
+<input type="hidden" name="cliente_cep" value="<%= current_user.user_address.cep %>">
+<input type="hidden" name="cliente_end" value="<%= current_user.user_address.endereco %>">
+<input type="hidden" name="cliente_num" value="<%= current_user.user_address.numero %>">
+<input type="hidden" name="cliente_compl" value="<%= current_user.user_address.complemento %>">
+<input type="hidden" name="cliente_bairro" value="<%= current_user.user_address.bairro %>">
+<input type="hidden" name="cliente_cidade" value="<%= current_user.user_address.cidade %>">
+<input type="hidden" name="cliente_uf" value="<%= current_user.user_address.estado %>">
+<input type="hidden" name="cliente_pais" value="BRA">
+<input type="hidden" name="cliente_ddd" value="<%= current_user.user_info.phone_ddd %>">
+<input type="hidden" name="cliente_tel" value="<%= current_user.user_info.phone_number %>">
+<input type="hidden" name="cliente_email" value="<%= current_user.email %>">
+
+
+</form>
+
+<script type="text/javascript">
+
+Cart = {
+
+	SetFrete: function() {
+		
+		data = $('input:radio[name=frete]:checked').val();
+		dataArray = data.split("|");
+		frete = dataArray[0];
+		prazo = dataArray[1];
+		tipo = dataArray[2];
+		total = parseFloat(frete) + parseFloat($("#subtotal").val());
+		
+		$("#spnFrete").html(frete);
+		$("#spnPrazo").html(prazo);
+		$("#spnTotal").html(total);
+
+		$("#shipping_val").val(frete);
+		$("#shipping_type").val(tipo);		
+		$("#shipping_estimate").val(prazo);
+		
+	},
+	SetPayment: function(type) {
+		$("#payment_type_" + type).attr('checked', 'checked');
+	},
+	Pay: function(){
+		$.ajax({
+			type: "GET",
+		  url: "<%= sacola_placeorder_path %>",
+		  data: "shipping_val=" + $("#shipping_val").val() +
+				"&shipping_type=" + $("#shipping_type").val() +
+				"&shipping_estimate=" + $("#shipping_estimate").val() +
+				"&payment_type=" + $('input:radio[name=payment_type]:checked').val(),
+			dataType: "json",
+			success: function (result) {
+				if (result.status == 1) {
+					alert(result.data.payment_type);
+					order_number = result.data.order_number;
+					alert(order_number);
+					$("#invoice").val(order_number);
+					$("#frm_" + result.data.payment_type).submit();
+
+				} else {
+					alert('erro');
+				}
+			}
+		});
+	}
+}
+
+$(document).ready(function() {
+
+	
+});
+</script>

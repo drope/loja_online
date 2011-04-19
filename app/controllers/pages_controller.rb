@@ -16,14 +16,11 @@ class PagesController < ApplicationController
       #p.assets.first.photo.reprocess!
 #    end
     
-    
-
-    
-    @products << Product.find(4)
-    @products << Product.find(5)
   
-    @super_destaques = Product.find_all_by_is_highlight(true) << Product.find(4)
-  
+    @super_destaques = Product.find_all_by_is_highlight(true,:order => 'created_at DESC') 
+    
+    @super_destaques = @super_destaques[0..2]
+    
   end
 
   def product
@@ -31,9 +28,7 @@ class PagesController < ApplicationController
     @product = Product.find(params[:id])
 
     @related_products = Product.all
-    @related_products << Product.find(4)
-    @related_products << Product.find(5)
-    
+
 
     
   end
@@ -48,5 +43,32 @@ class PagesController < ApplicationController
     end
     
   end
+  
+  def medidas
+  end
+  
+  def trocas_devolucoes
+  end
+  
+  def prazo_entrega
+  end
+  
+  def ajuda
+  end
+  
+  def privacidade
+  end
+  def seguranca
+  end
+  def fale_conosco
+  end
+  def quem_somos
+  end
+  def perguntas_frequentes
+  end
+  def formas_de_pagamento
+  end
+  
+  
 
 end
