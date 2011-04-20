@@ -49,6 +49,8 @@ class CartController < ApplicationController
     logradouro = Logradouro.find_by_cep @cep.tr("-","")
     @frete = logradouro.shipping_rates
     
+    UserMailer.welcome(current_user).deliver
+    
   end
   
   def set_frete
