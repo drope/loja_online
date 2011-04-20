@@ -1,9 +1,2 @@
-Welcome to example.com, <%= @user.name %>
+Ola, . Bem vindo a loja online AnnaK<
 ===============================================
- 
-You have successfully signed up to example.com,
-your username is: <%= @user.login %>.
- 
-To login to the site, just follow this link: <%= @url %>.
- 
-Thanks for joining and have a great day!
