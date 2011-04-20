@@ -81,12 +81,14 @@ end %>
 										</tr>
 										<% end %>
 										<% if (!@product.sizes.first.sizeBust.blank?) %>
+										<!-- 
 										<tr>
 											<td>Manga</td>
 											<% @product.sizes.each do |size| %>
 											<td class="t_<%=size.size%>"><%=size.sizeSleeve%></td>
 											<% end %>
 										</tr>
+										-->
 										<% end %>
 										<% if (!@product.sizes.first.sizeWaist.blank?) %>
 										<tr>
