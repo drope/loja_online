@@ -17,6 +17,7 @@
 						<th class="amt">Preço</th>
 						</tr>
 						</thead>
+<% if (@variations.size > 0)%>
 						<tfoot>
 						<tr id="subtotal">
 							<td colspan="3" class="sum">
@@ -73,14 +74,22 @@
 						</tr>
 						<% end %>
 						</tbody>
+<% else %>
+						<tbody>
+							<tr>
+								<td colspan=4>Sua sacola está vazia</td>
+							</tr>
+						</tbody>
+<% end %>
 						</table>
 
 						<div class="cartopt"><input type="hidden" value="true" name="save">
 						</div>
 						
 						<a class="btn secondary" style="float:left" href="<%= root_path %>">&lt; Continuar comprando<span></span></a>
+						<% if (@variations.size > 0)%>
 						<a class="btn action" style="float:right" href="<%= sacola_checkout_path %>">Fechar compra<span></span></a>
-						
+						<% end %>
 						<div class="clear"></div>
 
 					</div>

@@ -26,12 +26,11 @@ class CartController < ApplicationController
     @cep = get_session_cep
     @frete_type = get_session_frete
 #    render :json => @cep
+    @frete = []
     if !@cep.nil? 
       logradouro = Logradouro.find_by_cep @cep
       if !logradouro.nil?
         @frete = logradouro.shipping_rates 
-      else
-        @frete = []
       end
     end
     

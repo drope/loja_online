@@ -42,10 +42,14 @@
 				<% end %>
 				<li class="menu-item menu-item-type-taxonomy" style="float:right"><a href="<%=sacola_path%>"><img src="<%root_path%>/img/teste-sacola2.png" style="position:relative; top: -4px; padding-right: 10px;"></a><a href="<%=sacola_path%>"><strong>MINHA SACOLA</strong><span>
 					<% c = count_cart_items %>
+					<% if (c == 0)%>
+					sacola vazia
+					<% end %>
+					<% if (c == 1)%>
+					1 ítem na sacola<br />
+					<% end %>
 					<% if (c > 1)%>
 					<%=c%> ítens na sacola<br />
-					<% else%>
-					<%=c%> ítem na sacola<br />
 					<% end%>
 					</span></a></li>
 	 		</ul>
