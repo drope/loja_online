@@ -37,10 +37,10 @@ class PagesController < ApplicationController
     
     @products = Product.find_all_by_category_id(params[:id])
     
-    3.times do
-      @products << Product.find(4)
-      @products << Product.find(5)
-    end
+#    3.times do
+#      @products << Product.find(4)
+#      @products << Product.find(5)
+#    end
     
   end
   
