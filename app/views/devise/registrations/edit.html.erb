@@ -1,41 +1,191 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div id="content">
+	<div class="container clearfix">
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+					
+					<table cellspacing="0" class="cart" id="cart">
+					<caption>Crie sua conta na loja online Annak</caption>
+					</table>
+					
+					<div class="" style="float:left;padding: 8px 50px 34px 42px; ">
+						
+						
+						<%resource.user_info = current_user.user_info %>
+						<%resource.user_address = current_user.user_address%>
 
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+						<%=current_user.user_info.cpf%>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+						<%= render 'form' %>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+						</div>
+					</div>
 
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
-  <% f.fields_for :user_info do |builder| %>
-
-  	<p><%= builder.label :name %><br />
-  	<%= builder.text_field :name %></p>
-
-  	<p><%= builder.label :cpf %><br />
-  	<%= builder.text_field :cpf %></p>
-
-  	<p><%= builder.label :phone_ddd %><br />
-  	<%= builder.text_field :phone_ddd %></p>
-
-  	<p><%= builder.label :phone_number %><br />
-  	<%= builder.text_field :phone_number %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 
-  <% end %>
-<%=resource.user_info.name%>
-  <p><%= f.submit "Update" %></p>
-<% end %>
+	
+	<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/js/messages_ptbr.js"></script>
+	<script type="text/javascript" src="//s3.amazonaws.com/annak-loja/assets/site/js/jquery.maskedinput-1.3.min.js"></script>
+	
+	
+<script type="text/javascript">
+$.validator.setDefaults({
+	submitHandler: function(form) { 
+		form.submit();
+	}
+});
 
-<h3>Cancel my account</h3>
+jQuery.validator.addMethod("cep", function(value, element) {
+	return this.optional(element) || /^\d{5}-\d{3}$/.test(value);
+}, "CEP inválido");
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 
-<%= link_to "Back", :back %>
+jQuery.validator.addMethod("cpf", function(value, element) {
+	    value = value.replace('.','');
+	    value = value.replace('.','');
+	    cpf = value.replace('-','');
+	    while(cpf.length < 11) cpf = "0"+ cpf;
+	    var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
+	    var a = [];
+	    var b = new Number;
+	    var c = 11;
+	    for (i=0; i<11; i++){
+	        a[i] = cpf.charAt(i);
+	        if (i < 9) b += (a[i] * --c);
+	    }
+	    if ((x = b % 11) < 2) { a[9] = 0 } else { a[9] = 11-x }
+	    b = 0;
+	    c = 11;
+	    for (y=0; y<10; y++) b += (a[y] * c--);
+	    if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11-x; }
+	    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) return false;
+	    return true;
+	}, "Informe um CPF válido."); // Mensagem padrão
+
+$("#user_new").validate({
+	rules: {
+		'user[email]': {
+			required: true,
+			email: true
+		},
+		'user[password]': {
+			required: true,
+			minlength: 4
+		},
+		'user[password_confirmation]': {
+			required: true,
+			equalTo: "#user_password"
+		},		
+		'user[user_info_attributes][name]': "required",
+		'user[user_info_attributes][cpf]': {
+			cpf: true
+		},
+		'user[user_info_attributes][phone_ddd]': {
+			required: true
+		},
+		'user[user_info_attributes][phone_number]': {
+			required: true
+		},
+		'user[user_address_attributes][cep]': {
+			required: true,
+			cep: true
+		},
+		'user[user_address_attributes][endereco]': {
+			required: true
+		},
+		'user[user_address_attributes][numero]': {
+			required: true
+		},
+		'user[user_address_attributes][cidade]': {
+			required: true
+		},
+		'user[user_address_attributes][estado]': {
+			required: true
+		}
+		
+	},
+	messages: {
+		'user[email]': {
+			required: "Informe seu e-mail",
+			email: "Informe um e-mail válido."
+		},
+		'user[password]': {
+			required: "Informe uma senha.",
+			minlength: "Informe uma senha que contenha no mínimo 4 caracteres."
+		},
+		'user[password_confirmation]': {
+			required: "Confirme sua senha.",
+			equalTo: "As senhas informadas não conferem."
+		},		
+		'user[user_info_attributes][name]': {
+			required: "Informe seu nome completo."
+		},
+		'user[user_info_attributes][cpf]': {
+			cpf: "Informe um CPF válido."
+		},
+		'user[user_info_attributes][phone_ddd]': {
+			required: "Informe o ddd do seu telefone."
+		},
+		'user[user_info_attributes][phone_number]': {
+			required: "Informe o número do seu telefone."
+		},
+		'user[user_address_attributes][cep]': {
+			required: "Informe o seu cep.",
+			cep: "Informe um CEP válido."
+		},
+		'user[user_address_attributes][endereco]': {
+			required: "Informe seu endereço."
+		},
+		'user[user_address_attributes][numero]': {
+			required: "Informe o número."
+		},
+		'user[user_address_attributes][cidade]': {
+			required: "Informe a sua cidade."
+		},
+		'user[user_address_attributes][estado]': {
+			required: "Selecione o seu estado."
+		}
+	}
+});
+	$(document).ready(function() {
+		
+
+		
+		
+	});
+
+	$("#user_user_info_attributes_cpf").mask("999.999.999-99");
+	$("#user_user_info_attributes_phone_ddd").mask("99");
+	$("#user_user_info_attributes_phone_number").mask("9999-9999");
+	$("#user_user_address_attributes_cep").mask("99999-999");
+
+
+function LoadCep() {
+	
+	$.ajax({
+				type: "POST",
+			  url: "/sacola/logradouro_by_cep",
+			  data: "cep=" + $("#user_user_address_attributes_cep").val(),
+				dataType: "json",
+				success: function (result) {
+					if (result.status == 1) {
+						$("#user_user_address_attributes_endereco").val(result.data.endereco);
+						$("#user_user_address_attributes_cidade").val(result.data.cidade);
+						$("#user_user_address_attributes_estado").val(result.data.estado);
+					} else {
+						alert('erro');
+					}
+				}
+			});
+	
+	
+}	
+	
+</script>

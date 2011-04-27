@@ -47,12 +47,12 @@
 						<% @variations.each do |v| %>
 						<tr class="" id="stockId-15990750">
 						<td class="desc">
-						<a title="Tommy Bahama Key Grip Short" href="/tommy-bahama-key-grip-short-bean" class="prodImg"> <img alt="Tommy Bahama Key Grip Short" src="<%=v[:variation].color.assets.first.photo.url(:related)%>">
+						<a title="<%=v[:variation].product.name%>" href="<%=product_url v[:variation].product%>" class="prodImg"> <img alt="<%=v[:variation].product.name%>" src="<%=v[:variation].color.assets.first.photo.url(:related)%>">
 						</a>
 						
 						<ul class="details">
-						<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name strong"><%=v[:variation].product.name%></a></strong></li>
-						<li><b>Código:</b> #7388616</li>
+						<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="<%=product_url v[:variation].product%>" class="name strong"><%=v[:variation].product.name%></a></strong></li>
+						<li><b>Código:</b> <%=v[:variation].product.code%></li>
 						<li><b>Cor:</b> <%=v[:variation].color.name%></li>
 						<li><b>Tamanho:</b> <%=v[:variation].size.size%></li>
 						</ul>

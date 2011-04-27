@@ -35,6 +35,9 @@ LojaOnline::Application.routes.draw do
   match '/perguntas_frequentes', :to => 'pages#perguntas_frequentes'
   match '/formas_de_pagamento', :to => 'pages#formas_de_pagamento'
   
+  match '/minha_conta/dados', :to => 'account#dados', :via => :get
+  match '/minha_conta/dados', :to => 'account#dados_update', :via => :put
+
   
 #  :as => :logout 
   

@@ -13,11 +13,13 @@
 							<tr>
 								<td class="desc"  style="background: none repeat scroll 0 0 #F9F9F9">
 									<ul class="details">
-										<li class="strong"><strong>Endereço de entrega:</strong></li>
+										<li class="strong"><strong>Endereço de entrega:</strong> ( <a href="<%=minha_conta_dados_path%>" style="text-decoration:underline">Alterar</a> )</li>
 										<li><%=current_user.user_address.endereco%>, <%=current_user.user_address.numero%> <%=current_user.user_address.complemento%></li>
 										<li>CEP: <%=current_user.user_address.cep%></li>
 										<li><%=current_user.user_address.cidade%> - <%=current_user.user_address.estado%></li>
+										<li>
 									</ul>
+
 								</td>
 								<td class=""  style="background: none repeat scroll 0 0 #F9F9F9"></td>
 							</tr>
@@ -25,12 +27,12 @@
 							<% @variations.each do |v| %>
 							<tr>
 							<td class="desc">
-								<a title="Tommy Bahama Key Grip Short" href="<%=product_url v[:variation].product%>" class="prodImg"> <img alt="Tommy Bahama Key Grip Short" src="<%=v[:variation].color.assets.first.photo.url(:thumb)%>">
+								<a title="<%=v[:variation].product.name%>" href="<%=product_url v[:variation].product%>" class="prodImg"> <img alt="<%=v[:variation].product.name%>" src="<%=v[:variation].color.assets.first.photo.url(:thumb)%>">
 								</a>
 								
 							<ul class="details">
 								
-							<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="/tommy-bahama-key-grip-short-bean" class="name strong"><%=v[:variation].product.name%></a></strong></li>
+							<li class="strong"><strong><a title="<%=v[:variation].product.name%>" href="<%=product_url v[:variation].product%>" class="name strong"><%=v[:variation].product.name%></a></strong></li>
 							<li><b>Cor:</b> <%=v[:variation].color.name%></li>
 							<li><b>Tamanho:</b> <%=v[:variation].size.size%></li>
 							</ul>

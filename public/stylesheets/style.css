@@ -173,7 +173,7 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 		
 		.product-info { float:right; width:340px; }
 		
-			.product-info a { display: block; position: relative; float: left; margin-right: 6px; }
+			.product-info a { display: block; position: relative; float: left; margin-right: 3px; }
 				.product-info a .overlay { background: url(../images/overlay-button-sprite.png) no-repeat; display: block; width: 45px; height: 45px; position: absolute; top: 0px; left: 0px; }
 				.product-info a.active .overlay, .product-info a:hover .overlay { background: url(../images/overlay-button-sprite.png) bottom left; }
 				

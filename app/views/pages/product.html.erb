@@ -30,7 +30,7 @@ counter = 0
 	color.assets.each_with_index do |color_asset, i| 
 			counter += 1
 		%>
-								<a rel="order:<%=counter%>,useZoom: 'zoom1', smallImage: '<%=color_asset.photo.url(:medium)%>' " class="cloud-zoom-gallery" href="<%=color_asset.photo%>" ><img alt="" src="<%=color_asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
+								<a id="a_color_asset_<%=color_asset.id%>" rel="order:<%=counter%>,useZoom: 'zoom1', smallImage: '<%=color_asset.photo.url(:medium)%>' " class="cloud-zoom-gallery" href="<%=color_asset.photo%>" ><img alt="" src="<%=color_asset.photo.url(:thumb)%>"><span class="overlay"></span></a>
 <% 
 	end 
 end %>
@@ -124,7 +124,7 @@ end %>
 										<% end %>
 									</tbody>
 								</table>
-								<div class="info_title">Tamanho: <span id="spnTamanho" class="strong"></span></div>
+								<div class="info_title">Tamanho: <span id="spnTamanho" class="strong"><span style="font-weight:normal; color: #999; font-size:10px">(clique para selecionar)</span></span></div>
 								<% @product.sizes.each_with_index do |size, i|
 									cl = (i==0) ? "active" : "" %>
 								<a rel="<%=size.size%>" class="size_item" href="javascript:;" onclick="Product.SetSize('<%=size.id%>','<%=size.size%>');" id="size_<%=size.size%>"><div class="size"><%=size.size%></div><span class="overlay"></span></a>
@@ -134,10 +134,10 @@ end %>
 								<div class="clear"></div>
 								<BR>
 									
-								<div class="info_title">Cor: <span id="spnCor"></span></div>
+								<div class="info_title">Cor: <span id="spnCor"><span style="font-weight:normal; color: #999; font-size:10px">(clique para selecionar)</span></span></div>
 								<% @product.colors.each_with_index do |color, i| %>
 								<% cl = (i==0) ? "active" : "" %>
-								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
+								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>','<%=color.assets[0].id%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
 								<% end %>
 								<form id="fCart" action="<%= sacola_add_path %>" method="post">
 									<input type="hidden" name="product_id" value="<%=@product.id%>">
@@ -145,8 +145,16 @@ end %>
 									<input type="hidden" name="color_id" id="color_id" value="">
 								</form>
 								<div class="clear"></div><br>
-<a class="addto-cart" href="javascript:;" onclick="Product.AddToCart();" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
+								<a id="btn_comprar" class="addto-cart" href="javascript:;" onclick="Product.AddToCart();" style="text-indent: 0px;"><span><cufon class="cufon cufon-canvas" alt="Comprar " style="width: 39px; height: 30px;"><canvas width="55" height="34" style="width: 55px; height: 34px; top: -3px; left: -1px;"></canvas><cufontext>Comprar</cufontext></cufon></span></a>
+								
+								<label id="cart_error" style="display:none; clear: none; color: #CC1E0A; float: left; text-transform: none; width: 150px; margin: 3px 0 0 5px;">Por favor, selecione<br>o tamanho e a cor.</label>
 
+
+								<div id="dv_carregando" style="float:left; padding:7px 0 0 10px; display:none;">
+								<img src="/img/loading-circle.gif" alt="Carregando">
+								</div>
+								
+								
 								<div class="clear"></div>
 								<div class="hr"></div>
 
@@ -231,8 +239,10 @@ $(document).ready(function() {
 
 	
 	 Product = {
-
+		Submited: false,
 		Init: function(){
+			
+			var total_geral = 0;
 			
 			$('[class^="size_item"]').each( function() {
 				size = $(this).attr('rel');
@@ -240,6 +250,7 @@ $(document).ready(function() {
 				if (Product.Variations[size] != undefined) {
 					$.each(Product.Variations[size], function(key, value) {
 						total += value;
+						total_geral += value;
 					});
 				}
 				if (total ==0) $(this).addClass('unavailable');
@@ -255,6 +266,8 @@ $(document).ready(function() {
 				});
 				if (total ==0) $(this).addClass('unavailable');
 			});
+			
+			if (total_geral==0) $("#btn_comprar").hide();
 		},
 		SetSize: function(id,size) {
 			if ($(".size_item.unavailable[rel='" + size + "']").length > 0) {
@@ -292,7 +305,7 @@ $(document).ready(function() {
 			});
 			
 		},
-		SetColor: function(id,color) {
+		SetColor: function(id,color,asset_id) {
 			if ($(".color_item.unavailable[rel='" + id + "']").length > 0) {
 //				alert("em falta");
 				return;
@@ -303,13 +316,20 @@ $(document).ready(function() {
 			});
 			$("[class^='color_item'][rel='" + id + "']").addClass('active');
 			$("#spnCor").html(color);
+			
+			$("#a_color_asset_" + asset_id).click();
+			
 		},
 		AddToCart: function() {
-//			alert($("#size_id").val());
-//			alert($("#color_id").val());
 			
 			if ($("#size_id").val() && $("#color_id").val()) {
+				if (Product.Submited) return;
+				Product.Submited = true;
+				$("#cart_error").hide();
+				$("#dv_carregando").show();
 				$("#fCart").submit();
+			} else {
+				$("#cart_error").show();
 			}
 		},
 		<%=variations_to_js @product%>

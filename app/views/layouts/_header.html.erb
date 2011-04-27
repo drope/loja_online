@@ -3,7 +3,7 @@
 		<a href="<%=root_path%>"><img src="<%=root_path%>img/logo.png" alt="AnnaK Loja Online" id="logo"/></a>
 		<div style="font-size:10px; text-align:right; padding-right:10px">
 			<% if user_signed_in? %>
-			    Olá <%= current_user.email %>! [ <a href="">Minha conta</a> | <%= link_to "Sair", destroy_user_session_path %> ]
+			    Olá <%= current_user.email %>! [ <a href="<%=minha_conta_dados_path%>">Minha conta</a> | <%= link_to "Sair", destroy_user_session_path %> ]
 			<% else %>
 			    Bem vindo! <%= link_to "Cadastre-se", new_user_registration_path %> ou <%= link_to "faça seu login", new_user_session_path %>
 			<% end %>

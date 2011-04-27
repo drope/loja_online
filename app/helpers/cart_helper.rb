@@ -27,6 +27,13 @@ module CartHelper
     
     ct = cookies.signed[:ct] || {}
     items = ct[:items] || []
+    
+    items.each do |item|
+      if ( item[:variation_id] == variation_id.to_s )
+        return
+      end
+    end
+    
     items << { :variation_id => variation_id.to_s }      
     cookies.permanent.signed[:ct] = { :value => {:items => items}}
     

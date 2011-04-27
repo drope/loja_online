@@ -1,0 +1,97 @@
+<%cep = get_session_cep%>
+<%logradouro=get_logradouro_from_cep cep%>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "stdForm" }) do |f| %>
+<fieldset class="stdC" id="accountInfo">
+
+  <%= devise_error_messages! %>
+
+	<li>
+		<%= f.label :email, "E-mail"  %>
+		<%= f.text_field :email %> <p class="fNote">Seu endereço de e-mail.</p>
+	</li>
+	<li>
+		<%= f.label :password,'Senha',:class => "fGrp" %>
+		<%= f.text_field :password %> <p class="fNote">Senha de acesso. Deve conter no mínimo 4 caracteres.</p>
+	</li>
+	<li>
+		<%= f.label :password_confirmation,'Confirmação de senha',:class => "fGrp" %>
+		<%= f.text_field :password_confirmation %> <p class="fNote">Confirme a senha escolhida.</p>
+	</li>						
+<ol>
+	<%= f.fields_for :user_info do |f_info| %>
+	<li>
+		<%= f_info.label :name, 'Nome Completo' %>
+		<%= f_info.text_field :name, :style=>"width:400px" %> <p class="fNote">Seu nome completo.</p>
+	</li>
+	<li>
+		<%= f_info.label :cpf %>
+		<%= f_info.text_field :cpf %> <p class="fNote">Necessário para emissão de nota fiscal.</p>
+	</li>
+	<li>
+		<%= f_info.label :phone_number, 'Telefone de contato' %>
+		<%= f_info.text_field :phone_ddd, :size=>2, :style=>"width:30px" %><%= f_info.text_field :phone_number, :style=>"width:155px" %> <p class="fNote">Caso ocorra algum imprevisto com seu pedido.</p>
+	</li>
+	<% end %>
+	<%= f.fields_for :user_address do |f_address| %>
+	<li>
+		<%= f_address.label :cep, 'Cep'%>
+		<%= f_address.text_field :cep, :value=>cep, :onchange=>"LoadCep();" %> <p class="fNote">Cep do local de entrega do pedido.</p>
+	</li>
+	<li>
+		<%= f_address.label :endereco, 'Endereço de entrega' %>
+		<%= f_address.text_field :endereco, :value=> (logradouro.blank? ? "" :  logradouro.nome), :style=>"width:400px" %> <p class="fNote">Exemplo: Avenida Paulista</p>
+	</li>
+	<li>
+		<%= f_address.label :numero, 'Número' %>
+		<%= f_address.text_field :numero%> <p class="fNote"></p>
+	</li>
+	<li>
+		<%= f_address.label :complemento, 'Complemento' %>
+		<%= f_address.text_field :complemento, :style=>"width:400px" %> <p class="fNote">Complemento, caso exista. Exemplo: apartamento 51</p>
+	</li>
+	<li>
+		<%= f_address.label :cidade %>
+		<%= f_address.text_field :cidade, :value=>(logradouro.blank? ? "" :  logradouro.bairro.cidade.nome) %> <p class="fNote"></p>
+	</li>
+	<li>
+		<%= f_address.label :estado %>
+		<select name="user[user_address_attributes][estado]" id="user_user_address_attributes_estado">
+							<option value="">Clique para selecionar</option>
+							<option value="AC" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="AC")%>selected="selected"<%end%>>AC</option>
+							<option value="AL" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="AL")%>selected="selected"<%end%>>AL</option>
+							<option value="AM" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="AM")%>selected="selected"<%end%>>AM</option>
+							<option value="AP" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="AP")%>selected="selected"<%end%>>AP</option>
+							<option value="BA" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="BA")%>selected="selected"<%end%>>BA</option>
+							<option value="CE" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="CE")%>selected="selected"<%end%>>CE</option>
+							<option value="DF" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="DF")%>selected="selected"<%end%>>DF</option>
+							<option value="ES" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="ES")%>selected="selected"<%end%>>ES</option>
+							<option value="GO" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="GO")%>selected="selected"<%end%>>GO</option>
+							<option value="MA" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="MA")%>selected="selected"<%end%>>MA</option>
+							<option value="MG" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="MG")%>selected="selected"<%end%>>MG</option>
+							<option value="MS" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="MS")%>selected="selected"<%end%>>MS</option>
+							<option value="MT" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="MT")%>selected="selected"<%end%>>MT</option>
+							<option value="PA" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="PA")%>selected="selected"<%end%>>PA</option>
+							<option value="PB" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="PB")%>selected="selected"<%end%>>PB</option>
+							<option value="PE" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="PE")%>selected="selected"<%end%>>PE</option>
+							<option value="PI" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="PI")%>selected="selected"<%end%>>PI</option>
+							<option value="PR" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="PR")%>selected="selected"<%end%>>PR</option>
+							<option value="RJ" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="RJ")%>selected="selected"<%end%>>RJ</option>
+							<option value="RN" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="RN")%>selected="selected"<%end%>>RN</option>
+							<option value="RO" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="RO")%>selected="selected"<%end%>>RO</option>
+							<option value="RR" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="RR")%>selected="selected"<%end%>>RR</option>
+							<option value="RS" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="RS")%>selected="selected"<%end%>>RS</option>
+							<option value="SC" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="SC")%>selected="selected"<%end%>>SC</option>
+							<option value="SE" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="SE")%>selected="selected"<%end%>>SE</option>
+							<option value="SP" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="SP")%>selected="selected"<%end%>>SP</option>
+							<option value="TO" <%if (!logradouro.blank? && logradouro.bairro.cidade.uf.sigla=="TO")%>selected="selected"<%end%>>TO</option>
+		</select>
+		<p class="fNote"></p>
+	</li>
+	<% end %>
+</ol>
+</fieldset>
+
+<a class="btn action" style="float:left; color: #fff" href="javascript:;" onclick="$('#user_new').submit();">Criar minha conta<span></span></a>
+
+<% end %>
