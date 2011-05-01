@@ -1,5 +1,10 @@
 class AccountController < ApplicationController
   
+  before_filter :authenticate_user!
+  
+  def home
+  end
+  
   def dados
     
     @user = current_user
@@ -21,7 +26,15 @@ class AccountController < ApplicationController
       end
     end
     
-    
+  end
+  
+  def orders
+      @orders = current_user.orders
+  end
+  
+  def order_info
+    @order = Order.find_by_number_and_user_id(params[:num], current_user.id)
+
   end
   
 end

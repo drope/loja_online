@@ -6,18 +6,34 @@
 				<div id="left-column">
 					
 					<table cellspacing="0" class="cart" id="cart">
-					<caption>Crie sua conta na loja online Annak</caption>
+					<caption>Formulário de alteração de senha</caption>
 					</table>
 					
 					<div class="" style="float:left;padding: 8px 50px 34px 42px; ">
-						
-						
-						<%resource.user_info = current_user.user_info %>
-						<%resource.user_address = current_user.user_address%>
 
-						<%=current_user.user_info.cpf%>
+						<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "pass_edit", :class => "stdForm" }) do |f| %>
+						<fieldset class="stdC" id="accountInfo">
 
-						<%= render 'form' %>
+						  <%= devise_error_messages! %>
+
+							<li>
+								<%= f.label :current_password,'Senha atual',:class => "fGrp" %>
+								<%= f.password_field :current_password %> <p class="fNote">Sua senha atual.</p>
+							</li>
+							<li>
+								<%= f.label :password,'Nova Senha',:class => "fGrp" %>
+								<%= f.password_field :password %> <p class="fNote">Senha de acesso. Deve conter no mínimo 4 caracteres.</p>
+							</li>
+							<li>
+								<%= f.label :password_confirmation,'Confirmação de senha',:class => "fGrp" %>
+								<%= f.password_field :password_confirmation %> <p class="fNote">Confirme a nova senha escolhida.</p>
+							</li>						
+						</ol>
+						</fieldset>
+
+						<a class="btn action" style="float:left; color: #fff" href="javascript:;" onclick="$('#pass_edit').submit();">Alterar minha senha<span></span></a>
+
+						<% end %>
 
 						</div>
 					</div>
@@ -42,38 +58,11 @@ $.validator.setDefaults({
 	}
 });
 
-jQuery.validator.addMethod("cep", function(value, element) {
-	return this.optional(element) || /^\d{5}-\d{3}$/.test(value);
-}, "CEP inválido");
 
-
-jQuery.validator.addMethod("cpf", function(value, element) {
-	    value = value.replace('.','');
-	    value = value.replace('.','');
-	    cpf = value.replace('-','');
-	    while(cpf.length < 11) cpf = "0"+ cpf;
-	    var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
-	    var a = [];
-	    var b = new Number;
-	    var c = 11;
-	    for (i=0; i<11; i++){
-	        a[i] = cpf.charAt(i);
-	        if (i < 9) b += (a[i] * --c);
-	    }
-	    if ((x = b % 11) < 2) { a[9] = 0 } else { a[9] = 11-x }
-	    b = 0;
-	    c = 11;
-	    for (y=0; y<10; y++) b += (a[y] * c--);
-	    if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11-x; }
-	    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) return false;
-	    return true;
-	}, "Informe um CPF válido."); // Mensagem padrão
-
-$("#user_new").validate({
+$("#pass_edit").validate({
 	rules: {
-		'user[email]': {
-			required: true,
-			email: true
+		'user[current_password]': {
+			required: true
 		},
 		'user[password]': {
 			required: true,
@@ -82,110 +71,22 @@ $("#user_new").validate({
 		'user[password_confirmation]': {
 			required: true,
 			equalTo: "#user_password"
-		},		
-		'user[user_info_attributes][name]': "required",
-		'user[user_info_attributes][cpf]': {
-			cpf: true
-		},
-		'user[user_info_attributes][phone_ddd]': {
-			required: true
-		},
-		'user[user_info_attributes][phone_number]': {
-			required: true
-		},
-		'user[user_address_attributes][cep]': {
-			required: true,
-			cep: true
-		},
-		'user[user_address_attributes][endereco]': {
-			required: true
-		},
-		'user[user_address_attributes][numero]': {
-			required: true
-		},
-		'user[user_address_attributes][cidade]': {
-			required: true
-		},
-		'user[user_address_attributes][estado]': {
-			required: true
 		}
-		
 	},
 	messages: {
-		'user[email]': {
-			required: "Informe seu e-mail",
-			email: "Informe um e-mail válido."
+		'user[current_password]': {
+			required: "Informe sua senha atual."
 		},
 		'user[password]': {
-			required: "Informe uma senha.",
-			minlength: "Informe uma senha que contenha no mínimo 4 caracteres."
+			required: "Informe uma nova senha.",
+			minlength: "Informe uma nova senha que contenha no mínimo 4 caracteres."
 		},
 		'user[password_confirmation]': {
-			required: "Confirme sua senha.",
+			required: "Confirme sua nova senha.",
 			equalTo: "As senhas informadas não conferem."
-		},		
-		'user[user_info_attributes][name]': {
-			required: "Informe seu nome completo."
-		},
-		'user[user_info_attributes][cpf]': {
-			cpf: "Informe um CPF válido."
-		},
-		'user[user_info_attributes][phone_ddd]': {
-			required: "Informe o ddd do seu telefone."
-		},
-		'user[user_info_attributes][phone_number]': {
-			required: "Informe o número do seu telefone."
-		},
-		'user[user_address_attributes][cep]': {
-			required: "Informe o seu cep.",
-			cep: "Informe um CEP válido."
-		},
-		'user[user_address_attributes][endereco]': {
-			required: "Informe seu endereço."
-		},
-		'user[user_address_attributes][numero]': {
-			required: "Informe o número."
-		},
-		'user[user_address_attributes][cidade]': {
-			required: "Informe a sua cidade."
-		},
-		'user[user_address_attributes][estado]': {
-			required: "Selecione o seu estado."
 		}
 	}
 });
-	$(document).ready(function() {
-		
 
-		
-		
-	});
-
-	$("#user_user_info_attributes_cpf").mask("999.999.999-99");
-	$("#user_user_info_attributes_phone_ddd").mask("99");
-	$("#user_user_info_attributes_phone_number").mask("9999-9999");
-	$("#user_user_address_attributes_cep").mask("99999-999");
-
-
-function LoadCep() {
-	
-	$.ajax({
-				type: "POST",
-			  url: "/sacola/logradouro_by_cep",
-			  data: "cep=" + $("#user_user_address_attributes_cep").val(),
-				dataType: "json",
-				success: function (result) {
-					if (result.status == 1) {
-						$("#user_user_address_attributes_endereco").val(result.data.endereco);
-						$("#user_user_address_attributes_cidade").val(result.data.cidade);
-						$("#user_user_address_attributes_estado").val(result.data.estado);
-					} else {
-						alert('erro');
-					}
-				}
-			});
-	
-	
-}	
 	
 </script>

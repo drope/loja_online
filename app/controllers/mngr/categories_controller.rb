@@ -1,4 +1,4 @@
-class Mngr::CategoriesController < ApplicationController
+class Mngr::CategoriesController < Mngr::BaseMngrController
   
   layout "mngr"
   

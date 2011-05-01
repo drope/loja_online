@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323173741) do
+ActiveRecord::Schema.define(:version => 20110427191859) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -35,7 +35,11 @@ ActiveRecord::Schema.define(:version => 20110323173741) do
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "order"
+    t.boolean  "is_active"
   end
+
+  add_index "categories", ["is_active"], :name => "index_categories_on_is_active"
 
   create_table "cidades", :force => true do |t|
     t.integer  "uf_id"

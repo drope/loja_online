@@ -14,7 +14,7 @@ LojaOnline::Application.routes.draw do
   match '/categoria/:id/*name', :to => 'pages#category'
 
   match '/sacola', :to => 'cart#list'  
-  match '/sacola/add', :to => 'cart#add'
+  match '/sacola/add', :to => 'cart#add', :via => :get
   match '/sacola/remove', :to => 'cart#remove'
   match '/sacola/list', :to => 'cart#list'
   match '/sacola/frete', :to => 'cart#frete'
@@ -35,6 +35,9 @@ LojaOnline::Application.routes.draw do
   match '/perguntas_frequentes', :to => 'pages#perguntas_frequentes'
   match '/formas_de_pagamento', :to => 'pages#formas_de_pagamento'
   
+  match '/minha_conta', :to => 'account#index', :via => :get
+  match '/minha_conta/pedidos', :to => 'account#orders', :via => :get
+  match '/minha_conta/pedidos/:num', :to => 'account#order_info', :via => :get
   match '/minha_conta/dados', :to => 'account#dados', :via => :get
   match '/minha_conta/dados', :to => 'account#dados_update', :via => :put
 

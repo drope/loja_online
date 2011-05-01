@@ -139,7 +139,7 @@ end %>
 								<% cl = (i==0) ? "active" : "" %>
 								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>','<%=color.assets[0].id%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
 								<% end %>
-								<form id="fCart" action="<%= sacola_add_path %>" method="post">
+								<form id="fCart" action="<%= sacola_add_path %>" method="get">
 									<input type="hidden" name="product_id" value="<%=@product.id%>">
 									<input type="hidden" name="size_id" id="size_id" value="">
 									<input type="hidden" name="color_id" id="color_id" value="">

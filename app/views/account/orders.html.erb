@@ -1,0 +1,41 @@
+<div id="content">
+	<div class="container clearfix">
+
+		<div id="main-area">
+			<div class="clearfix" id="main-content">
+				<div id="left-column">
+					<div class="post">
+					
+						<h3>Meus últimos pedidos</h3>
+						<br>
+
+						<table style="width:100%">
+							<tr>
+								<th>Data</th>
+								<th>Número</th>
+								<th>Valor Total</th>
+								<th>Status</th>
+								<th>Ação</th>
+							</tr>
+							<% @orders.each do |order|%>
+							<tr>
+								<td><%= l order.created_at, :format => :datetime %></td>
+								<td><%=order.number%></td>
+								<td><%=currency order.totalOrder%></td>
+								<td><%=order.order_status.status%></td>
+								<td><a href="<%=minha_conta_pedidos_path%>/<%=order.number%>">Ver Detalhes</a></td>
+							</tr>
+							<% end %>
+						</table>
+						<br><br>
+						<a class="btn secondary" style="float:left" href="<%=minha_conta_path%>">&lt; Voltar para minha conta<span></span></a>
+						
+
+						
+					</div>
+				</div> <!-- left column -->
+			</div> <!-- main content-->
+		</div> <!-- main-area-->
+	</div> <!-- container -->
+</div> <!-- content -->
+	

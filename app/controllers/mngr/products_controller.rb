@@ -1,4 +1,6 @@
-class Mngr::ProductsController < ApplicationController
+class Mngr::ProductsController < Mngr::BaseMngrController
+  
+  
   
   layout "mngr"
   

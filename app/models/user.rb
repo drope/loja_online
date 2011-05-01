@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   
   has_one :user_address
   accepts_nested_attributes_for :user_address
+  
+  has_many :orders
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :user_info, :user_info_attributes, :user_address_attributes, :email, :password, :password_confirmation, :remember_me

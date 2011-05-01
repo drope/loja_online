@@ -3,6 +3,8 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Order</th>
+    <th>Active</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,6 +13,8 @@
 <% @categories.each do |category| %>
   <tr>
     <td><%= category.name %></td>
+    <td><%= category.position %></td>
+    <td><%= category.is_active %></td>
     <td><%= link_to 'Show', [:mngr, category] %></td>
     <td><%= link_to 'Edit', edit_mngr_category_path(category) %></td>
     <td><%= link_to 'Destroy', [:mngr, category], :confirm => 'Are you sure?', :method => :delete %></td>

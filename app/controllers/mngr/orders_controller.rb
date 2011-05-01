@@ -1,4 +1,4 @@
-class Mngr::OrdersController < ApplicationController
+class Mngr::OrdersController < Mngr::BaseMngrController
 
   layout "mngr"
   

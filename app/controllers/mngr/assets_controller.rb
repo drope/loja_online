@@ -1,4 +1,4 @@
-class Mngr::AssetsController < ApplicationController
+class Mngr::AssetsController < Mngr::BaseMngrController
   
   layout "mngr"
     

@@ -116,7 +116,7 @@ class CartController < ApplicationController
       :number => number,
       :user_id => current_user.id,
       :totalItems=> totalItems,
-      :totalOrder => totalItems,
+      :totalOrder => totalItems + Float(params[:shipping_val]),
       :totalShipping => params[:shipping_val],
       :shipping_type => params[:shipping_type],
       :shipping_estimate => params[:shipping_estimate],

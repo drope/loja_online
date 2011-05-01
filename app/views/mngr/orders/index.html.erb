@@ -18,7 +18,7 @@
 <% @orders.each do |order| %>
   <tr>
     <td><%= order.number %></td>
-		<td></td>
+		<td><%= order.order_status.status%></td>
 		<td><%= order.totalItems %></td>
 		<td><%= order.totalShipping %></td>
 		<td><%= order.totalOrder %></td>
