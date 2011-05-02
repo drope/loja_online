@@ -49,7 +49,62 @@ class CartController < ApplicationController
     logradouro = Logradouro.find_by_cep @cep.tr("-","")
     @frete = logradouro.shipping_rates
     
-    UserMailer.welcome(current_user).deliver
+    
+    if @variations.blank?
+      return
+    end
+    
+    pre_order = PreOrder.find_by_user_id_and_status(current_user.id, 0)
+    
+    if (pre_order.blank?)
+      pre_order = PreOrder.new(
+        :user_id => current_user.id,
+        :status => 0,
+        :total => @total
+      )
+      pre_order.save      
+    else
+      
+      pre_order_items = PreOrderItem.find_all_by_pre_order_id(pre_order.id)
+      pre_order_items.each do |po|
+        variation = Variation.find(po.variation_id)
+        variation.stock = variation.stock + 1
+        variation.save
+        po.destroy
+      end  
+    end
+    
+    @variations.each do |v|
+      
+      variation = Variation.find(v[:variation].id)
+      if (variation.stock > 0)
+        
+        item = PreOrderItem.new(
+          :pre_order_id => pre_order.id,
+          :variation_id => v[:variation].id,
+          :price => v[:variation].product.price,
+          :qtd => 1
+        )
+        item.save
+        
+        variation.stock = variation.stock - 1
+        variation.save
+      else
+
+        remove_product_from_cart variation.id
+        flash[:warning] = "Item removido do carrinho"
+        @variations.delete(v)
+
+      end  
+    end
+    
+    @total = calculate_variations_total_price @variations
+    pre_order[:total] = @total
+    pre_order.save
+    
+
+#        render :json => @variations        
+    #UserMailer.welcome(current_user).deliver
     
   end
   
@@ -155,6 +210,11 @@ class CartController < ApplicationController
       :order_id => order.id,
       :order_status_id => 2
     ).save
+    
+    pre_order = PreOrder.find_by_user_id_and_status(current_user.id, 0)
+    pre_order[:status] = 1
+    pre_order.save
+    empty_cart
     
     render :json => { :status => 1, :data => { :order_number => order.number, :payment_type => params[:payment_type]}}
     

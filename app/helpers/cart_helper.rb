@@ -3,7 +3,11 @@ module CartHelper
   def count_cart_items()
     
     variations = get_variations_from_cart
-    return variations.length
+    if (!variations.blank?)
+      return variations.length
+    else
+      return 0
+    end
     
   end
 
@@ -40,15 +44,22 @@ module CartHelper
   end
   
   def remove_product_from_cart(variation_id)
-      
+          
     if (!variation_id.nil?)
+            
       ct = cookies.signed[:ct] || {}
       items = ct[:items] || []
-      items.delete({ :variation_id => variation_id })
+      items.delete({ :variation_id => variation_id.to_s })
       cookies.permanent.signed[:ct] = { :value => {:items => items}}
+      
     end
 
   end
+  
+  def empty_cart()
+    cookies.delete :ct
+  end
+  
   
   def get_variations_from_cart
     

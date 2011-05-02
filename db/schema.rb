@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110427191859) do
+ActiveRecord::Schema.define(:version => 20110502015043) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20110427191859) do
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "order"
+    t.integer  "position"
     t.boolean  "is_active"
   end
 
@@ -131,6 +131,27 @@ ActiveRecord::Schema.define(:version => 20110427191859) do
 
   add_index "orders", ["number"], :name => "index_orders_on_number"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "pre_order_items", :force => true do |t|
+    t.integer  "pre_order_id",                               :null => false
+    t.integer  "variation_id",                               :null => false
+    t.decimal  "price",        :precision => 8, :scale => 2, :null => false
+    t.integer  "qtd",                                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pre_order_items", ["pre_order_id"], :name => "index_pre_order_items_on_pre_order_id"
+
+  create_table "pre_orders", :force => true do |t|
+    t.integer  "user_id",                                  :null => false
+    t.integer  "status",                                   :null => false
+    t.decimal  "total",      :precision => 8, :scale => 2, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pre_orders", ["user_id", "status"], :name => "index_pre_orders_on_user_id_and_status"
 
   create_table "products", :force => true do |t|
     t.string   "name",                                                                          :null => false

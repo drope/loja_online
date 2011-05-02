@@ -6,6 +6,9 @@
 				<div id="left-column">
 
 					<div class=" clearfix">				
+						
+						<% flash.each do |key, value| %> <div class="flash <%= key %>"><%= value %></div>
+						<% end %>
 
 						<table cellspacing="0" class="cart" id="cart">
 						<caption>Confirme as informações do seu pedido e selecione uma opção de entrega</caption>
