@@ -2,8 +2,8 @@ class PagesController < ApplicationController
   
   def home
         
-    @products = Product.all
-
+    @products = Product.find_all_by_is_highlight(false,:order => 'created_at DESC')[0..3] 
+    
 #    @products.each do |p|
 #      p.colors.each do |c|
 #        c.assets.first.photo.reprocess!
@@ -23,7 +23,7 @@ class PagesController < ApplicationController
     
     @product = Product.find(params[:id])
 
-    @related_products = Product.all
+    @related_products = Product.find_all_by_category_id(@product.category_id)[0..3]
 
 
     
