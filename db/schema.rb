@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502015043) do
+ActiveRecord::Schema.define(:version => 20110502162101) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -60,6 +60,31 @@ ActiveRecord::Schema.define(:version => 20110502015043) do
     t.integer  "swatch_file_size"
     t.datetime "swatch_updated_at"
   end
+
+  create_table "entrada_items", :force => true do |t|
+    t.integer  "entrada_id",                                   :null => false
+    t.integer  "product_id",                                   :null => false
+    t.integer  "variation_id",                                 :null => false
+    t.integer  "qtd",                                          :null => false
+    t.decimal  "valor_unitario", :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entrada_items", ["entrada_id"], :name => "index_entrada_items_on_entrada_id"
+  add_index "entrada_items", ["product_id"], :name => "index_entrada_items_on_product_id"
+  add_index "entrada_items", ["variation_id"], :name => "index_entrada_items_on_variation_id"
+
+  create_table "entradas", :force => true do |t|
+    t.integer  "status",                                     :null => false
+    t.datetime "dt_conclusao"
+    t.decimal  "total_valor",  :precision => 8, :scale => 2
+    t.integer  "total_items"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entradas", ["status"], :name => "index_entradas_on_status"
 
   create_table "logradouros", :force => true do |t|
     t.integer  "bairro_id"

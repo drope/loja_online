@@ -1,40 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-BR">
 <head profile="http://gmpg.org/xfn/11">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>AnnaK Loja Online</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>AnnaK Loja Online</title>
 
-<link rel="stylesheet" href="<%=root_path%>stylesheets/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<%=root_path%>stylesheets/style.css" type="text/css" media="screen" />
 
-<!--[if lt IE 7]>
-	<link rel="stylesheet" type="text/css" href="http://sandbox.drope.org/wp-content/themes/eStore/css/ie6style.css" />
-	<script type="text/javascript" src="http://sandbox.drope.org/wp-content/themes/eStore/js/DD_belatedPNG_0.0.8a-min.js"></script>
+	<!--[if lt IE 7]>
+	<link rel="stylesheet" type="text/css" href="<%=root_path%>css/ie6style.css" />
+	<script type="text/javascript" src="<%=root_path%>js/DD_belatedPNG_0.0.8a-min.js"></script>
 	<script type="text/javascript">DD_belatedPNG.fix('img#logo');</script>
-<![endif]-->
-<!--[if IE 7]>
-	<link rel="stylesheet" type="text/css" href="http://sandbox.drope.org/wp-content/themes/eStore/css/ie7style.css" />
-<![endif]-->
-<!--[if IE 8]>
-	<link rel="stylesheet" type="text/css" href="http://sandbox.drope.org/wp-content/themes/eStore/css/ie8style.css" />
-<![endif]-->
+	<![endif]-->
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="<%=root_path%>css/ie7style.css" />
+	<![endif]-->
+	<!--[if IE 8]>
+	<link rel="stylesheet" type="text/css" href="<%=root_path%>css/ie8style.css" />
+	<![endif]-->
 
-<%= csrf_meta_tag %>
+	<%= csrf_meta_tag %>
 
-<script type="text/javascript">
-	document.documentElement.className = 'js';
+	<script type="text/javascript">
+		document.documentElement.className = 'js';
+	</script>
 
-</script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="<%=root_path%>css/cloud-zoom.css" type="text/css" media="screen" />
-<script type="text/javascript" src="<%=root_path%>js/cloud-zoom.1.0.2.min.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    // This is more like it!
-  });
-</script>
+	<link rel="stylesheet" href="<%=root_path%>css/cloud-zoom.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="<%=root_path%>js/cloud-zoom.1.0.2.min.js"></script>
 
 </head>
 
@@ -44,8 +37,6 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <% end %>
-
- 
 
 <%= render 'layouts/header' %>
 <%= yield %>

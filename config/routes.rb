@@ -7,7 +7,7 @@ LojaOnline::Application.routes.draw do
   
 
   namespace "mngr" do
-    resources :products, :categories, :assets, :orders
+    resources :products, :categories, :assets, :orders, :entradas
   end
   
   match '/produto/:id/*name', :to => 'pages#product'

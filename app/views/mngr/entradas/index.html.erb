@@ -1,0 +1,24 @@
+<h1>Entradas</h1>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Data</th>
+    <th>Ações</th>
+  </tr>
+
+<% @entradas.each do |entrada| %>
+  <tr>
+    <td><%= entrada.status %></td>
+    <td><%= entrada.created_at %></td>
+	</td>
+    <td><%= link_to 'Show', [:mngr, entrada] %></td>
+    <td><%= link_to 'Edit', edit_mngr_entrada_path(entrada) %></td>
+    <td><%= link_to 'Destroy', [:mngr, entrada], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nova Entrada', new_mngr_entrada_path %>

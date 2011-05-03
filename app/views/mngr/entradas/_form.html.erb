@@ -1,0 +1,46 @@
+<%= form_for([:mngr, @entrada], :html => { :multipart => true }) do |f| %>
+  <% if @entrada.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entrada.errors.count, "error") %> prohibited this entrada from being saved:</h2>
+
+      <ul>
+      <% @entrada.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+
+  <% f.fields_for :entrada_items do |builder| %>
+    <%= render "entrada_item_fields", :f => builder %>
+  <% end %>
+
+
+
+	<p><%= link_to_add_fields "Add Item", f, :entrada_items %>
+	<input type="text" id="add_qtd" value="1">
+	<input type="button" onclick="add_qtd_click(this.form)" value="Criar vários">
+	</p>
+
+
+<script type="text/javascript">
+
+function add_qtd_click(oForm) {
+	alert(oForm.add_qtd.value);
+	for (i=0; i<oForm.add_qtd.value; i++) {
+		document.getElementById('href_add_fields').onclick();
+	}
+}
+
+</script>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

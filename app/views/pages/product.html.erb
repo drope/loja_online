@@ -189,7 +189,9 @@ end %>
 								<ul>
 									<% @related_products.each do |product| %>
 									<li>
-										<h4><a href="<%=product_url product%>"><img alt="" src="<%=product.assets.first.photo.url(:related)%>"><span class="overlay"></span><br /><%=product.name%></a></h4>
+										<a href="<%=product_url product%>"><img alt="" src="<%=product.assets.first.photo.url(:related)%>"><span class="overlay"></span></a>
+										<div class="clear"></div>
+										<h4 style="text-align:center; font-size: 16px; text-transform: lowercase"><a href="<%=product_url product%>" style="margin:5px 30px 0 0; min-width:150px"><%=product.name%></a></h4>
 									</li>
 									<div class="clear"></div>
 									<% end %>

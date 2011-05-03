@@ -1,0 +1,9 @@
+  <div class="fields">
+	
+	  <div class="field">
+			<%= f.collection_select(:variation_id, Variation.all, :id, :desc) %>
+	    <%= f.text_field :qtd,{:size => 2} %>
+	    <%= f.text_field :valor_unitario %>
+	  </div>
+  </div>
+ 

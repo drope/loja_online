@@ -53,8 +53,8 @@ a:hover { text-decoration: underline; }
 .ui-tabs-hide { display: none; }
 br.clear { margin: 0px; padding: 0px; }
 
-h1, h2, h3, h4, h5, h6 { font-weight: bold; padding-bottom: 5px; color: #303030; letter-spacing: -1px; line-height: 1em; }
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: #303030; }
+h1, h2, h3, h4, h5, h6 { font-weight: bold; padding-bottom: 5px; color: #666; letter-spacing: -1px; line-height: 1em; }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: #666; }
 h1 { font-size: 35px; }
 h2 { font-size: 24px; }
 h3 { font-size: 22px; }
@@ -118,7 +118,7 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 				#items .item { background: url(../images/item-bottom-bg.png) no-repeat bottom left; padding-bottom: 28px; float: left; width: 208px; position: relative; margin-right: 17px; }
 					#items .item-top { background: url(../images/item-top.png) no-repeat; height: 13px; }
 					#items .item-content { background: url(../images/item-bg.png) repeat-y; min-height: 240px; padding: 7px 20px 2px; }
-						.item-content h4 { font-size: 16px; padding-bottom: 0px; padding-top: 10px; }
+						.item-content h4 { font-size: 16px; padding-bottom: 0px; padding-top: 10px; text-transform:lowercase;}
 							.item-content h4 a:hover { text-decoration: none; }
 					#items .item a.more { position: absolute; bottom: -7px; left: 70px; }
 						
@@ -132,12 +132,12 @@ body#home #content { background: #f3f3f3 url(../images/content-bg.png) repeat-x;
 				#left-column { float: left; width: 720px; margin-top:-8px; }
 					
 					#left-column .product { float: left; background: url(../images/product-right.png) repeat-y top right; position: relative; }
-						.product .product-content { padding: 24px 23px 19px 24px; width: 193px; background: url(../images/product-bottom.png) repeat-x bottom left; }
+						.product .product-content { padding: 24px 23px 19px 24px; width: 193px; height: 345px; background: url(../images/product-bottom.png) repeat-x bottom left; }
 							.product a.image { display: block; position: relative; }
 								.product a.image:hover { text-decoration: none; }
 								.product-content span.tag { bottom: 20px; }
 								.rounded { border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border:1px solid #ebebeb; display:inline-block; overflow:hidden; width: 193px; height: 257px; margin-bottom: 10px; }
-							.product h3 { font-size: 24px; }
+							.product h3 { font-size: 20px; text-transform: lowercase; text-align:center;}
 								.product h3 a:hover { text-decoration: none; }
 							.product-content a.more { float: left; margin-left: 60px; }
 							
@@ -386,7 +386,7 @@ ul#secondary-menu { padding: 25px 0px 0px 23px; }
 		
 		#sidebar .widget-content { padding: 10px 10px 10px 25px; }
 			#sidebar .widget ul ul { margin:0 0 0 15px; }
-			#sidebar .widget ul li { background:url("images/list-icon.png") no-repeat scroll 0 13px transparent; padding:20px 0 7px 13px; }
+			#sidebar .widget ul li { background:url("../images/list-icon.png") no-repeat scroll 0 13px transparent; padding:20px 0 7px 13px; }
 			#sidebar .widget ul li ul { margin:0 0 -12px; padding:5px 0 0 7px; }
 	
 /*------------------------------------------------*/
