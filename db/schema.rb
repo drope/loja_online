@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502162101) do
+ActiveRecord::Schema.define(:version => 20110503153657) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -203,6 +203,8 @@ ActiveRecord::Schema.define(:version => 20110502162101) do
     t.datetime "highlight_thumb_updated_at"
     t.boolean  "is_highlight"
     t.string   "highlight_bg"
+    t.integer  "highlight_position"
+    t.boolean  "is_destaque_home"
   end
 
   create_table "sizes", :force => true do |t|

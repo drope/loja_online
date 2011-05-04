@@ -26,6 +26,8 @@ class Product < ActiveRecord::Base
       :url => "/assets/Product/:id/highlight/:style/:filename"
     
 
+    default_scope :order => "code ASC"
+
     def set_variations
       
       self.sizes.each do |size|

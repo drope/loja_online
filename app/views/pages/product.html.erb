@@ -137,7 +137,7 @@ end %>
 								<div class="info_title">Cor: <span id="spnCor"><span style="font-weight:normal; color: #999; font-size:10px">(clique para selecionar)</span></span></div>
 								<% @product.colors.each_with_index do |color, i| %>
 								<% cl = (i==0) ? "active" : "" %>
-								<a rel="<%=color.id%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>','<%=color.assets[0].id%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
+								<a rel="<%=color.id%>" title="<%=color.name=%>" class="color_item" href="javascript:;" onclick="Product.SetColor('<%=color.id%>','<%=color.name%>','<%=color.assets[0].id%>');" ><img alt="" width="45" height="45"  src="<%=color.swatch.url%>"><span class="overlay"></span></a>
 								<% end %>
 								<form id="fCart" action="<%= sacola_add_path %>" method="get">
 									<input type="hidden" name="product_id" value="<%=@product.id%>">
@@ -158,16 +158,25 @@ end %>
 								<div class="clear"></div>
 								<div class="hr"></div>
 
-								<h2 style="text-indent: 0px;"><cufon class="cufon cufon-canvas" alt="Informações do produto " style="width: 103px; height: 28px;"><canvas width="126" height="30" style="width: 126px; height: 30px; top: -2px; left: -1px;"></canvas><cufontext>Informações do produto </cufontext></cufon></h2>
+								<h2 style="text-indent: 0px;">Informações do produto</h2>
 								
-								<h3>Descrição</h3>
+								<% if !@product.code.blank?%>
+								<h4>Código</h4>
+								<p><%=@product.code%></p>
+								<% end %>
+								
+								<% if !@product.description.blank?%>
+								<h4>Descrição</h4>
 								<p><%=@product.description%></p>
+								<% end %>
 								
-								<h3>Composição</h3>
+								<% if !@product.composition.blank? %>
+								<h4>Composição</h4>
 								<p><%=@product.composition%></p>
+								<% end %>
 								
-								<h3>Cuidados</h3>
-								<p><%=@product.composition%></p>
+
+								<!-- <h3>Cuidados</h3>-->
 								
 							</div> <!-- .description -->
 

@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   
   def home
         
-    @products = Product.find_all_by_is_highlight(false,:order => 'created_at DESC')[0..3] 
+    @products = Product.find_all_by_is_destaque_home(true,:order => 'created_at DESC')[0..3] 
     
 #    @products.each do |p|
 #      p.colors.each do |c|
@@ -13,7 +13,7 @@ class PagesController < ApplicationController
 #    end
     
   
-    @super_destaques = Product.find_all_by_is_highlight(true,:order => 'created_at DESC') 
+    @super_destaques = Product.find_all_by_is_highlight(true,:order => 'highlight_position asc') 
     
     @super_destaques = @super_destaques[0..2]
     
