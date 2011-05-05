@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503153657) do
+ActiveRecord::Schema.define(:version => 20110504175953) do
 
   create_table "assets", :force => true do |t|
     t.string   "name",               :null => false
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(:version => 20110503153657) do
     t.integer  "sizeInseam"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "ufs", :force => true do |t|

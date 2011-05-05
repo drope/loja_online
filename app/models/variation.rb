@@ -4,8 +4,10 @@ class Variation < ActiveRecord::Base
   belongs_to :color
   belongs_to :size
   
+  default_scope :include => [:color,:product,:size], :order => "products.code, colors.name, sizes.position ASC"
+    
   def desc
-    "#{product.code}.#{size.size}.#{color.name}" 
+    "#{product.code}.#{color.name}.#{size.size}" 
   end
 
 end

@@ -20,8 +20,6 @@
     <%= render "entrada_item_fields", :f => builder %>
   <% end %>
 
-
-
 	<p><%= link_to_add_fields "Add Item", f, :entrada_items %>
 	<input type="text" id="add_qtd" value="1">
 	<input type="button" onclick="add_qtd_click(this.form)" value="Criar vários">
@@ -31,7 +29,6 @@
 <script type="text/javascript">
 
 function add_qtd_click(oForm) {
-	alert(oForm.add_qtd.value);
 	for (i=0; i<oForm.add_qtd.value; i++) {
 		document.getElementById('href_add_fields').onclick();
 	}
@@ -39,6 +36,37 @@ function add_qtd_click(oForm) {
 
 </script>
 
+<script type="text/javascript">
+
+function bind_change() {
+
+jQuery("select").unbind();
+jQuery("select").change(function(){
+	
+	var do_change = false;
+	
+	var current_id = jQuery(this).attr('id');
+	var current_val = jQuery(this).val();
+	var i=0;
+	
+	jQuery("select").each(function(index) {
+		
+		if (do_change) {
+			i++;
+			jQuery(this).val(current_val)
+			jQuery(this).attr('selectedIndex',jQuery(this).attr('selectedIndex')+i);
+		}
+		
+		if (jQuery(this).attr('id') == current_id) {
+			do_change = true;
+		}
+		
+	});
+	
+});
+
+}
+</script>
 
   <div class="actions">
     <%= f.submit %>
