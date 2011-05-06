@@ -8,7 +8,7 @@
 					<div class="product">
 						<span class="tag"><span><%=currency destaque.price%></span></span>
 						<h2 class="title"><a href="<%=product_url destaque%>"><%=destaque.name%></a></h2>
-						<p>Esse aqui também é pura maravilha de coisa linda chuco da tia fashion super master blaster tendencia mundial fashion week plus size moda grande annak modas ribeirao preto.</p>
+						<p><%=destaque.description%></p>
 						<a class="more" href="<%=product_url destaque%>"><span>ver detalhes</span></a>
 					</div> <!-- .product -->
 				</div> <!-- .description -->
@@ -31,7 +31,7 @@
 				%>
 				
 				<div class="item <%=style%>">
-					<a href="#" class="product"><img width="109" height="109" src="<%=destaque.highlight_thumb.url%>" class="attachment-109x109 wp-post-image" alt="Vestido cinza de cordinha" title="Vestido cinza de cordinha" /><span class="tag"><span><%=currency destaque.price%></span></span></a>
+					<a href="#" class="product"><img width="109" height="109" src="<%=destaque.highlight_thumb.url%>" class="attachment-109x109 wp-post-image" alt="<%=destaque.name%>" title="<%=destaque.name%>" /><span class="tag"><span><%=currency destaque.price%></span></span></a>
 				</div> <!-- .item -->
 				
 				<% end %>

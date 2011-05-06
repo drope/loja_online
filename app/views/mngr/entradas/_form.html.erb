@@ -16,7 +16,7 @@
     <%= f.text_field :status %>
   </div>
 
-  <% f.fields_for :entrada_items do |builder| %>
+  <%= f.fields_for :entrada_items do |builder| %>
     <%= render "entrada_item_fields", :f => builder %>
   <% end %>
 
